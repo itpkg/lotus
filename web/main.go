@@ -274,7 +274,7 @@ server {
 						args := viper.GetStringMapString("database")
 						var err error
 						switch args["driver"] {
-						case postgres_driver:
+						case postgresDriver:
 							fmt.Printf("CREATE USER %s WITH PASSWORD '%s';\n", args["user"], args["password"])
 							fmt.Printf("CREATE DATABASE %s WITH ENCODING = 'UTF8';\n", args["dbname"])
 							fmt.Printf("GRANT ALL PRIVILEGES ON DATABASE %s TO %s;\n", args["dbname"], args["user"])
@@ -307,7 +307,7 @@ server {
 						args := viper.GetStringMapString("database")
 						var err error
 						switch args["driver"] {
-						case postgres_driver:
+						case postgresDriver:
 							err = Shell("psql",
 								"-h", args["host"],
 								"-p", args["port"],
@@ -328,7 +328,7 @@ server {
 						args := viper.GetStringMapString("database")
 						var err error
 						switch args["driver"] {
-						case postgres_driver:
+						case postgresDriver:
 							err = Shell("psql",
 								"-h", args["host"],
 								"-p", args["port"],
@@ -351,7 +351,7 @@ server {
 						args := viper.GetStringMapString("database")
 						var err error
 						switch args["driver"] {
-						case postgres_driver:
+						case postgresDriver:
 							err = Shell("psql",
 								"-h", args["host"],
 								"-p", args["port"],

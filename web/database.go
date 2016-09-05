@@ -7,7 +7,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-const postgres_driver = "postgres"
+const postgresDriver = "postgres"
 
 //OpenDatabase get database connection
 func OpenDatabase() (*gorm.DB, error) {
