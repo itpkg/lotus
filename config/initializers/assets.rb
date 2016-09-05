@@ -9,3 +9,18 @@ Rails.application.config.assets.version = '1.0'
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )
+
+
+# node_modules
+Rails.application.root.join('node_modules').to_s.tap do |npm_path|
+  Rails.application.config.sass.load_paths << npm_path
+  Rails.application.config.assets.paths << npm_path
+end
+# Precompile Bootstrap fonts
+Rails.application.config.assets.precompile << %r(bootstrap-sass/assets/fonts/bootstrap/[\w-]+\.(?:eot|svg|ttf|woff2?)$)
+# Minimum Sass number precision required by bootstrap-sass
+::Sass::Script::Value::Number.precision = [8, ::Sass::Script::Value::Number.precision].max
+
+Rails.application.config.assets.precompile << 'marked/lib/marked.js'
+
+%w(us cn).each {|lang| Rails.application.config.assets.precompile << "famfamfam-flags/dist/png/#{lang}.png"}

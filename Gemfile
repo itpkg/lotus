@@ -55,7 +55,7 @@ gem 'devise-bootstrap-views'
 gem 'rolify'
 gem 'pundit'
 
-gem 'rack-cors', :require => 'rack/cors'
+# gem 'rack-cors', :require => 'rack/cors'
 
 gem 'omniauth-github'
 gem 'omniauth-facebook'
