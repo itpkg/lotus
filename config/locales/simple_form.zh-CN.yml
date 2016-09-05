@@ -15,6 +15,13 @@ zh-CN:
       defaults:
         password: '密码'
         content: '内容'
+        title: '标题'
+        subTitle: '副标题'
+        keywords: '关键字'
+        description: '说明信息'
+        copyright: '版权信息'
+        author: '作者'
+
     #   user:
     #     new:
     #       email: 'E-mail to sign in.'

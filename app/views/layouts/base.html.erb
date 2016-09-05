@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= @title %>-<%= site_info :sub_title %>-<%= site_info :title %></title>
+  <meta name="description" content="<%= Setting.get_site_info :description%>">
+  <meta name="keywords" content="<%= Setting.get_site_info :keywords%>">
+  <meta name="author" content="<%= Setting.site_author%>">
+  <title><%= @title %>-<%= Setting.get_site_info :subTitle %>-<%= Setting.get_site_info :title %></title>
   <%= csrf_meta_tags %>
 
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>

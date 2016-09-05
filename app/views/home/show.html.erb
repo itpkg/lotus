@@ -13,7 +13,7 @@
 </div>
 <script>
   $(function () {
-    $("div#content").html(marked("<%= site_info "page.#{@key}" %>"));
+    $("div#content").html(marked("<%= Setting.get_site_info "page.#{@key}" %>"));
   });
 
 </script>

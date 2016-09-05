@@ -1,0 +1,30 @@
+<fieldset>
+  <legend><%= @title = t 'dashboard.site.info' %></legend>
+  <%= form_tag do %>
+      <div class="form-group">
+        <%= label_tag :title, t('simple_form.labels.defaults.title') %>
+        <%= text_field_tag :title, Setting.get_site_info(:title), {class: 'form-control'} %>
+      </div>
+      <div class="form-group">
+        <%= label_tag :subTitle, t('simple_form.labels.defaults.subTitle') %>
+        <%= text_field_tag :subTitle, Setting.get_site_info(:subTitle), {class: 'form-control'} %>
+      </div>
+      <div class="form-group">
+        <%= label_tag :keywords, t('simple_form.labels.defaults.keywords') %>
+        <%= text_field_tag :keywords, Setting.get_site_info(:keywords), {class: 'form-control'} %>
+      </div>
+      <div class="form-group">
+        <%= label_tag :author, t('simple_form.labels.defaults.author') %>
+        <%= text_field_tag :author, Setting.site_author, {class: 'form-control'} %>
+      </div>
+      <div class="form-group">
+        <%= label_tag :description, t('simple_form.labels.defaults.description') %>
+        <%= text_area_tag :description, Setting.get_site_info(:description), {class: 'form-control'} %>
+      </div>
+      <div class="form-group">
+        <%= label_tag :copyright, t('simple_form.labels.defaults.copyright') %>
+        <%= text_field_tag :copyright, Setting.get_site_info(:copyright), {class: 'form-control'} %>
+      </div>
+      <%= submit_tag t('buttons.update'), {class: 'btn btn-default'} %>
+  <% end %>
+</fieldset>

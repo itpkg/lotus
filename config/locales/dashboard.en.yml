@@ -4,5 +4,7 @@ en:
     profile: Profile
     leave_wrods: Leave words
     notices: Notices
-    info: Site info
     logs: Logs
+    site:
+      info: Site info
+      seo: Search engines

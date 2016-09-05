@@ -29,5 +29,6 @@ en:
     remove: Remove
     new: New
     edit: Edit
+    update: Update
   errors:
     unauthorized: Not Authenticated

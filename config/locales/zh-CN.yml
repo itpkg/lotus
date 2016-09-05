@@ -8,5 +8,6 @@
     remove: 删除
     new: 新增
     edit: 编辑
+    update: 更新
   errors:
     unauthorized: 未鉴别
