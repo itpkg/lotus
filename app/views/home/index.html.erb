@@ -1,3 +1,10 @@
 <% @title = t 'home.index' %>
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+
+<% Notice.order(updated_at: :desc).limit(12).each do |n| %>
+    <blockquote>
+      <p class="markdown"><%= n.content %></p>
+      <footer>
+        <%= time_ago_in_words n.updated_at %>
+      </footer>
+    </blockquote>
+<% end %>
