@@ -1,5 +1,7 @@
 class LeaveWordsController < ApplicationController
 
+  before_action :must_admin!, only: [:destroy, :index]
+
   def create
     lw = LeaveWord.create params.require(:leave_word).permit(:content)
     if lw.valid?
@@ -12,7 +14,7 @@ class LeaveWordsController < ApplicationController
 
   def destroy
     lw = LeaveWord.find params[:id]
-    authorize lw, :destroy?
+
     lw.destroy
 
     redirect_to leave_words_path
@@ -20,7 +22,6 @@ class LeaveWordsController < ApplicationController
 
   def index
     @items = LeaveWord.order(id: :desc).page params[:page]
-    authorize @items, :index?
 
   end
 end

@@ -5,12 +5,7 @@
         <span class="caret"></span>
       </a>
       <ul class="dropdown-menu">
-        <li>
-          <%= link_to t('devise.registrations.edit.title', resource: User.model_name.human), edit_user_registration_path %>
-        </li>
-        <% if current_user.is_admin? %>
-            <li><%= link_to t('home.dashboard'),leave_words_path%></li>
-        <% end %>
+        <li><%= link_to t('dashboard.index'), dashboard_path %></li>
         <li role="separator" class="divider"></li>
         <li>
           <%= link_to t('home.sign_out'), destroy_user_session_path, method: :delete, data: {confirm: t('home.are_you_sure')} %>

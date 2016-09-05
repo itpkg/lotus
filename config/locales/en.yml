@@ -26,5 +26,8 @@ en:
   buttons:
     more: More
     view: View
+    remove: Remove
+    new: New
+    edit: Edit
   errors:
     unauthorized: Not Authenticated

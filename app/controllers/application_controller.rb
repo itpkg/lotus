@@ -13,4 +13,10 @@ class ApplicationController < ActionController::Base
     {locale: I18n.locale}
   end
 
+  def must_admin!
+    if current_user.nil? || !current_user.is_admin?
+      head :forbidden
+    end
+  end
+
 end

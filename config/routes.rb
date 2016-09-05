@@ -2,8 +2,11 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   scope '(:locale)', locale: /en|zh-CN/ do
-    resources :notices
+    resources :notices, except: :show
     resources :leave_words, only:[:create, :destroy, :index]
+
+    get 'dashboard' => 'dashboard#index'
+    get 'dashboard/logs'
 
     get 'home', to: 'home#index'
     get 'home/about'

@@ -1,0 +1,7 @@
+<h3><%= @title = t 'dashboard.logs'%></h3>
+<hr/>
+<ul class="list-group">
+  <% current_user.logs.order(id: :desc).limit(20).each do |l| %>
+      <li class="list-group-item"><%= time_ago_in_words l.created_at %>: <%= l.message %></li>
+  <% end %>
+</ul>

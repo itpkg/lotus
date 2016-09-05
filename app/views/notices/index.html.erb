@@ -1,0 +1,18 @@
+<h3>
+  <%= @title = t 'dashboard.notices' %>
+  <%= link_to t('buttons.new'), new_notice_path%>
+</h3>
+<hr/>
+
+<% @notices.each do |n| %>
+    <blockquote>
+      <p class="markdown"><%= n.content %></p>
+      <footer>
+        <%= time_ago_in_words n.updated_at %>
+        <cite>
+          <%= link_to t('buttons.edit'), edit_notice_path(n)%>
+          <%= link_to t('buttons.remove'), notice_path(n), method: :delete, data:{confirm:t('home.are_you_sure')}%>
+        </cite>
+      </footer>
+    </blockquote>
+<% end %>
