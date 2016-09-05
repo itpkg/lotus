@@ -1,6 +1,8 @@
 package main
 
 import (
+	"log"
+
 	_ "github.com/itpkg/lotus/engines/blog"
 	_ "github.com/itpkg/lotus/engines/platform"
 	_ "github.com/itpkg/lotus/engines/reading"
@@ -10,5 +12,7 @@ import (
 var version string
 
 func main() {
-	web.Main(version)
+	if err := web.Main(version); err != nil {
+		log.Fatal(err)
+	}
 }
