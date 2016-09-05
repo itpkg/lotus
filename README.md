@@ -17,7 +17,7 @@ LOTUS - A web application.
 ### Install ruby(by rbenv)
     rbenv install -l    
     CONFIGURE_OPTS="--disable-install-doc" rbenv install 2.3.1
-    rbenv local 2.3.1
+    rbenv global 2.3.1
     gem install bundler
     
 ### Install nodejs

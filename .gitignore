@@ -18,3 +18,12 @@
 
 
 # my
+/.idea
+/node_modules
+/public/assets
+
+npm-debug.log
+*.swp
+
+/.rbenv-vars
+/config/deploy/*.rb
