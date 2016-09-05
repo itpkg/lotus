@@ -13,13 +13,6 @@ func (p *Engine) Init() martini.Handler {
 	}
 }
 
-//Mount mount web endpoints
-func (p *Engine) Mount(m martini.Router) {
-	m.Get("/", func() string {
-		return "Hello world!"
-	})
-}
-
 //Engine blos's engine
 type Engine struct {
 }

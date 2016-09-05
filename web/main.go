@@ -8,8 +8,12 @@ import (
 	"os"
 	"path"
 
+	"golang.org/x/text/language"
+
 	"github.com/BurntSushi/toml"
 	"github.com/go-martini/martini"
+	"github.com/itpkg/lotus/i18n"
+	"github.com/martini-contrib/render"
 	"github.com/spf13/viper"
 	"github.com/urfave/cli"
 )
@@ -21,6 +25,13 @@ func IocAction(f func(*cli.Context, *martini.ClassicMartini) error) cli.ActionFu
 			return err
 		}
 		mrt := martini.Classic()
+
+		mrt.Use(render.Renderer())
+		mrt.Use(i18n.Handler(
+			language.AmericanEnglish,
+			language.SimplifiedChinese,
+		))
+
 		for _, en := range engines {
 			args, err := mrt.Invoke(en.Init())
 			if err != nil {
