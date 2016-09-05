@@ -1,0 +1,19 @@
+<% @title = t "home.#{@key}" %>
+<div class="row">
+  <div id="content"></div>
+  <fieldset>
+    <legend><%= t 'home.leave_a_message'%></legend>
+    <% @lw = LeaveWord.new %>
+    <%= simple_form_for @lw do |f| %>
+        <input type="hidden" name="back" value="<%=request.fullpath%>">
+        <%= f.input :content %>
+        <%= f.button :submit %>
+    <% end %>
+  </fieldset>
+</div>
+<script>
+  $(function () {
+    $("div#content").html(marked("<%= site_info "page.#{@key}" %>"));
+  });
+
+</script>

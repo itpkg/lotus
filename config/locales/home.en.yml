@@ -1,0 +1,15 @@
+en:
+  home:
+    index: Home
+    about: About us
+    help: Help
+    faq: FAQ
+    dashboard: Dashboard
+    sign_in_or_up: Sign in/up
+    sign_out: Sign out
+    welcome: "Welcome, %{name}"
+    are_you_sure: Are you sure?
+    success: Success
+    fail: Failed
+    leave_a_message: Please leave a message to us.
+    leave_wrods: Leave words

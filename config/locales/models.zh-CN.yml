@@ -1,0 +1,7 @@
+zh-CN:
+  activerecord:
+    models:
+      leave_word: 留言
+    attributes:
+      leave_word:
+        content: 内容

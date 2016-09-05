@@ -1,0 +1,15 @@
+'zh-CN':
+  home:
+    index: 主页
+    about: 关于我们
+    help: 帮助文档
+    faq: 常见问题
+    dashboard: 控制中心
+    sign_in_or_up: 注册/登录
+    sign_out: 安全退出
+    welcome: "欢迎你，%{name}"
+    are_you_sure: 你确定么？
+    success: 操作成功
+    fail: 操作失败
+    leave_a_message: 给我留言
+    leave_wrods: 留言板

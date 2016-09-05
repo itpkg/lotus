@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 20160905194143) do
   enable_extension "plpgsql"
 
   create_table "leave_words", force: :cascade do |t|
+    t.text     "content",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
