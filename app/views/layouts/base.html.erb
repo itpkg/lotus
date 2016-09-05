@@ -9,15 +9,6 @@
 </head>
 
 <body>
-
-<%= render 'shared/header' %>
-
-<div class="container">
-  <%= render 'shared/devise_notices' %>
-  <br/>
-  <%= yield :root%>
-  <%= render 'shared/footer' %>
-</div>
-
+<%= yield :root %>
 </body>
 </html>
