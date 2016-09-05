@@ -6,7 +6,7 @@
       <pre><%= item.content %></pre>
       <footer>
         <%= time_ago_in_words item.created_at %>
-        <cite><%= link_to t('buttons.remove'), leave_word_path(item), method: :delete, data:{confirm:t('home.are_you_sure')}%></cite>
+        <cite><%= link_to t('buttons.remove'), leave_word_path(item), method: :delete, data: {confirm: t('home.are_you_sure')} %></cite>
       </footer>
     </blockquote>
 <% end %>

@@ -1,4 +1,4 @@
-<h3><%= @title = t 'dashboard.logs'%></h3>
+<h3><%= @title = t 'dashboard.logs' %></h3>
 <hr/>
 <ul class="list-group">
   <% current_user.logs.order(id: :desc).limit(20).each do |l| %>

@@ -20,9 +20,9 @@
 //= require marked/lib/marked
 
 $(function () {
-   $("p.markdown").each(function () {
-       $(this).html(marked($(this).text()));
-   });
+    $("p.markdown").each(function () {
+        $(this).html(marked($(this).text()));
+    });
 });
 
 

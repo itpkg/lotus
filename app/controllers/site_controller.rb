@@ -15,7 +15,7 @@ class SiteController < ApplicationController
   def seo
     case request.method_symbol
       when :post
-        [:google_site_id, :baidu_site_id].each { |k| Setting[k]= params[k] }
+        [:google_verify_id, :baidu_verify_id].each { |k| Setting[k]= params[k] }
         flash[:notice] = ' '
       else
 

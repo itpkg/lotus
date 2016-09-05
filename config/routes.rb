@@ -23,5 +23,8 @@ Rails.application.routes.draw do
 
   devise_for :users
 
+  get 'google(*id).html', to: 'home#google'
+  get 'baidu_verify_(*id).html', to: 'home#baidu'
+
   root to: 'home#index'
 end

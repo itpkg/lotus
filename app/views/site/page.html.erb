@@ -1,7 +1,7 @@
 <fieldset>
   <legend><%= @title = t "dashboard.site.#{params[:title]}" %></legend>
   <%= form_tag do %>
-      <%= hidden_field_tag :title, params[:title]%>
+      <%= hidden_field_tag :title, params[:title] %>
       <div class="form-group">
         <%= text_area_tag :body, Setting.get_page(params[:title]), {class: 'form-control'} %>
       </div>
