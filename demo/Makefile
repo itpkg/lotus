@@ -6,4 +6,4 @@ build:
 
 
 clean:
-	-rm -r $dst
+	-rm -r $(dst)
