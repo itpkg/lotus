@@ -2,6 +2,7 @@ package main
 
 import (
 	_ "github.com/itpkg/lotus/engines/blog"
+	_ "github.com/itpkg/lotus/engines/platform"
 	_ "github.com/itpkg/lotus/engines/reading"
 	"github.com/itpkg/lotus/web"
 )
