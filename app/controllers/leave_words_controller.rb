@@ -22,6 +22,5 @@ class LeaveWordsController < ApplicationController
 
   def index
     @items = LeaveWord.order(id: :desc).page params[:page]
-
   end
 end

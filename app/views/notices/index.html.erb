@@ -3,7 +3,6 @@
   <%= link_to t('buttons.new'), new_notice_path%>
 </h3>
 <hr/>
-
 <% @notices.each do |n| %>
     <blockquote>
       <p class="markdown"><%= n.content %></p>
@@ -16,3 +15,5 @@
       </footer>
     </blockquote>
 <% end %>
+
+<%= paginate @notices %>
