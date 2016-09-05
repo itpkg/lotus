@@ -1,0 +1,14 @@
+<fieldset>
+  <legend><%= @title = t 'dashboard.site.seo' %></legend>
+  <%= form_tag do %>
+      <div class="form-group">
+        <%= label_tag :google_site_id, 'Google site ID' %>
+        <%= text_field_tag :google_site_id, Setting.google_site_id, {class: 'form-control'} %>
+      </div>
+      <div class="form-group">
+        <%= label_tag :baidu_site_id, 'Baidu site ID' %>
+        <%= text_field_tag :baidu_site_id, Setting.baidu_site_id, {class: 'form-control'} %>
+      </div>
+      <%= submit_tag t('buttons.update'), {class: 'btn btn-default'} %>
+  <% end %>
+</fieldset>
