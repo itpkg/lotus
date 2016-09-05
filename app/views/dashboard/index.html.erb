@@ -5,12 +5,15 @@
     </div>
 
     <% if current_user.is_admin? %>
+        <br/>
         <div class="row">
-          <br/>
           <%= link_to t('dashboard.leave_wrods'), leave_words_path, {class: 'btn btn-default'} %>
           <%= link_to t('dashboard.notices'), notices_path, {class: 'btn btn-default'} %>
           <%= link_to t('dashboard.site.info'), site_info_path, {class: 'btn btn-default'} %>
           <%= link_to t('dashboard.site.seo'), site_seo_path, {class: 'btn btn-default'} %>
+          <% %w(about faq help).each do |title|%>
+              <%= link_to t("dashboard.site.#{title}"), site_page_path(title:title), {class: 'btn btn-default'} %>
+          <% end %>
         </div>
     <% end %>
 <% end %>

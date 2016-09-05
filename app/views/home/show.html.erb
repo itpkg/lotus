@@ -1,19 +1,14 @@
-<% @title = t "home.#{@key}" %>
+<% @title = t "dashboard.site.#{@key}" %>
 <div class="row">
-  <div id="content"></div>
-  <fieldset>
-    <legend><%= t 'home.leave_a_message' %></legend>
-    <% @lw = LeaveWord.new %>
-    <%= simple_form_for @lw do |f| %>
-        <input type="hidden" name="back" value="<%= request.fullpath %>">
-        <%= f.input :content %>
-        <%= f.button :submit %>
-    <% end %>
-  </fieldset>
+  <p class="markdown"><%= Setting.get_page @key %></p>
 </div>
-<script>
-  $(function () {
-    $("div#content").html(marked("<%= Setting.get_site_info "page.#{@key}" %>"));
-  });
-
-</script>
+<br/>
+<fieldset>
+  <legend><%= t 'home.leave_a_message' %></legend>
+  <% @lw = LeaveWord.new %>
+  <%= simple_form_for @lw do |f| %>
+      <input type="hidden" name="back" value="<%= request.fullpath %>">
+      <%= f.input :content %>
+      <%= f.button :submit %>
+  <% end %>
+</fieldset>

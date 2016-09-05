@@ -8,10 +8,11 @@ Rails.application.routes.draw do
     get 'dashboard' => 'dashboard#index'
     get 'dashboard/logs'
 
-    %w(info seo).each do |act|
+    %w(info seo page).each do |act|
       get "site/#{act}"
       post "site/#{act}"
     end
+
 
     get 'home', to: 'home#index'
     get 'home/about'

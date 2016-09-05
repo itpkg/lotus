@@ -1,9 +1,6 @@
 en:
   home:
     index: Home
-    about: About us
-    help: Help
-    faq: FAQ
     sign_in_or_up: Sign in/up
     sign_out: Sign out
     welcome: "Welcome, %{name}"
