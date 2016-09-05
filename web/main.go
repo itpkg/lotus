@@ -9,9 +9,31 @@ import (
 	"path"
 
 	"github.com/BurntSushi/toml"
+	"github.com/go-martini/martini"
 	"github.com/spf13/viper"
 	"github.com/urfave/cli"
 )
+
+//IocAction action with objects injected.
+func IocAction(f func(*cli.Context, *martini.ClassicMartini) error) cli.ActionFunc {
+	return Action(func(ctx *cli.Context) error {
+		if err := viper.ReadInConfig(); err != nil {
+			return err
+		}
+		mrt := martini.Classic()
+		for _, en := range engines {
+			args, err := mrt.Invoke(en.Init())
+			if err != nil {
+				return err
+			}
+			if len(args) > 0 {
+				err = args[len(args)-1].Interface().(error)
+				return err
+			}
+		}
+		return f(ctx, mrt)
+	})
+}
 
 //Action action with config load
 func Action(f cli.ActionFunc) cli.ActionFunc {
@@ -66,10 +88,13 @@ func Main(version string) error {
 			Name:    "server",
 			Aliases: []string{"s"},
 			Usage:   "start the app server",
-			Action: func(*cli.Context) error {
-				//TODO
+			Action: IocAction(func(_ *cli.Context, mrt *martini.ClassicMartini) error {
+				for _, en := range engines {
+					en.Mount(mrt)
+				}
+				mrt.RunOnAddr(fmt.Sprintf(":%d", viper.GetInt("http.port")))
 				return nil
-			},
+			}),
 		},
 		{
 			Name:    "worker",

@@ -1,6 +1,7 @@
 package platform
 
 import (
+	"github.com/go-martini/martini"
 	"github.com/itpkg/lotus/web"
 	"github.com/spf13/viper"
 	"github.com/urfave/cli"
@@ -8,6 +9,18 @@ import (
 
 //Engine platform's engine
 type Engine struct {
+}
+
+//Init init mapped objects
+func (p *Engine) Init() martini.Handler {
+	return func() {
+
+	}
+}
+
+//Mount mount web endpoints
+func (p *Engine) Mount(martini.Router) {
+
 }
 
 //Shell shell commands

@@ -1,9 +1,14 @@
 package web
 
-import "github.com/urfave/cli"
+import (
+	"github.com/go-martini/martini"
+	"github.com/urfave/cli"
+)
 
 //Engine web engine
 type Engine interface {
+	Init() martini.Handler
+	Mount(martini.Router)
 	Shell() []cli.Command
 }
 
