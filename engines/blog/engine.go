@@ -1,25 +1,23 @@
 package blog
 
 import (
-	"github.com/go-martini/martini"
+	"github.com/codegangsta/inject"
 	"github.com/itpkg/lotus/web"
-	"github.com/urfave/cli"
+	"github.com/jinzhu/gorm"
 )
 
-//Init init mapped objects
-func (p *Engine) Init() martini.Handler {
-	return func() {
+//Map map objects
+func (p *Engine) Map(inject.Injector) error {
+	return nil
+}
 
-	}
+//Migrate db migrate
+func (p *Engine) Migrate(*gorm.DB) {
+
 }
 
 //Engine blos's engine
 type Engine struct {
-}
-
-//Shell shell commands
-func (p *Engine) Shell() []cli.Command {
-	return []cli.Command{}
 }
 
 func init() {

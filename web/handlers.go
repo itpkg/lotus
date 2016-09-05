@@ -1,15 +1,15 @@
-package i18n
+package web
 
 import (
 	"net/http"
 
-	"golang.org/x/text/language"
-
 	"github.com/go-martini/martini"
+	"github.com/spf13/viper"
+	"golang.org/x/text/language"
 )
 
-//Handler get locale from url, cookie, header
-func Handler(tags ...language.Tag) martini.Handler {
+//LangHandler get locale from url, cookie, header
+func LangHandler(tags ...language.Tag) martini.Handler {
 	matcher := language.NewMatcher(tags)
 
 	return func(ctx martini.Context, req *http.Request) {
@@ -35,4 +35,11 @@ func Handler(tags ...language.Tag) martini.Handler {
 		tag, _, _ := matcher.Match(language.Make(lng))
 		ctx.Map(tag)
 	}
+}
+
+func init() {
+	viper.SetDefault("locales", []string{
+		language.SimplifiedChinese.String(),
+		language.AmericanEnglish.String(),
+	})
 }

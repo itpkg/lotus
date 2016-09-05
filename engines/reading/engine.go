@@ -1,16 +1,21 @@
 package reading
 
 import (
+	"github.com/codegangsta/inject"
 	"github.com/go-martini/martini"
 	"github.com/itpkg/lotus/web"
+	"github.com/jinzhu/gorm"
 	"github.com/urfave/cli"
 )
 
-//Init init mapped objects
-func (p *Engine) Init() martini.Handler {
-	return func() {
+//Map map objects
+func (p *Engine) Map(inject.Injector) error {
+	return nil
+}
 
-	}
+//Migrate db migrate
+func (p *Engine) Migrate(*gorm.DB) {
+
 }
 
 //Mount mount web endpoints

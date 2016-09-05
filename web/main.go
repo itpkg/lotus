@@ -2,20 +2,19 @@ package web
 
 import (
 	"crypto/x509/pkix"
+	"errors"
 	"fmt"
 	"html/template"
 	"log"
 	"os"
 	"path"
 
-	"golang.org/x/text/language"
-
 	"github.com/BurntSushi/toml"
 	"github.com/go-martini/martini"
-	"github.com/itpkg/lotus/i18n"
 	"github.com/martini-contrib/render"
 	"github.com/spf13/viper"
 	"github.com/urfave/cli"
+	"golang.org/x/text/language"
 )
 
 //IocAction action with objects injected.
@@ -27,18 +26,13 @@ func IocAction(f func(*cli.Context, *martini.ClassicMartini) error) cli.ActionFu
 		mrt := martini.Classic()
 
 		mrt.Use(render.Renderer())
-		mrt.Use(i18n.Handler(
+		mrt.Use(LangHandler(
 			language.AmericanEnglish,
 			language.SimplifiedChinese,
 		))
 
 		for _, en := range engines {
-			args, err := mrt.Invoke(en.Init())
-			if err != nil {
-				return err
-			}
-			if len(args) > 0 {
-				err = args[len(args)-1].Interface().(error)
+			if err := en.Map(mrt.Martini); err != nil {
 				return err
 			}
 		}
@@ -267,6 +261,111 @@ server {
 				})
 			}),
 		},
+		{
+			Name:    "database",
+			Aliases: []string{"db"},
+			Usage:   "database operations",
+			Subcommands: []cli.Command{
+				{
+					Name:    "example",
+					Usage:   "scripts example for create database and user",
+					Aliases: []string{"e"},
+					Action: Action(func(*cli.Context) error {
+						args := viper.GetStringMapString("database")
+						var err error
+						switch args["driver"] {
+						case postgres_driver:
+							fmt.Printf("CREATE USER %s WITH PASSWORD '%s';\n", args["user"], args["password"])
+							fmt.Printf("CREATE DATABASE %s WITH ENCODING = 'UTF8';\n", args["dbname"])
+							fmt.Printf("GRANT ALL PRIVILEGES ON DATABASE %s TO %s;\n", args["dbname"], args["user"])
+						default:
+							err = errors.New("unknown database driver")
+						}
+						return err
+					}),
+				},
+				{
+					Name:    "migrate",
+					Usage:   "migrate the database",
+					Aliases: []string{"m"},
+					Action: Action(func(*cli.Context) error {
+						db, err := OpenDatabase()
+						if err != nil {
+							return err
+						}
+						for _, en := range engines {
+							en.Migrate(db)
+						}
+						return nil
+					}),
+				},
+				{
+					Name:    "connect",
+					Usage:   "connect database",
+					Aliases: []string{"c"},
+					Action: Action(func(*cli.Context) error {
+						args := viper.GetStringMapString("database")
+						var err error
+						switch args["driver"] {
+						case postgres_driver:
+							err = Shell("psql",
+								"-h", args["host"],
+								"-p", args["port"],
+								"-U", args["user"],
+								args["dbname"],
+							)
+						default:
+							err = errors.New("unknown database driver")
+						}
+						return err
+					}),
+				},
+				{
+					Name:    "create",
+					Usage:   "create database",
+					Aliases: []string{"n"},
+					Action: Action(func(*cli.Context) error {
+						args := viper.GetStringMapString("database")
+						var err error
+						switch args["driver"] {
+						case postgres_driver:
+							err = Shell("psql",
+								"-h", args["host"],
+								"-p", args["port"],
+								"-U", args["user"],
+								"-c", fmt.Sprintf(
+									"CREATE DATABASE %s WITH ENCODING='UTF8';",
+									args["dbname"]),
+							)
+						default:
+							err = errors.New("unknown database driver")
+						}
+						return err
+					}),
+				},
+				{
+					Name:    "drop",
+					Usage:   "drop database",
+					Aliases: []string{"d"},
+					Action: Action(func(*cli.Context) error {
+						args := viper.GetStringMapString("database")
+						var err error
+						switch args["driver"] {
+						case postgres_driver:
+							err = Shell("psql",
+								"-h", args["host"],
+								"-p", args["port"],
+								"-U", args["user"],
+								"-c", fmt.Sprintf("drop database %s", args["dbname"]),
+							)
+						default:
+							err = fmt.Errorf("unknown database driver")
+						}
+						return err
+					}),
+				},
+			},
+		},
 	}
 
 	for _, en := range engines {
@@ -281,9 +380,4 @@ func init() {
 	viper.SetConfigName("config")
 	viper.AddConfigPath(".")
 
-	viper.SetDefault("http", map[string]interface{}{
-		"host": "www.change-me.com",
-		"port": 8080,
-		"ssl":  false,
-	})
 }

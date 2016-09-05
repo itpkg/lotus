@@ -1,4 +1,4 @@
-package blog
+package platform
 
 import "github.com/urfave/cli"
 
