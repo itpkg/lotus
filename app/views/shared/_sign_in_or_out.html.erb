@@ -1,0 +1,7 @@
+<% if current_user %>
+    <li>
+      <%= link_to t('home.sign_out'), main_app.destroy_user_session_path, method: :delete, data: {confirm: t('home.are_you_sure')} %>
+    </li>
+<% else %>
+    <li><%= link_to t('devise.shared.links.sign_in'), main_app.new_user_session_path %></li>
+<% end %>
