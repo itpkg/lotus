@@ -13,8 +13,6 @@ Rails.application.routes.draw do
       post "site/#{act}"
     end
 
-
-    get 'home', to: 'home#index'
     get 'home/about'
     get 'home/help'
     get 'home/faq'
