@@ -260,6 +260,8 @@ GEM
       activemodel (> 4, < 5.1)
     sinatra (1.0)
       rack (>= 1.0)
+    sitemap_generator (5.1.0)
+      builder
     spring (1.7.2)
     spring-watcher-listen (2.0.0)
       listen (>= 2.7, < 4.0)
@@ -338,6 +340,7 @@ DEPENDENCIES
   sidekiq
   simple_form
   sinatra
+  sitemap_generator
   spring
   spring-watcher-listen (~> 2.0.0)
   turbolinks (~> 5)

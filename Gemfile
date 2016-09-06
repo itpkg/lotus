@@ -80,6 +80,8 @@ gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'rails-i18n', '~> 5.0.0'
 
+gem 'sitemap_generator'
+
 group :development do
   gem 'capistrano', '~> 3.1'
   gem 'capistrano-rails', '~> 1.1'

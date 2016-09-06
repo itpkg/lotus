@@ -21,9 +21,11 @@
 /.idea
 /node_modules
 /public/assets
+/public/sitemap.xml.gz
 
 npm-debug.log
 *.swp
 
 /.rbenv-vars
 /config/deploy/*.rb
+
