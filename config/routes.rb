@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  scope '(:locale)' do
+   scope '(:locale)' do
     resources :notices, except: :show
     resources :leave_words, only:[:create, :destroy, :index]
 
@@ -21,7 +21,7 @@ Rails.application.routes.draw do
 
     mount Forum::Engine => '/forum'
 
-  end
+   end
 
   devise_for :users
 
