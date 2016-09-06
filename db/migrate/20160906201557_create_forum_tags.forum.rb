@@ -8,8 +8,8 @@ class CreateForumTags < ActiveRecord::Migration[5.0]
     end
 
     create_table :forum_articles_tags, id: false do |t|
-      t.belongs_to :forum_article, index: true
-      t.belongs_to :forum_tag, index: true
+      t.belongs_to :article, index: true
+      t.belongs_to :tag, index: true
     end
   end
 end
