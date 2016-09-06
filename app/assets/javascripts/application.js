@@ -10,20 +10,4 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
-//= require jquery.turbolinks
-//= require jquery_ujs
 //= require_tree .
-
-
-//= require bootstrap-sass/assets/javascripts/bootstrap-sprockets
-//= require marked/lib/marked
-
-$(function () {
-    $("p.markdown").each(function () {
-        $(this).html(marked($(this).text()));
-    });
-});
-
-
-//= require turbolinks
