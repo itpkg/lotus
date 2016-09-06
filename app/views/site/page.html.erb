@@ -3,7 +3,7 @@
   <%= form_tag do %>
       <%= hidden_field_tag :title, params[:title] %>
       <div class="form-group">
-        <%= text_area_tag :body, Setting.get_page(params[:title]), {class: 'form-control'} %>
+        <%= text_area_tag :body, Setting.get_page(params[:title]), {class: 'form-control', rows: 18} %>
       </div>
       <%= submit_tag t('buttons.update'), {class: 'btn btn-default'} %>
   <% end %>
