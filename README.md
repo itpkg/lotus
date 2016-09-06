@@ -50,6 +50,8 @@ LOTUS - A web application.
     cap production puma:config
 ### upload nginx config file
     cap production puma:nginx_config
+### create sitemap.xml.gz    
+    cap production deploy:sitemap:create
     
 ### An error occurred while installing pg (0.18.4)  
     sudo apt-get install -y libpq-dev
