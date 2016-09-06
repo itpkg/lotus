@@ -70,8 +70,8 @@ gem 'kaminari-i18n'
 gem 'kaminari-bootstrap', '~> 3.0.1'
 
 gem 'simple_form'
-gem 'redcarpet'
-gem 'therubyracer'
+# gem 'redcarpet'
+# gem 'therubyracer'
 gem 'jquery-turbolinks'
 
 gem 'rails-settings-cached'
