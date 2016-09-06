@@ -73,6 +73,8 @@ gem 'simple_form'
 gem 'jquery-turbolinks'
 gem 'html-pipeline'
 gem 'github-linguist'
+gem 'github-markdown'
+gem 'gemoji'
 
 gem 'rails-settings-cached'
 gem 'carrierwave'
@@ -83,7 +85,7 @@ gem 'rails-i18n', '~> 5.0.0'
 
 gem 'sitemap_generator'
 
-gem 'forum', github: 'itpkg/forum' #path: '../forum'
+gem 'forum', github: 'itpkg/forum' # path: '../forum' #
 
 group :development do
   gem 'capistrano', '~> 3.1'

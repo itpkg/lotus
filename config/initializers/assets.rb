@@ -25,3 +25,5 @@ Rails.application.config.assets.precompile << 'marked/lib/marked.js'
 
 %w(us cn).each {|lang| Rails.application.config.assets.precompile << "famfamfam-flags/dist/png/#{lang}.png"}
 
+Rails.application.config.assets.paths << Emoji.images_path
+Rails.application.config.assets.precompile << 'emoji/**/*.png'
