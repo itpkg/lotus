@@ -32,7 +32,7 @@ LOTUS - A web application.
     
 ## Database creation
     psql -U postgres
-    CREATE DATABASE db-name WITH ENCODING=UTF8;
+    CREATE DATABASE db-name WITH ENCODING = 'UTF8';
     CREATE USER user-name WITH PASSWORD 'change-me';
     GRANT ALL PRIVILEGES ON DATABASE db-name TO user-name;
     
@@ -48,9 +48,20 @@ LOTUS - A web application.
     cap production deploy
 ### upload puma.conf
     cap production puma:config
-###upload nginx config file
+### upload nginx config file
     cap production puma:nginx_config
     
+### An error occurred while installing pg (0.18.4)  
+    sudo apt-get install -y libpq-dev
+    
+### postgresql Peer authentication failed for user
+Need edit file "/etc/postgresql/9.3/main/pg_hba.conf" change line:
+
+    local   all             all                                     peer
+
+to:
+
+    local   all             all                                     md5
 ## Notes
 ### rails
     rails g model Aaa --no-test-framework

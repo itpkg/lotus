@@ -27,9 +27,9 @@ require 'capistrano/rails'
 require 'capistrano/npm'
 require 'capistrano/puma'
 require 'capistrano/puma/nginx'
-require 'capistrano/puma/monit'
+# require 'capistrano/puma/monit'
 require 'capistrano/sidekiq'
-require 'capistrano/sidekiq/monit'
+# require 'capistrano/sidekiq/monit'
 require 'capistrano/sitemap_generator'
 
 # Load custom tasks from `lib/capistrano/tasks` if you have any defined
