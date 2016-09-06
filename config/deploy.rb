@@ -45,4 +45,5 @@ set :rbenv_ruby, File.read('.ruby-version').strip
 
 # nginx
 set :nginx_config_name, -> { "#{fetch(:app_domain)}.conf" }
+set :nginx_server_name, -> { fetch :app_domain }
 set :nginx_use_ssl, false

@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 email, password = 'admin@change-me.com', 'change-me'
 
-root = User.create email: email, password: password, password_confirmation: password
+root = User.new email: email, password: password, password_confirmation: password
 root.skip_confirmation!
 root.save!
 
