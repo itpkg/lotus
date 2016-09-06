@@ -10,10 +10,44 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160905194143) do
+ActiveRecord::Schema.define(version: 20160906163855) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "forum_articles", force: :cascade do |t|
+    t.string   "title",                  null: false
+    t.string   "body",                   null: false
+    t.integer  "rate",       default: 0, null: false
+    t.integer  "user_id",                null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.index ["user_id"], name: "index_forum_articles_on_user_id", using: :btree
+  end
+
+  create_table "forum_articles_tags", id: false, force: :cascade do |t|
+    t.integer "forum_article_id"
+    t.integer "forum_tag_id"
+    t.index ["forum_article_id"], name: "index_forum_articles_tags_on_forum_article_id", using: :btree
+    t.index ["forum_tag_id"], name: "index_forum_articles_tags_on_forum_tag_id", using: :btree
+  end
+
+  create_table "forum_comments", force: :cascade do |t|
+    t.string   "body",                         null: false
+    t.integer  "rate",             default: 0, null: false
+    t.integer  "user_id",                      null: false
+    t.integer  "forum_article_id",             null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.index ["forum_article_id"], name: "index_forum_comments_on_forum_article_id", using: :btree
+    t.index ["user_id"], name: "index_forum_comments_on_user_id", using: :btree
+  end
+
+  create_table "forum_tags", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "leave_words", force: :cascade do |t|
     t.text     "content",    null: false
@@ -98,5 +132,8 @@ ActiveRecord::Schema.define(version: 20160905194143) do
     t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
   end
 
+  add_foreign_key "forum_articles", "users"
+  add_foreign_key "forum_comments", "forum_articles"
+  add_foreign_key "forum_comments", "users"
   add_foreign_key "logs", "users"
 end

@@ -65,3 +65,4 @@ to:
 ## Notes
 ### rails
     rails g model Aaa --no-test-framework
+    rails g controller Aaa index --no-assets --no-helper --no-test-framework

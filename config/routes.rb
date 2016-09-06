@@ -19,6 +19,8 @@ Rails.application.routes.draw do
     get 'home/help'
     get 'home/faq'
 
+    mount Forum::Engine => '/forum'
+
   end
 
   devise_for :users
