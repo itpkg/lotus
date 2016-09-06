@@ -93,6 +93,7 @@ GEM
       json (>= 1.7)
       mime-types (>= 1.16)
       mimemagic (>= 0.3.0)
+    charlock_holmes (0.7.3)
     coffee-rails (4.2.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.2.x)
@@ -115,13 +116,22 @@ GEM
       actionmailer (>= 4.0.0)
       devise (>= 4.0.0)
     erubis (2.7.0)
+    escape_utils (1.1.1)
     execjs (2.7.0)
     faraday (0.9.2)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.14)
+    github-linguist (4.8.9)
+      charlock_holmes (~> 0.7.3)
+      escape_utils (~> 1.1.0)
+      mime-types (>= 1.19)
+      rugged (>= 0.23.0b)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     hashie (3.4.4)
+    html-pipeline (2.4.2)
+      activesupport (>= 2)
+      nokogiri (>= 1.4)
     i18n (0.7.0)
     jbuilder (2.6.0)
       activesupport (>= 3.0.0, < 5.1)
@@ -250,6 +260,7 @@ GEM
     responders (2.3.0)
       railties (>= 4.2.0, < 5.1)
     rolify (5.1.0)
+    rugged (0.25.0b8)
     sass (3.4.22)
     sass-rails (5.0.6)
       railties (>= 4.0.0, < 6)
@@ -322,6 +333,8 @@ DEPENDENCIES
   devise-i18n
   devise_invitable (~> 1.7.0)
   forum!
+  github-linguist
+  html-pipeline
   jbuilder (~> 2.5)
   jquery-rails
   jquery-turbolinks

@@ -1,7 +1,7 @@
 {
-  "name": "reading",
+  "name": "lotus",
   "version": "0.1.0",
-  "description": "I love reading.",
+  "description": "lotus packages",
   "main": "index.js",
   "directories": {
     "test": "test"
