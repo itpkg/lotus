@@ -27,7 +27,7 @@ set :deploy_to, -> { "/var/www/#{fetch :app_domain, 'localhost'}" }
 append :linked_files, 'config/database.yml', 'config/sidekiq.yml', '.rbenv-vars'
 
 # Default value for linked_dirs is []
-append :linked_dirs, 'node_modules', 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'public/system'
+append :linked_dirs, 'node_modules', 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'tmp/dict' 'public/system'
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
