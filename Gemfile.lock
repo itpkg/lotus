@@ -22,6 +22,12 @@ GIT
       capistrano
       sidekiq (>= 3.4)
 
+PATH
+  remote: ../reading
+  specs:
+    reading (0.1.0)
+      rails (~> 5.0.0, >= 5.0.0.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -358,6 +364,7 @@ DEPENDENCIES
   rails (~> 5.0.0, >= 5.0.0.1)
   rails-i18n (~> 5.0.0)
   rails-settings-cached
+  reading!
   rolify
   sass-rails (~> 5.0)
   sidekiq

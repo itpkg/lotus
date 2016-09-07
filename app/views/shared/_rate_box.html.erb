@@ -1,0 +1,2 @@
+<%= link_to main_app.image_tag(emoji_image('+1'), size:'32x32'), rate_path(type: resource.class, id: resource.id, score: 1), method: :post %>
+<%= link_to main_app.image_tag(emoji_image('-1'), size:'32x32'), rate_path(type: resource.class, id: resource.id, score: -1), method: :post %>

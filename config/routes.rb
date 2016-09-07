@@ -17,6 +17,8 @@ Rails.application.routes.draw do
     get 'home/help'
     get 'home/faq'
 
+    post 'rate' => 'home#rate'
+
     mount Forum::Engine => '/forum'
 
    end

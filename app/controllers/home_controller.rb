@@ -35,4 +35,13 @@ class HomeController < ApplicationController
       head :not_found
     end
   end
+
+
+  def rate
+    item = Object.const_get(params[:type]).find params[:id]
+    unless item.nil?
+      item.update_column :rate, item.rate+params[:score].to_i
+    end
+  end
+
 end
