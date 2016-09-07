@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/itpkg/forum.git
-  revision: bb8c6eb0a40406f06191f576109189395e20072c
+  revision: 277f08c41bb44613fdd16131416a0abc9bc3d790
   specs:
     forum (0.1.0)
       rails (~> 5.0.0, >= 5.0.0.1)
@@ -26,6 +26,7 @@ PATH
   remote: ../reading
   specs:
     reading (0.1.0)
+      epub-parser
       rails (~> 5.0.0, >= 5.0.0.1)
 
 GEM
@@ -68,8 +69,11 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    addressable (2.4.0)
     airbrussh (1.1.0)
       sshkit (>= 1.6.1, != 1.7.0)
+    archive-zip (0.8.0)
+      io-like (~> 0.3.0)
     arel (7.1.1)
     bcrypt (3.1.11)
     bootstrap_form (2.5.0)
@@ -121,6 +125,11 @@ GEM
     devise_invitable (1.7.0)
       actionmailer (>= 4.0.0)
       devise (>= 4.0.0)
+    epub-parser (0.2.7)
+      addressable (>= 2.3.5)
+      archive-zip
+      nokogiri (~> 1.6)
+      rchardet (>= 1.6.1)
     erubis (2.7.0)
     escape_utils (1.1.1)
     execjs (2.7.0)
@@ -141,6 +150,7 @@ GEM
       activesupport (>= 2)
       nokogiri (>= 1.4)
     i18n (0.7.0)
+    io-like (0.3.0)
     jbuilder (2.6.0)
       activesupport (>= 3.0.0, < 5.1)
       multi_json (~> 1.2)
@@ -264,6 +274,7 @@ GEM
     rb-fsevent (0.9.7)
     rb-inotify (0.9.7)
       ffi (>= 0.5.0)
+    rchardet (1.6.1)
     redis (3.3.1)
     responders (2.3.0)
       railties (>= 4.2.0, < 5.1)

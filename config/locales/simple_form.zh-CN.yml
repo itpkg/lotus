@@ -21,6 +21,8 @@ zh-CN:
         description: '说明信息'
         copyright: '版权信息'
         author: '作者'
+        body: 正文
+        email: 邮箱
 
     #   user:
     #     new:

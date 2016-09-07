@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     post 'rate' => 'home#rate'
 
     mount Forum::Engine => '/forum'
+    mount Reading::Engine => '/reading'
 
    end
 
