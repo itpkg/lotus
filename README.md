@@ -4,7 +4,7 @@ LOTUS - A web application.
 
 ## System dependencies
 ### Install rbenv
-    sudo apt-get install -y git build-essential make libssl-dev libreadline-dev
+    sudo apt-get install -y git build-essential make libssl-dev libreadline-dev cmake libicu-dev
 
     git clone https://github.com/rbenv/rbenv.git ~/.rbenv
     git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build

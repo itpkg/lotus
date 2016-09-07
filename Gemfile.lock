@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/itpkg/forum.git
-  revision: 9c148289c54d1d56d8c9201f78f322423091acff
+  revision: bb8c6eb0a40406f06191f576109189395e20072c
   specs:
     forum (0.1.0)
       rails (~> 5.0.0, >= 5.0.0.1)
