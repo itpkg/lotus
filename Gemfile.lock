@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: git://github.com/itpkg/reading.git
-  revision: f4ab7075fcd7674b5c5777c02a2d792fc509b0ac
+  revision: 5d078f2b132e4799348d3856eaad666a8eaf3a08
   specs:
     reading (0.1.0)
       epub-parser
