@@ -35,6 +35,16 @@ LOTUS - A web application.
     echo "deb https://packages.elastic.co/elasticsearch/5.x/debian stable main" | sudo tee -a /etc/apt/sources.list.d/elasticsearch-5.x.list
     sudo apt-get update 
     sudo apt-get install -y elasticsearch openjdk-7-jre
+    
+### Install tengine
+    sudo apt-get install build-essential debhelper make autoconf automake patch dpkg-dev fakeroot pbuilder gnupg dh-make libssl-dev libpcre3-dev    
+    git clone https://github.com/alibaba/tengine.git    
+    cd tengine
+    mv packages/debian .
+    DEB_BUILD_OPTIONS=nocheck dpkg-buildpackage -rfakeroot -uc -b
+    cd ..
+    sudo dpkg -i tengine_2.1.0-1_amd64.deb
+       
        
 ### Clone code
     git clone https://github.com/itpkg/reading.git
@@ -84,3 +94,4 @@ to:
 ### elasticsearch
     rake -D elasticsearch # display usage instructions
     rake environment elasticsearch:import:model CLASS='Reading::Book' FORCE=y
+    

@@ -33,6 +33,7 @@ server {
 
   client_max_body_size 4G;
   keepalive_timeout 10;
+  trim on;
 
   error_page 500 502 504 /500.html;
   error_page 503 @503;
