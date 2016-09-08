@@ -5,6 +5,7 @@
     sign_out: 安全退出
     welcome: "欢迎你，%{name}"
     are_you_sure: 你确定么？
+    empty_result: 没有找到相关记录
     success: 操作成功
     fail: 操作失败
     leave_a_message: 给我留言

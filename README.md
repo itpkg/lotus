@@ -35,6 +35,12 @@ LOTUS - A web application.
     echo "deb https://packages.elastic.co/elasticsearch/5.x/debian stable main" | sudo tee -a /etc/apt/sources.list.d/elasticsearch-5.x.list
     sudo apt-get update 
     sudo apt-get install -y elasticsearch openjdk-7-jre
+### Install elasticsearch-analysis-ik
+    git clone https://github.com/medcl/elasticsearch-analysis-ik.git
+    cd elasticsearch-analysis-ik
+    mvn package
+    sudo unzip target/releases/elasticsearch-analysis-ik-5.0.0-alpha5.zip -d /usr/share/elasticsearch/plugins/ik
+    sudo service elasticsearch restart
     
 ### Install tengine
     sudo apt-get install build-essential debhelper make autoconf automake patch dpkg-dev fakeroot pbuilder gnupg dh-make libssl-dev libpcre3-dev    

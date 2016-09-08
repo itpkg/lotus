@@ -1,0 +1,7 @@
+<%= form_tag action,  {method: :get, class:'navbar-form', target: :_blank} do %>
+    <div class="form-group">
+      <%= hidden_field_tag :resource, resource%>
+      <%= text_field_tag :keywords, '', {class: 'form-control', placeholder:t('placeholders.search')} %>
+    </div>
+    <%= submit_tag t('buttons.search'), {class: 'btn btn-success'} %>
+<% end %>

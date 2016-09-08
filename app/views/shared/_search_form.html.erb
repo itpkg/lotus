@@ -1,6 +1,13 @@
-<%= form_tag action, {class:'navbar-form', target: :_blank} do %>
+<%= form_tag action, {method: :get} do %>
     <div class="form-group">
-      <%= text_field_tag :keywords, '', {class: 'form-control', placeholder:t('placeholders.search')} %>
+      <%= label_tag :description, t('simple_form.labels.defaults.keywords') %>
+      <%= text_field_tag :keywords, params[:keywords], {class: 'form-control'} %>
     </div>
-    <%= submit_tag t('buttons.search'), {class: 'btn btn-success'} %>
+    <div class="form-group">
+      <% resources.each do |res| %>
+          <%= radio_button_tag :resource, res, params[:resource]==res %>
+          <%= label_tag "resource_#{res}".to_sym, t("activerecord.models.#{res.downcase.gsub '::', '/'}") %>
+      <% end %>
+    </div>
+    <%= submit_tag t('buttons.search'), {class: 'btn btn-default'} %>
 <% end %>

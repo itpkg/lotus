@@ -90,8 +90,8 @@ gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
 gem 'lograge'
 
-gem 'forum', path: '../forum' # github: 'itpkg/forum' #
-gem 'reading', path: '../reading' # github: 'itpkg/reading' #
+gem 'forum', github: 'itpkg/forum' # path: '../forum' #
+gem 'reading', github: 'itpkg/reading' # path: '../reading' #
 
 group :development do
   gem 'capistrano', '~> 3.1'

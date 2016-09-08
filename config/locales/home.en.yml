@@ -5,6 +5,7 @@ en:
     sign_out: Sign out
     welcome: "Welcome, %{name}"
     are_you_sure: Are you sure?
+    empty_result: empty result.
     success: Success
     fail: Failed
     leave_a_message: Please leave a message to us.
