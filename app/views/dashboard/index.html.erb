@@ -7,6 +7,7 @@
     <% if current_user.is_admin? %>
         <br/>
         <div class="row">
+          <%= link_to t('dashboard.users'), dashboard_users_path, {class: 'btn btn-default'} %>
           <%= link_to t('dashboard.leave_wrods'), leave_words_path, {class: 'btn btn-default'} %>
           <%= link_to t('dashboard.notices'), notices_path, {class: 'btn btn-default'} %>
           <%= link_to t('dashboard.site.info'), site_info_path, {class: 'btn btn-default'} %>

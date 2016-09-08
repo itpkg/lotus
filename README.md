@@ -22,7 +22,19 @@ LOTUS - A web application.
     
 ### Install nodejs
     curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+    sudo apt-get update
     sudo apt-get install -y nodejs
+    
+### Install jdk8
+    sudo apt-add-repository ppa:webupd8team/java
+    sudo apt-get update
+    sudo apt-get install oracle-java8-installer
+    
+### Install elasticsearch
+    wget -qO - https://packages.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+    echo "deb https://packages.elastic.co/elasticsearch/5.x/debian stable main" | sudo tee -a /etc/apt/sources.list.d/elasticsearch-5.x.list
+    sudo apt-get update 
+    sudo apt-get install -y elasticsearch openjdk-7-jre
        
 ### Clone code
     git clone https://github.com/itpkg/reading.git

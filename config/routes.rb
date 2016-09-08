@@ -6,7 +6,9 @@ Rails.application.routes.draw do
     resources :leave_words, only:[:create, :destroy, :index]
 
     get 'dashboard' => 'dashboard#index'
-    get 'dashboard/logs'
+
+    %w(logs users).each {|act| get "dashboard/#{act}"}
+
 
     %w(info seo page).each do |act|
       get "site/#{act}"

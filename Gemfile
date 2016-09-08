@@ -85,8 +85,12 @@ gem 'rails-i18n', '~> 5.0.0'
 
 gem 'sitemap_generator'
 
-gem 'forum', github: 'itpkg/forum' # path: '../forum' #
-gem 'reading', github: 'itpkg/reading' # path: '../reading' #
+gem 'gravtastic'
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
+
+gem 'forum', path: '../forum' # github: 'itpkg/forum' #
+gem 'reading', path: '../reading' # github: 'itpkg/reading' #
 
 group :development do
   gem 'capistrano', '~> 3.1'

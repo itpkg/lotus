@@ -1,19 +1,4 @@
 GIT
-  remote: git://github.com/itpkg/forum.git
-  revision: 277f08c41bb44613fdd16131416a0abc9bc3d790
-  specs:
-    forum (0.1.0)
-      rails (~> 5.0.0, >= 5.0.0.1)
-
-GIT
-  remote: git://github.com/itpkg/reading.git
-  revision: e7ee9e8578c708cfa08844604a8cd8b89bf4d337
-  specs:
-    reading (0.1.0)
-      epub-parser
-      rails (~> 5.0.0, >= 5.0.0.1)
-
-GIT
   remote: git://github.com/seuros/capistrano-puma.git
   revision: 6a0c77336f07bdba64eb43fc16319b2460be252e
   specs:
@@ -29,6 +14,19 @@ GIT
     capistrano-sidekiq (0.5.4)
       capistrano
       sidekiq (>= 3.4)
+
+PATH
+  remote: ../forum
+  specs:
+    forum (0.1.0)
+      rails (~> 5.0.0, >= 5.0.0.1)
+
+PATH
+  remote: ../reading
+  specs:
+    reading (0.1.0)
+      epub-parser
+      rails (~> 5.0.0, >= 5.0.0.1)
 
 GEM
   remote: https://rubygems.org/
@@ -126,6 +124,19 @@ GEM
     devise_invitable (1.7.0)
       actionmailer (>= 4.0.0)
       devise (>= 4.0.0)
+    elasticsearch (2.0.0)
+      elasticsearch-api (= 2.0.0)
+      elasticsearch-transport (= 2.0.0)
+    elasticsearch-api (2.0.0)
+      multi_json
+    elasticsearch-model (0.1.9)
+      activesupport (> 3)
+      elasticsearch (> 0.4)
+      hashie
+    elasticsearch-rails (0.1.9)
+    elasticsearch-transport (2.0.0)
+      faraday
+      multi_json
     epub-parser (0.2.7)
       addressable (>= 2.3.5)
       archive-zip
@@ -146,6 +157,7 @@ GEM
     github-markdown (0.6.9)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
+    gravtastic (3.2.6)
     hashie (3.4.4)
     html-pipeline (2.4.2)
       activesupport (>= 2)
@@ -352,10 +364,13 @@ DEPENDENCIES
   devise-bootstrap-views
   devise-i18n
   devise_invitable (~> 1.7.0)
+  elasticsearch-model
+  elasticsearch-rails
   forum!
   gemoji
   github-linguist
   github-markdown
+  gravtastic
   html-pipeline
   jbuilder (~> 2.5)
   jquery-rails

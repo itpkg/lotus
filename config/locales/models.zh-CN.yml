@@ -6,3 +6,7 @@ zh-CN:
     attributes:
       leave_word:
         content: 内容
+      user:
+        last_sign_in_at: 上次登录
+        sign_in_count: 登录次数
+        confirmed_at: 激活时间
