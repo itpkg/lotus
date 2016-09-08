@@ -23,6 +23,8 @@ en:
   languages:
     en: English
     zh_CN: 简体中文
+  placeholders:
+    search: Please input here to search.
   buttons:
     more: More
     view: View
@@ -31,5 +33,7 @@ en:
     edit: Edit
     update: Update
     submit: Submit
+    search: Search
+    reset: Reset
   errors:
     unauthorized: Not Authenticated

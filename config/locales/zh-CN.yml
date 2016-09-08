@@ -2,6 +2,8 @@
   languages:
     en: English
     zh_CN: 简体中文
+  placeholders:
+    search: 点击此处输入进行搜索
   buttons:
     more: 更多
     view: 查看
@@ -10,5 +12,7 @@
     edit: 编辑
     update: 更新
     submit: 提交
+    search: 搜索
+    reset: 重写
   errors:
     unauthorized: 未鉴别
