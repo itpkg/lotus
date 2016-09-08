@@ -103,6 +103,5 @@ Rails.application.configure do
 
   #logger
   config.lograge.enabled = true
-  #search
-  Elasticsearch::Model.client = Elasticsearch::Client.new host:ENV['ELASTICSEARCH_HOST']
+
 end

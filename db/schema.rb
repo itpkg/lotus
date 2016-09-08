@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160907053033) do
+ActiveRecord::Schema.define(version: 20160908044622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -106,10 +106,12 @@ ActiveRecord::Schema.define(version: 20160907053033) do
   create_table "reading_pages", force: :cascade do |t|
     t.string   "media_type", null: false
     t.string   "entry_name", null: false
-    t.binary   "body",       null: false
+    t.binary   "payload"
     t.integer  "book_id",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "title"
+    t.text     "body"
     t.index ["entry_name", "book_id"], name: "index_reading_pages_on_entry_name_and_book_id", unique: true, using: :btree
     t.index ["entry_name"], name: "index_reading_pages_on_entry_name", using: :btree
   end
