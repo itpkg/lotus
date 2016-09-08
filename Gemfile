@@ -88,6 +88,7 @@ gem 'sitemap_generator'
 gem 'gravtastic'
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
+gem 'lograge'
 
 gem 'forum', path: '../forum' # github: 'itpkg/forum' #
 gem 'reading', path: '../reading' # github: 'itpkg/reading' #
