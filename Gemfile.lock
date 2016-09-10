@@ -1,13 +1,13 @@
 GIT
   remote: git://github.com/itpkg/forum.git
-  revision: 74a89bfcc87b14a66461cd1ec0c56329a0c98f8a
+  revision: bfcf2c59d452e50146121d21676a1ca6ab1c3b8f
   specs:
     forum (0.1.0)
       rails (~> 5.0.0, >= 5.0.0.1)
 
 GIT
   remote: git://github.com/itpkg/reading.git
-  revision: 1135d87a4f1544141190fe47a19e2b09dcf45ef1
+  revision: 5cef49f6343e9321cc6e361bf2ed75e5deaa4662
   specs:
     reading (0.1.0)
       epub-parser
