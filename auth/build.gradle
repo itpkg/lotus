@@ -1,0 +1,10 @@
+jar {
+    baseName = 'lotus-auth'
+    version = '2016.9.18'
+}
+
+dependencies {
+    testCompile("junit:junit:4.+")
+}
+
+

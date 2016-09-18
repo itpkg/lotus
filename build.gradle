@@ -1,0 +1,21 @@
+allprojects {
+
+    buildscript {
+        repositories {
+            mavenCentral()
+        }
+    }
+
+
+    repositories {
+        mavenCentral()
+    }
+
+
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+}
+
