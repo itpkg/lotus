@@ -17,5 +17,15 @@ allprojects {
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
 
+
+    dependencies {
+        compileOnly group: 'javax', name: 'javaee-api', version: '7.0'
+        compileOnly group: 'org.springframework.data', name: 'spring-data-jpa', version: '1.10.2.RELEASE'
+
+        compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.21'
+
+        testCompile("junit:junit:4.+")
+    }
+
 }
 
