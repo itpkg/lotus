@@ -3,16 +3,16 @@ dst=release
 build:
 	mkdir -p $(dst)/config
 
-	gradle build
-	cp app/build/libs/lotus-app-*.jar $(dst)
-	cp app/src/main/resources/application.properties $(dst)/config/
-	cp app/src/main/resources/logback-file.xml $(dst)/config/logback.xml
+	cd backend && gradle build
+	cp backend/app/build/libs/lotus-app-*.jar $(dst)
+	cp backend/app/src/main/resources/application.properties $(dst)/config/
+	cp backend/app/src/main/resources/logback-file.xml $(dst)/config/logback.xml
+	cp backend/run.sh $(dst)
 
-	npm run build
-	cp -r dist  $(dst)/public
+	cd front && npm run build
+	cp -r front/dist  $(dst)/public
 
-	cp run.sh $(dst)
 
 clean:
-	gradle clean
+	cd backend && gradle clean
 	-rm -r $(dst)
