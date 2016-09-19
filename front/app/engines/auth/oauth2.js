@@ -1,0 +1,56 @@
+import React, {PropTypes} from 'react'
+import {connect} from 'react-redux'
+import i18next from 'i18next'
+import {Alert} from 'react-bootstrap'
+import parse from 'url-parse'
+import {browserHistory} from 'react-router'
+
+import {signIn} from './actions'
+import {ajax} from '../../utils'
+
+const CallbackW = React.createClass({
+  getInitialState: function () {
+    return {
+      alert: {
+        style: 'info',
+        message: i18next.t('messages.please_waiting'),
+        created: new Date()
+      }
+    }
+  },
+  componentDidMount () {
+    const {onSignIn} = this.props
+    onSignIn(function (xhr) {
+      this.setState({
+        alert: {
+          style: 'danger',
+          message: xhr.responseText,
+          created: new Date()
+        }
+      })
+    }// .bind(this)
+    )
+  },
+  render () {
+    var msg = this.state.alert
+    return (
+      <Alert bsStyle={msg.style}>
+          <strong>{msg.created.toLocaleString()}:
+          </strong>{msg.message}
+      </Alert>
+    )
+  }
+})
+
+CallbackW.propTypes = {
+  onSignIn: PropTypes.func.isRequired
+}
+
+export const Callback = connect(state => ({}), dispatch => ({
+  onSignIn: function (showError) {
+    ajax('post', '/oauth2/callback', parse(window.location.href, true).query, function (rst) {
+      dispatch(signIn(rst.token))
+      browserHistory.push('/')
+    }, showError)
+  }
+}))(CallbackW)
