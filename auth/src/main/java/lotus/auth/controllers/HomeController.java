@@ -3,6 +3,7 @@ package lotus.auth.controllers;
 import lotus.auth.forms.InstallForm;
 import lotus.auth.helpers.NginxHelper;
 import lotus.auth.models.User;
+import lotus.auth.repositiries.UserRepository;
 import lotus.auth.service.PolicyService;
 import lotus.auth.service.SettingService;
 import lotus.auth.service.UserService;

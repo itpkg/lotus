@@ -8,5 +8,5 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface RoleRepository extends CrudRepository<Role, Long> {
     //    @Query("select t from Role t where t.name = ?1 and t.resourceType = ?2 and t.resourceId = ?3")
-    Role findByNameAndResourceTypeAndResourceId(String name, String resourceType, long resourceId);
+    Role findByNameAndResourceTypeAndResourceId(String name, String resourceType, Long resourceId);
 }

@@ -36,6 +36,7 @@ public class User implements Serializable {
     @JsonIgnore
     private String providerId;
     @Column(nullable = false)
+    @Enumerated(EnumType.ORDINAL)
     private Type providerType;
 
     @Column(nullable = false)

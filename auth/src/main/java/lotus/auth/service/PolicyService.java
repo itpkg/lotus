@@ -56,6 +56,7 @@ public class PolicyService {
         Role role = getRole(roleName, resourceType, resourceId);
         Policy policy = policyRepository.findByUserIdAndRoleId(userId, role.getId());
         if (policy == null) {
+            policy = new Policy();
             policy.setUser(userRepository.findOne(userId));
             policy.setRole(role);
         }
@@ -82,7 +83,7 @@ public class PolicyService {
 
     private <T> Role getRole(String roleName, Class<T> resourceType, Long resourceId) {
         String rty = this.resourceType(resourceType);
-        logger.debug(rty);
+        roleRepository.findAll();
         Role role = roleRepository.findByNameAndResourceTypeAndResourceId(roleName, rty, resourceId);
         if (role == null) {
             role = new Role();
