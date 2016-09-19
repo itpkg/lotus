@@ -8,6 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "users", indexes = {
+        @Index(columnList = "name"),
         @Index(columnList = "providerId,providerType", unique = true)
 })
 public class User implements Serializable {

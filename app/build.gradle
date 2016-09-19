@@ -12,11 +12,9 @@ jar {
 
     exclude('application.properties')
     exclude('logback*.xml')
+    exclude('.gitignore')
 }
 
-bootRun {
-    addResources = true
-}
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-data-jpa")

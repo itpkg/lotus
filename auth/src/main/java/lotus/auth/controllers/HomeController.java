@@ -17,8 +17,8 @@ public class HomeController {
         return "install";
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String getHome( Model model) {
+    @RequestMapping(value = "/install", method = RequestMethod.POST)
+    public String postInstall( Model model) {
         model.addAttribute("name", "haha");
         return "home";
     }
