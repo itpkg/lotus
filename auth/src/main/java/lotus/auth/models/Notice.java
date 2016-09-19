@@ -9,6 +9,7 @@ import java.util.Date;
  */
 
 @Entity
+@Table(name = "notices")
 public class Notice implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,6 +21,17 @@ public class Notice implements Serializable {
     private Date updatedAt;
     @Column(nullable = false, updatable = false)
     private Date createdAt;
+
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = new Date();
+    }
 
     public Date getUpdatedAt() {
         return updatedAt;

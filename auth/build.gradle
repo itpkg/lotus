@@ -3,5 +3,8 @@ jar {
     version = '2016.9.18'
 }
 
+dependencies {
+    compile group: 'org.jasypt', name: 'jasypt', version: '1.9.2'
+}
 
 

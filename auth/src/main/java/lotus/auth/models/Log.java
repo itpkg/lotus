@@ -8,6 +8,7 @@ import java.util.Date;
  * Created by flamen on 16-9-18.
  */
 @Entity
+@Table(name = "logs")
 public class Log implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,7 +18,13 @@ public class Log implements Serializable {
     @Column(nullable = false, updatable = false)
     private Date createdAt;
     @ManyToOne
+    @JoinColumn(nullable = false, updatable = false)
     private User user;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = new Date();
+    }
 
     public long getId() {
         return id;

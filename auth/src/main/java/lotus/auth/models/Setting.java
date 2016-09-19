@@ -2,12 +2,14 @@ package lotus.auth.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by flamen on 16-9-18.
  */
 
 @Entity
+@Table(name = "settings")
 public class Setting implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,9 +18,39 @@ public class Setting implements Serializable {
     private String key;
     @Column(nullable = false)
     @Lob
-    private byte[] val;
+    private String val;
     @Column(nullable = false)
     private boolean encode;
+    @Column(nullable = false)
+    private Date updatedAt;
+    @Column(nullable = false, updatable = false)
+    private Date createdAt;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = new Date();
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
 
     public long getId() {
         return id;
@@ -36,11 +68,11 @@ public class Setting implements Serializable {
         this.key = key;
     }
 
-    public byte[] getVal() {
+    public String getVal() {
         return val;
     }
 
-    public void setVal(byte[] val) {
+    public void setVal(String val) {
         this.val = val;
     }
 

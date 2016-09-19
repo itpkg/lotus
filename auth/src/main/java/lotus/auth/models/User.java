@@ -7,8 +7,8 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(indexes = {
-        @Index(name = "idx_users_provider_type_id", columnList = "providerId,providerType", unique = true)
+@Table(name = "users", indexes = {
+        @Index(columnList = "providerId,providerType", unique = true)
 })
 public class User implements Serializable {
     @Id
@@ -39,11 +39,11 @@ public class User implements Serializable {
     private Date confirmedAt;
     private Date lockedAt;
     @Column(nullable = false)
-    private Date updateAt;
+    private Date updatedAt;
     @Column(nullable = false, updatable = false)
     private Date createdAt;
 
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     private List<Log> logs;
 
     @PrePersist
@@ -53,7 +53,7 @@ public class User implements Serializable {
 
     @PreUpdate
     protected void onUpdate() {
-        updateAt = new Date();
+        updatedAt = new Date();
     }
 
     public User() {
@@ -188,12 +188,12 @@ public class User implements Serializable {
         this.lockedAt = lockedAt;
     }
 
-    public Date getUpdateAt() {
-        return updateAt;
+    public Date getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setUpdateAt(Date updateAt) {
-        this.updateAt = updateAt;
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     public Date getCreatedAt() {

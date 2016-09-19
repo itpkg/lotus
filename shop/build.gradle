@@ -1,0 +1,10 @@
+jar {
+    baseName = 'lotus-shop'
+    version = '2016.9.19'
+}
+
+dependencies {
+    testCompile("junit:junit:4.+")
+}
+
+
