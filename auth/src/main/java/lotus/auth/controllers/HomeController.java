@@ -1,37 +1,64 @@
 package lotus.auth.controllers;
 
+import lotus.auth.forms.InstallForm;
+import lotus.auth.helpers.NginxHelper;
+import lotus.auth.models.User;
+import lotus.auth.service.PolicyService;
+import lotus.auth.service.SettingService;
+import lotus.auth.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import java.util.Locale;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Created by flamen on 16-9-18.
  */
-@Controller
+@Controller("auth.homeController")
 public class HomeController {
-    @RequestMapping(value = "/install", method = RequestMethod.GET)
-    public String getInstall(Locale locale,  Model model) {
-        logger.debug("### "+locale.toLanguageTag()+" "+messageSource.getMessage("buttons.submit", null, locale));
-        model.addAttribute("name", "haha");
+    @GetMapping("/install")
+    public String getInstall() {
         return "install";
     }
 
-    @RequestMapping(value = "/install", method = RequestMethod.POST)
-    public String postInstall( Model model) {
-        model.addAttribute("name", "haha");
-        return "home";
+
+    @PostMapping("/install")
+    @ResponseBody
+    public User postInstall(@Valid InstallForm form) throws NoSuchAlgorithmException, IOException {
+        settingService.set("site.domain", form.getDomain());
+        settingService.set("site.https?", form.isHttps());
+        User user = userService.add(form.getEmail(), form.getUsername(), form.getPassword());
+        policyService.allow(user.getId(), "admin");
+        policyService.allow(user.getId(), "root");
+        return user;
+    }
+
+    @GetMapping("/nginx.conf")
+    public void getNginxConf(HttpServletResponse response) throws IOException {
+        response.setContentType("text/plain");
+        response.setCharacterEncoding("UTF-8");
+        nginxHelper.conf(response.getWriter());
     }
 
     @Resource
-    private MessageSource messageSource;
+    MessageSource messageSource;
+    @Resource
+    NginxHelper nginxHelper;
+    @Resource
+    SettingService settingService;
+    @Resource
+    UserService userService;
+    @Resource
+    PolicyService policyService;
     private final static Logger logger = LoggerFactory.getLogger(HomeController.class);
 
 }

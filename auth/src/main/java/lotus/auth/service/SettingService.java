@@ -14,6 +14,9 @@ import javax.annotation.Resource;
  */
 @Service("auth.settingService")
 public class SettingService {
+    public <T> void set(String key, T obj) {
+        set(key, obj, false);
+    }
 
     public <T> void set(String key, T obj, boolean encode) {
         Setting s = settingRepository.findByKey(key);
@@ -50,15 +53,9 @@ public class SettingService {
 
     private Gson gson;
     @Resource
-    private EncryptHelper encryptHelper;
+    EncryptHelper encryptHelper;
     @Resource
-    private SettingRepository settingRepository;
+    SettingRepository settingRepository;
 
-    public void setEncryptHelper(EncryptHelper encryptHelper) {
-        this.encryptHelper = encryptHelper;
-    }
 
-    public void setSettingRepository(SettingRepository settingRepository) {
-        this.settingRepository = settingRepository;
-    }
 }

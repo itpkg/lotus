@@ -13,7 +13,7 @@ import javax.annotation.PostConstruct;
 /**
  * Created by flamen on 16-9-18.
  */
-@Component("auth.EncryptHelper")
+@Component("auth.encryptHelper")
 public class EncryptHelperImpl implements EncryptHelper {
     @Override
     public String encode(String plain) {
@@ -46,11 +46,8 @@ public class EncryptHelperImpl implements EncryptHelper {
 
 
     @Value("${server.secrets}")
-    private String secrets;
+    String secrets;
     private PasswordEncryptor passwordEncryptor;
     private TextEncryptor textEncryptor;
 
-    public void setSecrets(String secrets) {
-        this.secrets = secrets;
-    }
 }

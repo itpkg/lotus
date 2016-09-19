@@ -16,8 +16,7 @@ public class Setting implements Serializable {
     private long id;
     @Column(nullable = false, unique = true)
     private String key;
-    @Column(nullable = false)
-    @Lob
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String val;
     @Column(nullable = false)
     private boolean encode;
@@ -28,7 +27,7 @@ public class Setting implements Serializable {
 
     @PrePersist
     protected void onCreate() {
-        createdAt = new Date();
+        updatedAt = createdAt = new Date();
     }
 
     @PreUpdate

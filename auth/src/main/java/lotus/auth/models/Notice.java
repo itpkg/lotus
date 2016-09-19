@@ -25,7 +25,7 @@ public class Notice implements Serializable {
 
     @PrePersist
     protected void onCreate() {
-        createdAt = new Date();
+        updatedAt = createdAt = new Date();
     }
 
     @PreUpdate

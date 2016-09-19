@@ -36,7 +36,7 @@ public class Policy implements Serializable {
 
     @PrePersist
     protected void onCreate() {
-        createdAt = new Date();
+        updatedAt = createdAt = new Date();
     }
 
     @PreUpdate

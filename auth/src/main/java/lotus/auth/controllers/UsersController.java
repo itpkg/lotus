@@ -5,6 +5,6 @@ import org.springframework.stereotype.Controller;
 /**
  * Created by flamen on 16-9-18.
  */
-@Controller
+@Controller("auth.usersController")
 public class UsersController {
 }

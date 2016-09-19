@@ -31,7 +31,7 @@ public class Locale {
 
     @PrePersist
     protected void onCreate() {
-        createdAt = new Date();
+        updatedAt = createdAt = new Date();
     }
 
     @PreUpdate

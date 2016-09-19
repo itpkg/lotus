@@ -1,5 +1,7 @@
 package lotus.auth.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,6 +14,10 @@ import java.util.List;
         @Index(columnList = "providerId,providerType", unique = true)
 })
 public class User implements Serializable {
+    public enum Type {
+        EMAIL
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -19,16 +25,18 @@ public class User implements Serializable {
     private String name;
     @Column(nullable = false, updatable = false, unique = true)
     private String email;
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 36)
     private String uid;
     @Column(nullable = false)
     private String logo;
     @Column(nullable = false)
+    @JsonIgnore
     private String password;
     @Column(nullable = false)
+    @JsonIgnore
     private String providerId;
     @Column(nullable = false)
-    private String providerType;
+    private Type providerType;
 
     @Column(nullable = false)
     private int signInCount;
@@ -49,7 +57,7 @@ public class User implements Serializable {
 
     @PrePersist
     protected void onCreate() {
-        createdAt = new Date();
+        updatedAt = createdAt = new Date();
     }
 
     @PreUpdate
@@ -59,6 +67,14 @@ public class User implements Serializable {
 
     public User() {
         logs = new ArrayList<>();
+    }
+
+    public Type getProviderType() {
+        return providerType;
+    }
+
+    public void setProviderType(Type providerType) {
+        this.providerType = providerType;
     }
 
     public List<Log> getLogs() {
@@ -125,13 +141,6 @@ public class User implements Serializable {
         this.providerId = providerId;
     }
 
-    public String getProviderType() {
-        return providerType;
-    }
-
-    public void setProviderType(String providerType) {
-        this.providerType = providerType;
-    }
 
     public int getSignInCount() {
         return signInCount;
