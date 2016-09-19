@@ -9,9 +9,14 @@ apply plugin: 'spring-boot'
 jar {
     baseName = 'lotus-app'
     version = '2016.9.18'
+
+    exclude('application.properties')
+    exclude('logback*.xml')
 }
 
-
+bootRun {
+    addResources = true
+}
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
