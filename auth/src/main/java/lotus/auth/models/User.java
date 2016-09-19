@@ -11,6 +11,7 @@ import java.util.List;
 @Entity
 @Table(name = "users", indexes = {
         @Index(columnList = "name"),
+        @Index(columnList = "providerType"),
         @Index(columnList = "providerId,providerType", unique = true)
 })
 public class User implements Serializable {
@@ -36,7 +37,7 @@ public class User implements Serializable {
     @JsonIgnore
     private String providerId;
     @Column(nullable = false)
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private Type providerType;
 
     @Column(nullable = false)

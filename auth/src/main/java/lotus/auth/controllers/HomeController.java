@@ -32,6 +32,10 @@ import java.util.Map;
  */
 @Controller("auth.homeController")
 public class HomeController {
+    @GetMapping("/")
+    public String getIndex(){
+        return "index";
+    }
     @GetMapping("/info")
     @ResponseBody
     @Cacheable(value = "site.info", key = "#locale.toLanguageTag()")

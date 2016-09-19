@@ -13,6 +13,11 @@ import java.security.NoSuchAlgorithmException;
 @Component("auth.gravatarHelper")
 public class GravatarHelper {
     public String logo(String email) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        return Hex.encodeHexString(MessageDigest.getInstance("MD5").digest(email.getBytes("CP1252")));
+        return String.format(
+                "https://www.gravatar.com/avatar/%s",
+                Hex.encodeHexString(
+                        MessageDigest.getInstance("MD5").digest(email.getBytes("CP1252"))
+                )
+        );
     }
 }

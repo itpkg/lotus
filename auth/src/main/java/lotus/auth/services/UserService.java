@@ -1,5 +1,6 @@
 package lotus.auth.services;
 
+import lotus.auth.helpers.EncryptHelper;
 import lotus.auth.helpers.GravatarHelper;
 import lotus.auth.models.User;
 import lotus.auth.repositiries.UserRepository;
@@ -20,7 +21,7 @@ public class UserService {
         User u = new User();
         u.setEmail(email);
         u.setName(name);
-        u.setPassword(password);
+        u.setPassword(encryptHelper.password(password));
 
         u.setProviderType(User.Type.EMAIL);
         u.setProviderId(email);
@@ -34,4 +35,6 @@ public class UserService {
     UserRepository userRepository;
     @Resource
     GravatarHelper gravatarHelper;
+    @Resource
+    EncryptHelper encryptHelper;
 }
