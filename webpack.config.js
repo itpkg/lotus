@@ -15,7 +15,6 @@ module.exports = function (options) {
 
   entry.vendor = [
     'react',
-    'bootstrap',
     'react-bootstrap',
     'react-dom',
     'react-router',
