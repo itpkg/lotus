@@ -12,9 +12,13 @@
         </rollingPolicy>
 
         <encoder>
-            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+            <pattern>{HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg%n</pattern>
         </encoder>
     </appender>
+
+    <logger name="org.springframework" level="INFO" />
+    <logger name="org.thymeleaf" level="INFO" />
+    <logger name="org.hibernate" level="INFO" />
 
     <root level="DEBUG">
         <appender-ref ref="FILE" />
