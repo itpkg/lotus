@@ -19,6 +19,8 @@ jar {
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+    compile("org.springframework.boot:spring-boot-starter-cache")
+    compile("org.springframework.boot:spring-boot-starter-redis")
     compile("org.hibernate:hibernate-validator")
 
     compile group: 'org.postgresql', name: 'postgresql', version: '9.4.1210.jre7'
@@ -27,8 +29,6 @@ dependencies {
     def logbackVersion = '1.1.7'
     compile group: 'ch.qos.logback', name: 'logback-core', version: logbackVersion
     compile group: 'ch.qos.logback', name: 'logback-classic', version: logbackVersion
-
-//    compile("org.springframework.boot:spring-boot-devtools")
 
     compile project(":auth")
     compile project(":cms")
