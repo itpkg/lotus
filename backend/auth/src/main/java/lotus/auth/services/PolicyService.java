@@ -1,4 +1,4 @@
-package lotus.auth.service;
+package lotus.auth.services;
 
 import lotus.auth.models.Policy;
 import lotus.auth.models.Role;

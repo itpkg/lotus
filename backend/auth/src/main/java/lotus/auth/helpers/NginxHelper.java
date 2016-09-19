@@ -3,7 +3,7 @@ package lotus.auth.helpers;
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
-import lotus.auth.service.SettingService;
+import lotus.auth.services.SettingService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 

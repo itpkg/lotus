@@ -1,4 +1,4 @@
-package lotus.auth.service;
+package lotus.auth.services;
 
 import com.google.gson.Gson;
 import lotus.auth.helpers.EncryptHelper;

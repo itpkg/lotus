@@ -1,4 +1,4 @@
-package lotus.auth.service;
+package lotus.auth.services;
 
 import lotus.auth.helpers.GravatarHelper;
 import lotus.auth.models.User;

@@ -5,14 +5,14 @@ import lotus.auth.forms.InstallForm;
 import lotus.auth.helpers.NginxHelper;
 import lotus.auth.models.User;
 import lotus.auth.repositiries.UserRepository;
-import lotus.auth.service.PolicyService;
-import lotus.auth.service.SettingService;
-import lotus.auth.service.UserService;
+import lotus.auth.services.I18nService;
+import lotus.auth.services.PolicyService;
+import lotus.auth.services.SettingService;
+import lotus.auth.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.MessageSource;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,12 +38,12 @@ public class HomeController {
     public Map<String,Object> getInfo(Locale locale ){
         Map<String,Object> info = new HashMap<>();
         for(String k: new String[]{"title", "subTitle", "keywords", "description", "copyright"}){
-            info.put(k, settingService.get(String.format("%s://site/%s", locale.toLanguageTag(), k), String.class));
+            info.put(k, i18nService.t(locale, String.format("site.%s", k)));
         }
 
         Map<String,String> author = new HashMap<>();
         for(String k : new String[]{"name", "email"}){
-            author.put(k, settingService.get(String.format("%s://site/author/%s", locale.toLanguageTag(), k), String.class));
+            author.put(k, i18nService.t(locale, String.format("site.author.%s", k)));
         }
         info.put("author", author);
 
@@ -94,6 +94,8 @@ public class HomeController {
     UserRepository userRepository;
     @Resource
     PolicyService policyService;
+    @Resource
+    I18nService i18nService;
     private final static Logger logger = LoggerFactory.getLogger(HomeController.class);
 
 }
