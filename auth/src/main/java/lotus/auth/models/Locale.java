@@ -21,8 +21,7 @@ public class Locale {
     private String code;
     @Column(nullable = false, length = 6)
     private String lang;
-    @Column(nullable = false)
-    @Lob
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String body;
     @Column(nullable = false)
     private Date updatedAt;

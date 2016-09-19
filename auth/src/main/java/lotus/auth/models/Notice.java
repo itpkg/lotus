@@ -14,8 +14,7 @@ public class Notice implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @Column(nullable = false)
-    @Lob
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String body;
     @Column(nullable = false)
     private Date updatedAt;
