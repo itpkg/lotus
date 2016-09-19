@@ -1,13 +1,1 @@
-
-# editor
-/.idea
-
-# backend
 /release
-build
-/.gradle
-
-# front
-/webpack-production.config.js
-/node_modules
-/dist

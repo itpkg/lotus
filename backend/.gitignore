@@ -1,0 +1,6 @@
+# editor
+/.idea
+
+# gradle
+build
+/.gradle
