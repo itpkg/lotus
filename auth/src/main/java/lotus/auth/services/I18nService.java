@@ -9,7 +9,7 @@ import javax.annotation.Resource;
 /**
  * Created by flamen on 16-9-19.
  */
-@Component("auth.localeService")
+@Component("auth.i18nService")
 public class I18nService {
     public void set(java.util.Locale locale, String code, String body){
         Locale l = localeRepository.findByCodeAndLang(code, locale.toLanguageTag());

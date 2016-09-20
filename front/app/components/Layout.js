@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import Header from './Header'
 import Footer from './Footer'
-import {refresh} from '../engines/platform/actions'
+import {refresh} from '../engines/auth/actions'
 import {ajax} from '../utils'
 
 const Widget = React.createClass({

@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 import {IndexLinkContainer} from 'react-router-bootstrap'
 import {browserHistory} from 'react-router'
 
-import {signOut} from '../engines/platform/actions'
+import {signOut} from '../engines/auth/actions'
 import {isSignIn, ajax} from '../utils'
 
 const Widget = React.createClass({
@@ -16,15 +16,15 @@ const Widget = React.createClass({
           ? (
               <NavDropdown title={i18next.t('auth.welcome', {name: user.sub})} id="personal-bar">
                   <IndexLinkContainer to='/personal/dashboard'>
-                      <MenuItem>{i18next.t('platform.dashboard')}</MenuItem>
+                      <MenuItem>{i18next.t('auth.dashboard')}</MenuItem>
                   </IndexLinkContainer>
                   <MenuItem divider/>
-                  <MenuItem onClick={onSignOut}>{i18next.t('platform.sign_out')}</MenuItem>
+                  <MenuItem onClick={onSignOut}>{i18next.t('auth.sign_out')}</MenuItem>
               </NavDropdown>
           )
           : (
-              <NavDropdown title={i18next.t('platform.sign_in_or_up')} id="personal-bar">
-                  <MenuItem href={info.oauth2.google}>{i18next.t('platform.sign_in_with_google')}</MenuItem>
+              <NavDropdown title={i18next.t('auth.sign_in_or_up')} id="personal-bar">
+                  <MenuItem href={info.oauth2.google}>{i18next.t('auth.sign_in_with_google')}</MenuItem>
               </NavDropdown>
           )
   }

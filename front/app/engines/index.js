@@ -8,12 +8,13 @@ const engines = {
 
 export default {
   routes () {
-    return process.env.CHAOS.engines.reduce(function (obj, en) {
+    Object.keys(engines).reduce(function (obj, en) {
       return obj.concat(engines[en].routes)
     }, [])
+    return []
   },
   reducers () {
-    return process.env.CHAOS.engines.reduce(function (obj, en) {
+    return Object.keys(engines).reduce(function (obj, en) {
       return Object.assign(obj, engines[en].reducers)
     }, {})
   }
