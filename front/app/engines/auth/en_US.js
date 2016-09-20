@@ -9,7 +9,15 @@ export default {
       reset: 'Reset'
     },
     auth: {
-      sign_in_or_up: 'Sign in/up'
+      no_match: 'Not found',
+      users: {
+        sign_in_or_up: 'Sign in/up',
+        sign_in: 'Sign in',
+        sign_up: 'Sign up',
+        confirm: 'Confirm your account',
+        unlock: 'Unlock your account',
+        forgot_password: 'Forgot password？'
+      }
     }
   }
 }

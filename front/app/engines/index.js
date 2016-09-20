@@ -8,10 +8,9 @@ const engines = {
 
 export default {
   routes () {
-    Object.keys(engines).reduce(function (obj, en) {
+    return Object.keys(engines).reduce(function (obj, en) {
       return obj.concat(engines[en].routes)
     }, [])
-    return []
   },
   reducers () {
     return Object.keys(engines).reduce(function (obj, en) {

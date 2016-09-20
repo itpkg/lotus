@@ -10,7 +10,7 @@ import {isSignIn, ajax} from '../utils'
 
 const Widget = React.createClass({
   render () {
-    const {user, info, onSignOut} = this.props
+    const {user, onSignOut} = this.props
 
     return isSignIn(user)
           ? (
@@ -23,8 +23,22 @@ const Widget = React.createClass({
               </NavDropdown>
           )
           : (
-              <NavDropdown title={i18next.t('auth.sign_in_or_up')} id="personal-bar">
-                  <MenuItem href={info.oauth2.google}>{i18next.t('auth.sign_in_with_google')}</MenuItem>
+              <NavDropdown title={i18next.t('auth.users.sign_in_or_up')} id="personal-bar">
+                <IndexLinkContainer to='/users/sign-in'>
+                  <MenuItem>{i18next.t('auth.users.sign_in')}</MenuItem>
+                </IndexLinkContainer>
+                <IndexLinkContainer to='/users/sign-up'>
+                  <MenuItem>{i18next.t('auth.users.sign_up')}</MenuItem>
+                </IndexLinkContainer>
+                <IndexLinkContainer to='/users/forgot-password'>
+                  <MenuItem>{i18next.t('auth.users.forgot_password')}</MenuItem>
+                </IndexLinkContainer>
+                <IndexLinkContainer to='/users/confirm'>
+                  <MenuItem>{i18next.t('auth.users.confirm')}</MenuItem>
+                </IndexLinkContainer>
+                <IndexLinkContainer to='/users/unlock'>
+                  <MenuItem>{i18next.t('auth.users.unlock')}</MenuItem>
+                </IndexLinkContainer>
               </NavDropdown>
           )
   }
