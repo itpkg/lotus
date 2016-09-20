@@ -17,5 +17,10 @@ export default {
     return Object.keys(engines).reduce(function (obj, en) {
       return Object.assign(obj, engines[en].reducers)
     }, {})
+  },
+  locales () {
+    return Object.keys(engines).reduce(function (obj, en) {
+      return Object.assign(obj, engines[en].locales)
+    }, {})
   }
 }

@@ -6,8 +6,8 @@ const Widget = React.createClass({
   render () {
     return (
     <Nav pullRight>
-      <NavItem href="/?locale=en-US" target="_blank">{i18next.t('locales.en_US')}</NavItem>
-      <NavItem href="/?locale=zh-CN" target="_blank">{i18next.t('locales.zh_Hans')}</NavItem>
+      <NavItem href='/?locale=en-US' target="_blank">{i18next.t('locales.en_US')}</NavItem>
+      <NavItem href='/?locale=zh-CN' target="_blank">{i18next.t('locales.zh_CN')}</NavItem>
     </Nav>
     )
   }

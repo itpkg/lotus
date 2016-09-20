@@ -8,9 +8,12 @@ import LanguageDetector from 'i18next-browser-languagedetector'
 import main from './main'
 import {LOCALE} from './constants'
 
+import engines from './engines'
+
 i18next
     .use(LanguageDetector)
     .init({
+      resources: engines.locales(),
       detection: {
         order: ['querystring', 'localStorage', 'cookie', 'navigator'],
         lookupQuerystring: LOCALE,
