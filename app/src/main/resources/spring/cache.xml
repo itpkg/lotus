@@ -8,12 +8,12 @@
     <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
 
     </bean>
-    <bean id="stringRedisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
         <property name="connectionFactory" ref="jedisConnectionFactory"/>
     </bean>
 
     <bean id="cacheManager" class="org.springframework.data.redis.cache.RedisCacheManager">
-        <constructor-arg ref="stringRedisTemplate"/>
+        <constructor-arg ref="redisTemplate"/>
         <property name="usePrefix" value="true"/>
         <property name="cachePrefix">
             <bean class="lotus.RedisCachePrefix"/>
