@@ -67,7 +67,7 @@ gem 'kaminari'
 gem 'kaminari-i18n'
 
 gem 'simple_form'
-# gem 'jquery-turbolinks'
+
 gem 'html-pipeline'
 gem 'github-linguist'
 gem 'github-markdown'

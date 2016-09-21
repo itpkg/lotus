@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resource :notices
+  resources :notices, except: :show
 
   get 'dashboard' => 'dashboard#index'
   %w(logs status users).each { |act| get "dashboard/#{act}" }

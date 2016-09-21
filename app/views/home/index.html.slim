@@ -1,1 +1,8 @@
-h1 Home#index
+- @title = t 'shared.header.home'
+
+div class='row'
+  - Notice.order(updated_at: :desc).limit(12).each do |n|
+    blockquote
+      p #{md2hm n.content}
+      footer
+        == time_ago_in_words n.updated_at

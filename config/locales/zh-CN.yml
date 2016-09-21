@@ -26,8 +26,13 @@ zh-CN:
       profile: 个人信息
       users: 用户列表
       status: 系统状态
+      notices: 站点通知
   activerecord:
+    models:
+      notice: 通知
     attributes:
+      notice:
+        content: 内容
       user:
         last_sign_in_at: 上次登录在
         sign_in_count: 登录次数

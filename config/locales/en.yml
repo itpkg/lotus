@@ -47,6 +47,7 @@ en:
       profile: Profile
       users: Users
       status: System status
+      notices: Notices
   activerecord:
     attributes:
       user:

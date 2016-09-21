@@ -11,9 +11,9 @@ div class="row"
     div class="btn-group" role="group"
       == render 'shared/sample_button', title: t('.users'), href: dashboard_users_path
       == render 'shared/sample_button', title: t('.status'), href: dashboard_status_path
+      == render 'shared/sample_button', title: t('.notices'), href: notices_path
 
       == link_to t('.leave_words'), root_path, {class: 'btn btn-default'}
-      == link_to t('.notices'), root_path, {class: 'btn btn-default'}
       == link_to t('.site.info'), root_path, {class: 'btn btn-default'}
       == link_to t('.site.seo'), root_path, {class: 'btn btn-default'}
 
