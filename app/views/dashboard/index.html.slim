@@ -1,7 +1,9 @@
+- @title = t 'shared.personal_bar.dashboard'
+
 div class="row"
   div class="btn-group" role="group"
     == render 'shared/sample_button', title: t('.profile', resource: User.model_name.human), href: edit_user_registration_path
-    == render 'shared/sample_button', title: t('.logs'), href: root_path
+    == render 'shared/sample_button', title: t('.logs'), href: dashboard_logs_path
 
 - if current_user.is_admin?
   br

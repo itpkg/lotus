@@ -1,0 +1,8 @@
+- @title = t 'dashboard.index.logs'
+
+ul class="list-group"
+  - current_user.logs.order(id: :desc).limit(20).each do |l|
+    li class="list-group-item"
+      == time_ago_in_words l.created_at
+      | : &nbsp;
+      == l.message

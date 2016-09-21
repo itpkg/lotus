@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
 
   resource :notices
+
   get 'dashboard' => 'dashboard#index'
+  %w(logs status).each {|act| get "dashboard/#{act}"}
 
   root 'home#index'
 
