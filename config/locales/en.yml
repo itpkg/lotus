@@ -20,4 +20,14 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  are_you_sure: Are you sure?
+  buttons:
+    more: More
+    view: View
+    remove: Remove
+    new: New
+    edit: Edit
+    update: Update
+    submit: Submit
+    search: Search
+    reset: Reset

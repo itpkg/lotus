@@ -20,3 +20,4 @@
 /.idea
 *.swp
 /.rbenv-vars
+/node_modules

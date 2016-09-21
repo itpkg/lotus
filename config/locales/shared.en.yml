@@ -1,0 +1,12 @@
+en:
+  shared:
+    personal_bar:
+      welcome: "Welcome, %{name}"
+      dashboard: Dashboard
+      sign_out: Sign out
+      sign_in_or_up: Sign in/up
+    flash_box:
+      success: Successed
+      fail: Failed
+    lang_bar:
+      switch_lang: Switch lang

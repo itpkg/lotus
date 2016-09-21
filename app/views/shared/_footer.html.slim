@@ -1,8 +1,11 @@
 hr
 footer
   p class="pull-right"
-    == link_to image_tag('famfamfam-flags/dist/png/us.png'), {locale: :en}, target: :_blank
-    == link_to image_tag('famfamfam-flags/dist/png/cn.png'), {locale: 'zh-CN'}, target: :_blank
+    == link_to t('languages.english'), {locale: :en}
+    | &nbsp;
+    == link_to t('languages.simplified_chinese'), {locale: 'zh-CN'}
+    | &nbsp;
+    == link_to t('languages.traditional_chinese'), {locale: 'zh-TW'}
 
   p
     == Setting.get_site_info :copyright
