@@ -1,16 +1,16 @@
 h2
   == t '.title', resource: resource_name.to_s.humanize
 
-== simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| 
+  == simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put}) do |f|
   == f.error_notification
-  == f.input :email, required: true, autofocus: true
-  - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-    p Currently waiting confirmation for:
+    == f.input :email, required: true, autofocus: true
+    - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+      p Currently waiting confirmation for:
       == resource.unconfirmed_email
-  == f.input :password, autocomplete: 'off', hint: t('.leave_blank_if_you_don_t_want_to_change_it'), required: false
-  == f.input :password_confirmation, required: false
-  == f.input :current_password, hint: t('.we_need_your_current_password_to_confirm_your_changes'), required: true
-  == f.button :submit, t('.update')
+      == f.input :password, autocomplete: 'off', hint: t('.leave_blank_if_you_don_t_want_to_change_it'), required: false
+      == f.input :password_confirmation, required: false
+      == f.input :current_password, hint: t('.we_need_your_current_password_to_confirm_your_changes'), required: true
+      == f.button :submit, t('.update')
 
 
 h3

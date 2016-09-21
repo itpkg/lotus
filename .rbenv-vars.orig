@@ -1,5 +1,7 @@
 RAILS_ENV=production
 
+LOCALE=zh-CN
+
 HOST=change-me.com
 
 MAILER_SENDER=no-reply@change-me.com

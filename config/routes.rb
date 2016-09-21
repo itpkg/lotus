@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+
+  resource :notices
+  get 'dashboard' => 'dashboard/index'
+
   root 'home#index'
 
   devise_for :users

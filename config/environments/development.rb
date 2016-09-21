@@ -18,7 +18,7 @@ Rails.application.configure do
 
     config.cache_store = :memory_store
     config.public_file_server.headers = {
-      'Cache-Control' => 'public, max-age=172800'
+        'Cache-Control' => 'public, max-age=172800'
     }
   else
     config.action_controller.perform_caching = false
@@ -53,6 +53,6 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   # my
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.default_url_options = {host: 'localhost', port: 3000}
   Slim::Engine.set_options pretty: true, sort_attrs: false
 end
