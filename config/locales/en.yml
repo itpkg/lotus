@@ -48,6 +48,7 @@ en:
       users: Users
       status: System status
       notices: Notices
+      leave_words: Leave words
   activerecord:
     attributes:
       user:

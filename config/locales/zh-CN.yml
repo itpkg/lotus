@@ -27,10 +27,14 @@ zh-CN:
       users: 用户列表
       status: 系统状态
       notices: 站点通知
+      leave_words: 留言板
   activerecord:
     models:
       notice: 通知
+      leave_word: 留言
     attributes:
+      leave_word:
+        content: 内容
       notice:
         content: 内容
       user:

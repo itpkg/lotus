@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :leave_words, except: [:show, :edit, :update]
+
   resources :notices, except: :show
 
   get 'dashboard' => 'dashboard#index'
