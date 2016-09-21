@@ -46,3 +46,53 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+
+# my
+gem 'slim'
+
+gem 'devise', '~> 4.2'
+gem 'devise_invitable', '~> 1.7.0'
+gem 'devise-i18n'
+gem 'rolify'
+gem 'pundit'
+
+gem 'omniauth-github'
+gem 'omniauth-facebook'
+gem 'omniauth-google-oauth2'
+gem "omniauth-wechat-oauth2"
+gem 'omniauth-qq'
+gem 'omniauth-weibo-oauth2'
+
+gem 'kaminari'
+gem 'kaminari-i18n'
+
+gem 'simple_form'
+# gem 'jquery-turbolinks'
+# gem 'html-pipeline'
+# gem 'github-linguist'
+# gem 'github-markdown'
+# gem 'gemoji'
+
+gem 'rails-settings-cached'
+gem 'carrierwave'
+
+gem 'sidekiq'
+gem 'sinatra', require: false
+gem 'rails-i18n', '~> 5.0.0'
+
+gem 'sitemap_generator'
+
+gem 'gravtastic'
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
+gem 'lograge'
+
+group :development do
+  gem 'capistrano', '~> 3.1'
+  gem 'capistrano-rails', '~> 1.1'
+  gem 'capistrano-rbenv', '~> 2.0'
+  gem 'capistrano-npm'
+  gem 'capistrano3-puma', github: 'seuros/capistrano-puma'
+  gem 'capistrano-sidekiq', github: 'seuros/capistrano-sidekiq'
+end
