@@ -12,7 +12,25 @@ zh-CN:
     reset: 重写
     back: 返回
   dashboard:
+    status:
+      database: 数据库
+      cache:
+        title: 缓存
+        clear: 清空
+      jobs: 后台任务
+      search: 站内搜索
+      rails:
+        version: 版本号
+        root: 根目录
     index:
       logs: 日志列表
       profile: 个人信息
       users: 用户列表
+      status: 系统状态
+  activerecord:
+    attributes:
+      user:
+        last_sign_in_at: 上次登录在
+        sign_in_count: 登录次数
+        confirmed_at: 激活账户于
+

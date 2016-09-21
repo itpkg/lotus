@@ -1,0 +1,28 @@
+- @title = t 'dashboard.index.status'
+
+div class='row'
+  div class='col-md-8'
+    h3 RUBY
+    hr
+    pre #{`gem env`}
+  div class='col-md-4'
+    h3 Rails
+    hr
+    ul
+      li #{t '.rails.root'}: #{Rails.root}
+      li RAILS_ENV: #{Rails.env}
+      li #{t '.rails.version'}: #{Rails.version}
+
+  div class='col-md-4'
+    h3 #{t '.database'}
+    hr
+  div class='col-md-4'
+    h3 #{t '.cache.title'}
+    hr
+    == button_to t('.cache.clear'), dashboard_cache_path, data: { confirm: t('are_you_sure') }, method: :delete, class: 'btn btn-danger'
+  div class='col-md-4'
+    h3 #{t '.search'}
+    hr
+  div class='col-md-4'
+    h3 #{t '.jobs'}
+    hr

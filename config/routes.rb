@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   get 'dashboard' => 'dashboard#index'
   %w(logs status users).each {|act| get "dashboard/#{act}"}
+  delete 'dashboard/cache'
 
   root 'home#index'
 
