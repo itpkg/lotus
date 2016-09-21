@@ -1,0 +1,11 @@
+div class="row"
+  - User.order(last_sign_in_at: :desc).each do |u|
+    div class="col-sm-6 col-md-4"
+      div class="thumbnail"
+        == image_tag u.gravatar_url(size: 240)
+        div class="caption"
+          h3 #{u.email}
+          ul
+            li #{t 'activerecord.attributes.user.last_sign_in_at'}: #{time_ago_in_words(u.last_sign_in_at) if u.last_sign_in_at}
+            li #{t 'activerecord.attributes.user.sign_in_count'}: #{u.sign_in_count}
+            li #{t 'activerecord.attributes.user.confirmed_at'}: #{time_ago_in_words(u.confirmed_at) if u.confirmed_at}

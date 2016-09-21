@@ -9,7 +9,8 @@ div class="row"
   br
   div class="row"
     div class="btn-group" role="group"
-      == link_to t('.users'), root_path, {class: 'btn btn-default'}
+      == render 'shared/sample_button', title: t('.users'), href: dashboard_users_path
+
       == link_to t('.leave_words'), root_path, {class: 'btn btn-default'}
       == link_to t('.notices'), root_path, {class: 'btn btn-default'}
       == link_to t('.site.info'), root_path, {class: 'btn btn-default'}
