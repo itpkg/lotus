@@ -1,5 +1,5 @@
 class NoticesController < ApplicationController
-  before_action :must_admin!
+  before_action :must_admin!, except: [:index]
 
   def new
     @notice = Notice.new
