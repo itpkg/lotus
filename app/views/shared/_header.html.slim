@@ -1,0 +1,28 @@
+nav class="navbar navbar-inverse navbar-fixed-top"
+  div class="container"
+    div class="navbar-header"
+      button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"
+        span class="sr-only" Toggle navigation
+        span class="icon-bar"
+        span class="icon-bar"
+        span class="icon-bar"
+
+      == link_to Setting.get_site_info(:subTitle), root_path, {class: 'navbar-brand'}
+
+    div id="navbar" class="navbar-collapse collapse"
+      ul class="nav navbar-nav"
+        li
+          == link_to t('home.index'), root_path
+        li
+          == link_to t('forum.index'), root_path
+        li
+          == link_to t('reading.index'), root_path
+        li
+          == link_to t('dashboard.site.help'), root_path
+        li
+          == link_to t('dashboard.site.faq'), root_path
+        li
+          == link_to t('dashboard.site.about'), root_path
+
+      ul class="nav navbar-nav navbar-right"
+        == render 'shared/personal_bar'
