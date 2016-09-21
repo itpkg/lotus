@@ -34,10 +34,11 @@ GRANT ALL PRIVILEGES ON DATABASE db-name TO user-name;
 ## Build
 
 ```
+go get github.com/beego/bee
 go get github.com/itpkg/lotus
-cd $github.com/itpkg/lotus/demo
-make
-ls dist
+cd $GOPATH/github.com/itpkg/lotus
+bee pack
+ls -lh lotus.tar.gz
 ```
 
 ## Editor
