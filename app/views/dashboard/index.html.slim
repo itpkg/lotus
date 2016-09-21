@@ -1,1 +1,15 @@
-h1 Dashboard
+div class="row"
+  div class="btn-group" role="group"
+    == render 'shared/sample_button', title: t('.profile', resource: User.model_name.human), href: edit_user_registration_path
+    == render 'shared/sample_button', title: t('.logs'), href: root_path
+
+- if current_user.is_admin?
+  br
+  div class="row"
+    div class="btn-group" role="group"
+      == link_to t('.users'), root_path, {class: 'btn btn-default'}
+      == link_to t('.leave_words'), root_path, {class: 'btn btn-default'}
+      == link_to t('.notices'), root_path, {class: 'btn btn-default'}
+      == link_to t('.site.info'), root_path, {class: 'btn btn-default'}
+      == link_to t('.site.seo'), root_path, {class: 'btn btn-default'}
+

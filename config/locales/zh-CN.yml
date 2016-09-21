@@ -10,3 +10,8 @@ zh-CN:
     submit: 提交
     search: 搜索
     reset: 重写
+    back: 返回
+  dashboard:
+    index:
+      logs: 日志列表
+      profile: 个人信息

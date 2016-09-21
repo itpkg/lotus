@@ -31,3 +31,8 @@ en:
     submit: Submit
     search: Search
     reset: Reset
+    back: Back
+  dashboard:
+    index:
+      logs: Logs
+      profile: Profile
