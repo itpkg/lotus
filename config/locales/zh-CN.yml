@@ -13,7 +13,6 @@ zh-CN:
     back: 返回
   dashboard:
     status:
-      database: 数据库
       cache:
         title: 缓存
         clear: 清空

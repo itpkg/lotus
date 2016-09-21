@@ -13,9 +13,10 @@ div class='row'
       li RAILS_ENV: #{Rails.env}
       li #{t '.rails.version'}: #{Rails.version}
 
-  div class='col-md-4'
-    h3 #{t '.database'}
+  div class='col-md-8'
+    h3 #{ActiveRecord::Base.connection.adapter_name}
     hr
+    pre #{JSON.pretty_generate @database}
   div class='col-md-4'
     h3 #{t '.cache.title'}
     hr
@@ -26,3 +27,5 @@ div class='row'
   div class='col-md-4'
     h3 #{t '.jobs'}
     hr
+    == link_to t('buttons.view'), sidekiq_web_path, target: :_blank, class: 'btn btn-info'
+
