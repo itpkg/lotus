@@ -54,4 +54,5 @@ Rails.application.configure do
 
   # my
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  Slim::Engine.set_options pretty: true, sort_attrs: false
 end
