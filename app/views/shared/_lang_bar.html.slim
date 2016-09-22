@@ -4,8 +4,8 @@ li class="dropdown"
     span class="caret"
   ul class="dropdown-menu"
     li
-      == link_to t('languages.english'), {locale: :en}
+      == link_to t('languages.english'), {locale: :en, format:params[:format]}
     li
-      == link_to t('languages.simplified_chinese'), {locale: 'zh-CN'}
+      == link_to t('languages.simplified_chinese'), {locale: 'zh-CN', format:params[:format]}
     li
-      == link_to t('languages.traditional_chinese'), {locale: 'zh-TW'}
+      == link_to t('languages.traditional_chinese'), {locale: 'zh-TW', format:params[:format]}
