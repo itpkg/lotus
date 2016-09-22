@@ -6,6 +6,11 @@ zh-CN:
         users: 用户列表
         domains: 域列表
         aliases: 别名列表
+      change_password:
+        title: 修改你的邮件账户密码
+        old_password: 当前密码
+        new_password: 新密码
+        re_password: 密码确认
   activerecord:
     models:
       mail/domain: 域

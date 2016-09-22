@@ -4,6 +4,10 @@ Rails.application.routes.draw do
 
   namespace :mail do
     root 'home#index'
+
+    get 'change_password' => 'home#change_password'
+    post 'change_password' => 'home#change_password'
+
     %w(postfix dovecot).each {|act| get act => "home##{act}"}
     resources :domains, expect: [:show, :index]
     resources :users, expect: [:show, :index]

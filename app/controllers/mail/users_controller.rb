@@ -7,6 +7,7 @@ class Mail::UsersController < ApplicationController
 
   def create
     @user = Mail::User.new params.require(:mail_user).permit(:email, :password, :domain_id)
+    @user.password! @user.password
     if @user.save
       flash[:notice] = ' '
       redirect_to mail_root_path
@@ -24,7 +25,11 @@ class Mail::UsersController < ApplicationController
 
   def update
     @user = Mail::User.find params[:id]
-    if @user.update params.require(:mail_user).permit(:email, :password, :domain_id)
+    args = params.require(:mail_user).permit(:email, :password, :domain_id)
+    @user.email = args[:email]
+    @user.domain_id = args[:domain_id]
+    @user.password! args[:password]
+    if @user.save
       flash[:notice] = ' '
       redirect_to mail_root_path
     else

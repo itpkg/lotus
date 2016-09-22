@@ -6,6 +6,11 @@ en:
         users: Users
         domains: Domains
         aliases: Aliases
+      change_password:
+        title: Change your mail's password
+        old_password: Current password
+        new_password: New password
+        re_password: Password confirmation
   activerecord:
     models:
       mail/domain: Domain
