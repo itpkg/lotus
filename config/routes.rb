@@ -12,6 +12,11 @@ Rails.application.routes.draw do
   end
   delete 'dashboard/cache'
 
+  post 'rate' => 'home#rate'
+
+  get 'google(*id).html', to: 'home#google'
+  get 'baidu_verify_(*id).html', to: 'home#baidu'
+
   root 'home#index'
 
   devise_for :users
