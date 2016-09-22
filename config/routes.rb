@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     resources :books, only: [:index, :destroy, :show]
     get 'page/:id/*file' => 'page#index', as: :page
 
-    resources :notes
+    resources :notes, except: [:show]
   end
 
   # ------------------

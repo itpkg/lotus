@@ -61,13 +61,13 @@ ActiveRecord::Schema.define(version: 20160922032929) do
   end
 
   create_table "reading_notes", force: :cascade do |t|
-    t.text     "body",                        null: false
-    t.integer  "user_id",                     null: false
-    t.integer  "reading_book_id",             null: false
-    t.integer  "rate",            default: 0, null: false
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.index ["reading_book_id"], name: "index_reading_notes_on_reading_book_id", using: :btree
+    t.text     "body",                   null: false
+    t.integer  "user_id",                null: false
+    t.integer  "book_id",                null: false
+    t.integer  "rate",       default: 0, null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.index ["book_id"], name: "index_reading_notes_on_book_id", using: :btree
     t.index ["user_id"], name: "index_reading_notes_on_user_id", using: :btree
   end
 
@@ -124,6 +124,5 @@ ActiveRecord::Schema.define(version: 20160922032929) do
   end
 
   add_foreign_key "logs", "users"
-  add_foreign_key "reading_notes", "reading_books"
   add_foreign_key "reading_notes", "users"
 end

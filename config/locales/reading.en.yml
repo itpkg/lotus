@@ -6,12 +6,18 @@ en:
     page:
       index:
         notes: Notes
+    notes:
+      index:
+        title: Notes
   activerecord:
     models:
       reading/book: Book
+      reading/note: Note
     attributes:
       reading/book:
         creator: Creator
         publisher: Publisher
         subject: Subject
         date: Date
+      reading/note:
+        content: Content

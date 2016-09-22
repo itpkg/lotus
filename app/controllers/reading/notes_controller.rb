@@ -1,21 +1,21 @@
 class Reading::NotesController < ApplicationController
   def index
-    @notes = Note.order(updated_at: :desc).page params[:page]
+    @notes = Reading::Note.order(updated_at: :desc).page params[:page]
   end
 
   def new
-    @note = Note.new
-    @note.reading_book_id = params[:book_id]
+    @note = Reading::Note.new
+    @note.book_id = params[:book_id]
     authorize @note
     render 'form'
   end
 
   def create
-    @note = Note.new params.require(:note).permit(:body, :book_id)
+    @note = Reading::Note.new params.require(:reading_note).permit(:body, :book_id)
     authorize @note
     @note.user = current_user
     if @note.save
-      redirect_to book_path(@note.book)
+      redirect_to reading_notes_path
     else
       render 'form'
     end
@@ -23,16 +23,16 @@ class Reading::NotesController < ApplicationController
   end
 
   def edit
-    @note = Note.find params[:id]
+    @note = Reading::Note.find params[:id]
     authorize @note
     render 'form'
   end
 
   def update
-    @note = Note.find params[:id]
+    @note = Reading::Note.find params[:id]
     authorize @note
-    if @note.update params.require(:note).permit(:body)
-      redirect_to book_path(@note.book)
+    if @note.update params.require(:reading_note).permit(:body)
+      redirect_to reading_notes_path
     else
       render 'form'
     end
@@ -41,8 +41,9 @@ class Reading::NotesController < ApplicationController
 
 
   def destroy
-    @note = Note.find params[:id]
-    authorize @note
-    redirect_to book_path(@note.book)
+    note = Reading::Note.find params[:id]
+    authorize note
+    note.destroy
+    redirect_to reading_notes_path
   end
 end

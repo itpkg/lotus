@@ -6,12 +6,18 @@ zh-CN:
     page:
       index:
         notes: 相关笔记
+    notes:
+      index:
+        title: 笔记列表
   activerecord:
     models:
       reading/book: 书籍
+      reading/note: 笔记
     attributes:
       reading/book:
         creator: 作者
         publisher: 发布者
         subject: 主题
         date: 发布日期
+      reading/note:
+        body: 正文
