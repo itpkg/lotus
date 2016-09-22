@@ -1,0 +1,16 @@
+
+div class="row"
+  h3 #{@title = t '.title'}
+  hr
+  == form_tag do
+    div class="form-group"
+      == label_tag :keyword, t('.keyword')
+      == text_field_tag :keyword,'', {class: 'form-control'}
+
+    == submit_tag t('buttons.search'), {class: 'btn btn-default'}
+
+br
+- if @result
+  div class="row"
+  pre
+    code class="book-content" #{@result}

@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  get 'dict' => 'dict#index'
+  post 'dict' => 'dict#index'
+
   resources :leave_words, except: [:show, :edit, :update]
 
   resources :notices, except: :show

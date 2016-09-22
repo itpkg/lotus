@@ -11,6 +11,13 @@ zh-CN:
     search: 搜索
     reset: 重写
     back: 返回
+  errors:
+    bad_input: 错误的输入
+  dict:
+    index:
+      title: 在线字典
+      keyword: 关键字
+      results: 搜索结果
   dashboard:
     status:
       cache:

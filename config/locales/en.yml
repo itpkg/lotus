@@ -32,6 +32,13 @@ en:
     search: Search
     reset: Reset
     back: Back
+  errors:
+    bad_input: Bad input data.
+  dict:
+    index:
+      title: Dict
+      keyword: Keyword
+      results: Search results
   dashboard:
     status:
       cache:
