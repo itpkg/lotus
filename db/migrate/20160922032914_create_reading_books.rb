@@ -10,7 +10,7 @@ class CreateReadingBooks < ActiveRecord::Migration[5.0]
       t.string :date, null: false
       t.string :version, null: false
 
-      t.string :uid, null: false, limit:36
+      t.string :uid, null: false, limit: 36
       t.string :file, null: false
       t.string :home, null: false
       t.integer :rate, null: false, default: 0

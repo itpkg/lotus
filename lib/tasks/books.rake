@@ -41,6 +41,9 @@ namespace :books do
       if bk.creator.empty?
         bk.creator = '-'
       end
+      if bk.publisher.empty?
+        bk.publisher = '-'
+      end
 
       bk.file = file[Rails.root.to_s.size+1..-1]
 

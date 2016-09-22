@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160922163356) do
+ActiveRecord::Schema.define(version: 20160922205253) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20160922163356) do
   create_table "cms_articles_tags", id: false, force: :cascade do |t|
     t.integer "article_id"
     t.integer "tag_id"
+    t.index ["article_id", "tag_id"], name: "index_cms_articles_tags_on_article_id_and_tag_id", unique: true, using: :btree
     t.index ["article_id"], name: "index_cms_articles_tags_on_article_id", using: :btree
     t.index ["tag_id"], name: "index_cms_articles_tags_on_tag_id", using: :btree
   end
@@ -48,6 +49,7 @@ ActiveRecord::Schema.define(version: 20160922163356) do
     t.integer  "rate",       default: 0, null: false
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.index ["name"], name: "index_cms_tags_on_name", unique: true, using: :btree
   end
 
   create_table "leave_words", force: :cascade do |t|
@@ -62,6 +64,34 @@ ActiveRecord::Schema.define(version: 20160922163356) do
     t.integer  "user_id"
     t.datetime "created_at",             null: false
     t.index ["user_id"], name: "index_logs_on_user_id", using: :btree
+  end
+
+  create_table "mail_aliases", force: :cascade do |t|
+    t.integer  "domain_id",   null: false
+    t.string   "source",      null: false
+    t.string   "destination", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["destination"], name: "index_mail_aliases_on_destination", using: :btree
+    t.index ["domain_id"], name: "index_mail_aliases_on_domain_id", using: :btree
+    t.index ["source", "destination"], name: "index_mail_aliases_on_source_and_destination", unique: true, using: :btree
+    t.index ["source"], name: "index_mail_aliases_on_source", using: :btree
+  end
+
+  create_table "mail_domains", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "mail_users", force: :cascade do |t|
+    t.integer  "domain_id",  null: false
+    t.string   "password",   null: false
+    t.string   "email",      null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["domain_id"], name: "index_mail_users_on_domain_id", using: :btree
+    t.index ["email"], name: "index_mail_users_on_email", unique: true, using: :btree
   end
 
   create_table "notices", force: :cascade do |t|
