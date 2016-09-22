@@ -14,8 +14,8 @@ git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
 git clone https://github.com/rbenv/rbenv-vars.git ~/.rbenv/plugins/rbenv-vars
 
 # Modify your ~/.zshrc file instead of ~/.bash_profile
-echo 'export PATH=$HOME/.rbenv/bin:$PATH' >> ~/.bash_profile 
-echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
+echo 'export PATH=$HOME/.rbenv/bin:$PATH' >> ~/.bashrc
+echo 'eval "$(rbenv init -)"' >> ~/.bashrc
  
 # After re-login
 rbenv install -l    
@@ -26,7 +26,7 @@ gem install bundler
 
 * System dependencies
 ```
-sudo apt-get install -y cmake libicu-dev sdcv
+sudo apt-get install -y cmake libicu-dev sdcv pkg-config libpq-dev
 
 # Install nodejs
 curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
@@ -63,6 +63,7 @@ sudo service elasticsearch restart
 
 * Configuration
 ```
+sudo apt-get install -y pwgen
 vi .rbenv-vars
 vi config/database.yml
 vi config/sidekiq.yml
@@ -91,18 +92,18 @@ rake test
 
 ```
 # deploy
-cap production deploy
+bundle exec cap production deploy
 # upload puma.conf
-cap production puma:config
+bundle exec cap production puma:config
 # upload nginx config file
-cap production puma:nginx_config
+bundle exec cap production puma:nginx_config
 # create sitemap.xml.gz    
-cap production deploy:sitemap:create
+bundle exec cap production deploy:sitemap:create
 ```
 
 * Peer authentication failed for user
 
-Need edit file "/etc/postgresql/9.3/main/pg_hba.conf" change line:
+Need edit file "/etc/postgresql/9.5/main/pg_hba.conf" change line:
 ```
     local   all             all                                     peer
 ```    

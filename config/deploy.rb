@@ -9,6 +9,7 @@ set :repo_url, 'https://github.com/itpkg/lotus.git'
 
 # Default deploy_to directory is /var/www/my_app_name
 # set :deploy_to, '/var/www/my_app_name'
+set :deploy_to, -> { "/var/www/#{fetch :app_domain, 'localhost'}" }
 
 # Default value for :scm is :git
 # set :scm, :git
@@ -45,6 +46,6 @@ set :rbenv_ruby, File.read('.ruby-version').strip
 # set :npm_flags, '--silent --no-progress'
 
 # nginx
-set :nginx_config_name, -> { "#{fetch(:app_domain)}.conf" }
+set :nginx_config_name, -> { "#{fetch(:app_domain)}" }
 set :nginx_server_name, -> { fetch :app_domain }
 set :nginx_use_ssl, true

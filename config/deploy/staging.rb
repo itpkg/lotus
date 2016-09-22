@@ -1,4 +1,4 @@
-set :app_domain, 'change-me.com'
+set :app_domain, 'www.change-me.com'
 
 role :app, %w{deploy@change-me.com}
 role :web, %w{deploy@change-me.com}
