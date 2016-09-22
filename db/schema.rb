@@ -10,10 +10,45 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160922032929) do
+ActiveRecord::Schema.define(version: 20160922163356) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "cms_articles", force: :cascade do |t|
+    t.string   "title",                  null: false
+    t.text     "body",                   null: false
+    t.integer  "rate",       default: 0, null: false
+    t.integer  "user_id",                null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.index ["user_id"], name: "index_cms_articles_on_user_id", using: :btree
+  end
+
+  create_table "cms_articles_tags", id: false, force: :cascade do |t|
+    t.integer "article_id"
+    t.integer "tag_id"
+    t.index ["article_id"], name: "index_cms_articles_tags_on_article_id", using: :btree
+    t.index ["tag_id"], name: "index_cms_articles_tags_on_tag_id", using: :btree
+  end
+
+  create_table "cms_comments", force: :cascade do |t|
+    t.text     "body",                   null: false
+    t.integer  "rate",       default: 0, null: false
+    t.integer  "user_id",                null: false
+    t.integer  "article_id",             null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.index ["article_id"], name: "index_cms_comments_on_article_id", using: :btree
+    t.index ["user_id"], name: "index_cms_comments_on_user_id", using: :btree
+  end
+
+  create_table "cms_tags", force: :cascade do |t|
+    t.string   "name",                   null: false
+    t.integer  "rate",       default: 0, null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "leave_words", force: :cascade do |t|
     t.text     "content",    null: false
@@ -123,6 +158,8 @@ ActiveRecord::Schema.define(version: 20160922032929) do
     t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
   end
 
+  add_foreign_key "cms_articles", "users"
+  add_foreign_key "cms_comments", "users"
   add_foreign_key "logs", "users"
   add_foreign_key "reading_notes", "users"
 end
