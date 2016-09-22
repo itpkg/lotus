@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
     resources :articles
     resources :tags
-    resources :comments
+    resources :comments, except: :show
   end
 
   # ------------------

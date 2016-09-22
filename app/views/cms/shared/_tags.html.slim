@@ -1,0 +1,3 @@
+div class="row"
+  - tags.each do |tag|
+    == link_to tag.name, cms_tag_path(tag), {class: "btn btn-#{%w(default primary success info warning danger).sample}"}

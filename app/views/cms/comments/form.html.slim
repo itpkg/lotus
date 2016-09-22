@@ -1,0 +1,4 @@
+== simple_form_for @comment do |f|
+    == f.input :article_id, as: :hidden
+    == f.input :body, input_html: {rows: 10}
+    == f.button :submit

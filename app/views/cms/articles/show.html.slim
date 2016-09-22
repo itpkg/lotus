@@ -1,0 +1,27 @@
+h3
+  == @title = @article.title
+  - if policy(@article).update?
+    == link_to t('buttons.edit'), edit_cms_article_path(@article)
+    == link_to t('buttons.remove'), cms_article_path(@article), method: :delete, data: {confirm: t('are_you_sure')}
+
+hr
+== render 'cms/shared/tags', tags:@article.tags
+br
+p #{md2hm @article.body}
+br
+== render 'shared/rate_box', resource:@article
+br
+h4
+  == t '.comments'
+  - if current_user
+    == link_to t('buttons.new'), new_cms_comment_path(article_id: @article.id)
+hr
+- @article.comments.order(updated_at: :desc).each do |c|
+    blockquote
+      p #{c.body}
+      footer
+        == time_ago_in_words c.updated_at
+        cite
+          - if policy(@article).update?
+            == link_to t('buttons.edit'), edit_cms_comment_path(c)
+            == link_to t('buttons.remove'), cms_comment_path(c), method: :delete, data: {confirm: t('are_you_sure')}

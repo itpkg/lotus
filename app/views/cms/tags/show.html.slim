@@ -1,0 +1,9 @@
+h3 #{@title=@tag.name}
+  - if policy(@tag).edit?
+    == link_to t('buttons.edit'), edit_tag_path(@tag)
+  - if policy(@tag).destroy?
+    == link_to t('buttons.remove'), tag_path(@tag), method: :delete, data: {confirm: t('home.are_you_sure')}
+
+hr
+
+== render 'cms/shared/articles', articles: @tag.articles

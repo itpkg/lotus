@@ -1,0 +1,7 @@
+h3 #{@title = t '.title'}
+
+hr
+
+== render 'cms/shared/articles', articles: @articles
+
+== paginate @articles

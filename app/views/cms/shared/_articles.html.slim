@@ -1,0 +1,7 @@
+div class="row"
+  - articles.each do |a|
+    div class="col-md-4"
+      h4 #{a.title}
+      p #{md2hm a.summary}
+      p
+        == link_to raw(t('buttons.details')), cms_article_path(a), {class: 'btn btn-default'}

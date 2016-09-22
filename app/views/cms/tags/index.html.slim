@@ -1,0 +1,5 @@
+h3 #{@title = t '.title'}
+  - if policy(Tag.new).new?
+      == link_to t('buttons.new'), new_tag_path
+hr
+== render 'cms/shared/tags', tags: Cms::Tag.order(updated_at: :desc)
