@@ -1,6 +1,7 @@
 class HomeController < ApplicationController
   def index
-    redirect_to Setting.site_home || notices_path
+    home = Setting.get_site_info :home_goto
+    redirect_to (home.nil? ? notices_path : home)
   end
 
   def google

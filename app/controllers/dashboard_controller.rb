@@ -8,7 +8,7 @@ class DashboardController < ApplicationController
   end
 
   def status
-    config   = Rails.configuration.database_configuration
+    config = Rails.configuration.database_configuration
     case ActiveRecord::Base.connection.adapter_name
       when 'PostgreSQL'
         @database = [
@@ -40,6 +40,21 @@ class DashboardController < ApplicationController
     case request.method_symbol
       when :post
         [:google_verify_id, :baidu_verify_id].each { |k| Setting[k]= params[k] }
+        flash[:notice] = ' '
+      else
+
+    end
+  end
+
+  def nav_bar
+    case request.method_symbol
+      when :post
+        # home = params[:home_goto]
+        # unless home.nil?
+        #   Setting.set_site_info :home_goto, self.send(home)
+        # end
+
+        [:home_goto, :top_links].each { |k| Setting.set_site_info k, params[k] }
         flash[:notice] = ' '
       else
 

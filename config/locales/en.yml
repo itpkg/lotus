@@ -51,6 +51,7 @@ en:
       leave_words: Leave words
       info: Info
       seo: Search engine
+      nav_bar: Nav bar
     info:
       title: Title
       subTitle: Sub title
@@ -58,6 +59,9 @@ en:
       author: Author
       description: Description
       copyright: Copyright
+    nav_bar:
+      home_goto: Home path
+      top_links: Top links
   activerecord:
     attributes:
       user:

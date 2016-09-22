@@ -1,0 +1,14 @@
+
+div class="row"
+  h3 #{@title = t 'dashboard.index.nav_bar'}
+  hr
+  == form_tag do 
+    div class="form-group"
+      == label_tag :home_goto, t('.home_goto')
+      == text_field_tag :home_goto, Setting.get_site_info(:home_goto), {class: 'form-control'}
+
+    div class="form-group"
+      == label_tag :top_links, t('.top_links')
+      == text_area_tag :top_links, Setting.get_site_info(:top_links), {class: 'form-control'}
+
+    == submit_tag t('buttons.update'), {class: 'btn btn-default'} 

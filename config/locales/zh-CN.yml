@@ -30,6 +30,7 @@ zh-CN:
       leave_words: 留言板
       info: 站点信息
       seo: 搜索引擎
+      nav_bar: 导航栏
     info:
       title: 标题
       subTitle: 副标题
@@ -37,6 +38,9 @@ zh-CN:
       author: 作者
       description: 简介
       copyright: 版权信息
+    nav_bar:
+      home_goto: 主页地址
+      top_links: 顶部导航
   activerecord:
     models:
       notice: 通知

@@ -13,16 +13,9 @@ nav class="navbar navbar-inverse navbar-fixed-top"
       ul class="nav navbar-nav"
         li
           == link_to t('.home'), root_path
-        li
-          == link_to t('forum.index'), root_path
-        li
-          == link_to t('reading.index'), root_path
-        li
-          == link_to t('dashboard.site.help'), root_path
-        li
-          == link_to t('dashboard.site.faq'), root_path
-        li
-          == link_to t('dashboard.site.about'), root_path
+        - top_links.each do |href, title|
+          li #{link_to title, "#{href}"}
+
 
       ul class="nav navbar-nav navbar-right"
         == render 'shared/lang_bar'
