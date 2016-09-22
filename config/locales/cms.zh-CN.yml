@@ -1,0 +1,11 @@
+zh-CN:
+  activerecord:
+    models:
+      cms/tag: 标签
+    attributes:
+      cms/tag:
+        name: 名称
+  cms:
+    tags:
+      index:
+        title: 标签列表

@@ -8,10 +8,10 @@ module Cms
     end
 
     def create
-      @tag = Cms::Tag.new params.require(:tag).permit(:name)
+      @tag = Cms::Tag.new params.require(:cms_tag).permit(:name)
       authorize @tag
       if @tag.save
-        redirect_to tags_path
+        redirect_to cms_tags_path
       else
         render 'form'
       end
@@ -30,8 +30,8 @@ module Cms
     def update
       @tag = Cms::Tag.find params[:id]
       authorize @tag
-      if @tag.update params.require(:tag).permit(:name)
-        redirect_to tags_path
+      if @tag.update params.require(:cms_tag).permit(:name)
+        redirect_to cms_tags_path
       else
         render 'form'
       end
@@ -41,7 +41,7 @@ module Cms
       @tag = Cms::Tag.find params[:id]
       authorize @tag
       @tag.destroy
-      redirect_to tags_path
+      redirect_to cms_tags_path
     end
   end
 end

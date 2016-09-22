@@ -1,0 +1,11 @@
+en:
+  activerecord:
+    models:
+      cms/tag: Tag
+    attributes:
+      cms/tag:
+        name: Name
+  cms:
+    tags:
+      index:
+        title: Tags
