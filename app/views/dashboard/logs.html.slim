@@ -1,5 +1,5 @@
-- @title = t 'dashboard.index.logs'
-
+h3 #{@title = t 'dashboard.index.logs'}
+hr
 ul class="list-group"
   - current_user.logs.order(id: :desc).limit(20).each do |l|
     li class="list-group-item"

@@ -1,0 +1,14 @@
+
+div class="row"
+  h3 #{@title = t 'dashboard.index.seo'}
+  hr
+  == form_tag do 
+    div class="form-group"
+      == label_tag :google_verify_id, 'Google site ID' 
+      == text_field_tag :google_verify_id, Setting.google_verify_id, {class: 'form-control'} 
+
+    div class="form-group"
+      == label_tag :baidu_verify_id, 'Baidu site ID' 
+      == text_field_tag :baidu_verify_id, Setting.baidu_verify_id, {class: 'form-control'} 
+
+    == submit_tag t('buttons.update'), {class: 'btn btn-default'} 

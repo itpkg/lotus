@@ -28,6 +28,15 @@ zh-CN:
       status: 系统状态
       notices: 站点通知
       leave_words: 留言板
+      info: 站点信息
+      seo: 搜索引擎
+    info:
+      title: 标题
+      subTitle: 副标题
+      keywords: 关键字
+      author: 作者
+      description: 简介
+      copyright: 版权信息
   activerecord:
     models:
       notice: 通知

@@ -49,6 +49,15 @@ en:
       status: System status
       notices: Notices
       leave_words: Leave words
+      info: Info
+      seo: Search engine
+    info:
+      title: Title
+      subTitle: Sub title
+      keywords: Keywords
+      author: Author
+      description: Description
+      copyright: Copyright
   activerecord:
     attributes:
       user:

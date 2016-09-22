@@ -13,7 +13,5 @@ div class="row"
       == render 'shared/sample_button', title: t('.status'), href: dashboard_status_path
       == render 'shared/sample_button', title: t('.notices'), href: notices_path
       == render 'shared/sample_button', title: t('.leave_words'), href: leave_words_path
-
-      == link_to t('.site.info'), root_path, {class: 'btn btn-default'}
-      == link_to t('.site.seo'), root_path, {class: 'btn btn-default'}
-
+      == render 'shared/sample_button', title: t('.info'), href: dashboard_info_path
+      == render 'shared/sample_button', title: t('.seo'), href: dashboard_seo_path

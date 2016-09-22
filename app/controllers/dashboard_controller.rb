@@ -1,6 +1,6 @@
 class DashboardController < ApplicationController
   before_action :authenticate_user!
-  before_action :must_admin!, only: [:users, :status, :cache]
+  before_action :must_admin!, except: [:index, :logs]
 
   def cache
     Rails.cache.clear
@@ -24,4 +24,26 @@ class DashboardController < ApplicationController
         @database = ''
     end
   end
+
+  def info
+    case request.method_symbol
+      when :post
+        [:title, :subTitle, :copyright, :keywords, :description].each { |k| Setting.set_site_info k, params[k] }
+        Setting.site_author = params[:author]
+        flash[:notice] = ' '
+      else
+
+    end
+  end
+
+  def seo
+    case request.method_symbol
+      when :post
+        [:google_verify_id, :baidu_verify_id].each { |k| Setting[k]= params[k] }
+        flash[:notice] = ' '
+      else
+
+    end
+  end
+
 end

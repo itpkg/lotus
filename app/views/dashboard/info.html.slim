@@ -1,0 +1,30 @@
+div class="row"
+  h3 #{@title = t 'dashboard.index.info'}
+  hr
+  == form_tag do 
+    div class="form-group"
+      == label_tag :title, t('.title') 
+      == text_field_tag :title, Setting.get_site_info(:title), {class: 'form-control'} 
+    
+    div class="form-group"
+      == label_tag :subTitle, t('.subTitle') 
+      == text_field_tag :subTitle, Setting.get_site_info(:subTitle), {class: 'form-control'} 
+    
+    div class="form-group"
+      == label_tag :keywords, t('.keywords') 
+      == text_field_tag :keywords, Setting.get_site_info(:keywords), {class: 'form-control'} 
+    
+    div class="form-group"
+      == label_tag :author, t('.author') 
+      == text_field_tag :author, Setting.site_author, {class: 'form-control'} 
+
+    div class="form-group"
+      == label_tag :description, t('.description') 
+      == text_area_tag :description, Setting.get_site_info(:description), {class: 'form-control'} 
+
+    div class="form-group"
+      == label_tag :copyright, t('.copyright') 
+      == text_field_tag :copyright, Setting.get_site_info(:copyright), {class: 'form-control'} 
+
+    == submit_tag t('buttons.update'), {class: 'btn btn-default'} 
+  
