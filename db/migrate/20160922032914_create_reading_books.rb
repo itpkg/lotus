@@ -10,6 +10,7 @@ class CreateReadingBooks < ActiveRecord::Migration[5.0]
       t.string :date, null: false
       t.string :version, null: false
 
+      t.string :uid, null: false, limit:36
       t.string :file, null: false
       t.string :home, null: false
       t.integer :rate, null: false, default: 0
@@ -17,6 +18,7 @@ class CreateReadingBooks < ActiveRecord::Migration[5.0]
       t.timestamps
     end
     add_index :reading_books, :creator
+    add_index :reading_books, :uid, unique: true
     add_index :reading_books, :identifier, unique: true
     add_index :reading_books, :file, unique: true
     add_index :reading_books, :language

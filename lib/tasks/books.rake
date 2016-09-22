@@ -12,6 +12,7 @@ namespace :books do
       bk = Reading::Book.where(identifier: bid).first
       unless bk
         bk = Reading::Book.new
+        bk.uid = SecureRandom.uuid
       end
 
       bk.title = book.title.to_s

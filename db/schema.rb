@@ -36,25 +36,27 @@ ActiveRecord::Schema.define(version: 20160922032929) do
   end
 
   create_table "reading_books", force: :cascade do |t|
-    t.string   "title",                            null: false
-    t.string   "identifier",                       null: false
-    t.string   "creator",                          null: false
-    t.string   "subject",                          null: false
-    t.string   "language",   limit: 5,             null: false
-    t.string   "publisher",                        null: false
-    t.string   "date",                             null: false
-    t.string   "version",                          null: false
-    t.string   "file",                             null: false
-    t.string   "home",                             null: false
-    t.integer  "rate",                 default: 0, null: false
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.string   "title",                             null: false
+    t.string   "identifier",                        null: false
+    t.string   "creator",                           null: false
+    t.string   "subject",                           null: false
+    t.string   "language",   limit: 5,              null: false
+    t.string   "publisher",                         null: false
+    t.string   "date",                              null: false
+    t.string   "version",                           null: false
+    t.string   "uid",        limit: 36,             null: false
+    t.string   "file",                              null: false
+    t.string   "home",                              null: false
+    t.integer  "rate",                  default: 0, null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.index ["creator"], name: "index_reading_books_on_creator", using: :btree
     t.index ["file"], name: "index_reading_books_on_file", unique: true, using: :btree
     t.index ["identifier"], name: "index_reading_books_on_identifier", unique: true, using: :btree
     t.index ["language"], name: "index_reading_books_on_language", using: :btree
     t.index ["publisher"], name: "index_reading_books_on_publisher", using: :btree
     t.index ["subject"], name: "index_reading_books_on_subject", using: :btree
+    t.index ["uid"], name: "index_reading_books_on_uid", unique: true, using: :btree
     t.index ["version"], name: "index_reading_books_on_version", using: :btree
   end
 

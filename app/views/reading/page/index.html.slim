@@ -1,3 +1,3 @@
-- @title = @doc.css('head title').first.content
+- @title = "#{@doc.css('head title').first.content}-#{@book.title}-#{@book.creator}"
 p #{raw @doc.css('body').first.inner_html}
 

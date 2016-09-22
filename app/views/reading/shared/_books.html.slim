@@ -2,7 +2,7 @@
   div class="col-md-4"
     div class="thumbnail"
       h3
-        == link_to bk.title, reading_page_path(id:bk.id, file:bk.home)
+        == link_to bk.title, reading_page_path(id:bk.uid, file:bk.home), target: :_blank
       p
         == t 'activerecord.attributes.reading/book.creator'
         | :
@@ -20,4 +20,4 @@
         | :
         == bk.date
       p
-        == link_to t('buttons.view'), reading_page_path(id:bk.id, file:bk.home), {class: 'btn btn-default'}
+        == link_to t('buttons.view'), reading_page_path(id:bk.uid, file:bk.home), {class: 'btn btn-default', target: :_blank}

@@ -1,7 +1,7 @@
 class Reading::PageController < ApplicationController
   def index
-    book = Reading::Book.find params[:id]
-    bk = GEPUB::Book.parse File.new(book.file)
+    @book = Reading::Book.where(uid: params[:id]).first
+    bk = GEPUB::Book.parse File.new(@book.file)
 
     bk.items.each do |_, v|
       if v.href == "#{params[:file]}.#{params[:format]}"
