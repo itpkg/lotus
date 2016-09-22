@@ -1,7 +1,10 @@
 h3
   == @title = @article.title
   - if policy(@article).update?
+    | &nbsp;
     == link_to t('buttons.edit'), edit_cms_article_path(@article)
+  - if policy(@article).destroy?
+    | &nbsp;
     == link_to t('buttons.remove'), cms_article_path(@article), method: :delete, data: {confirm: t('are_you_sure')}
 
 hr
@@ -14,14 +17,8 @@ br
 h4
   == t '.comments'
   - if current_user
+    | &nbsp;
     == link_to t('buttons.new'), new_cms_comment_path(article_id: @article.id)
 hr
-- @article.comments.order(updated_at: :desc).each do |c|
-    blockquote
-      p #{c.body}
-      footer
-        == time_ago_in_words c.updated_at
-        cite
-          - if policy(@article).update?
-            == link_to t('buttons.edit'), edit_cms_comment_path(c)
-            == link_to t('buttons.remove'), cms_comment_path(c), method: :delete, data: {confirm: t('are_you_sure')}
+
+== render 'cms/shared/comments', more:false, comments:@article.comments.order(updated_at: :desc)

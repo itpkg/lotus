@@ -7,11 +7,11 @@ module Cms
     end
 
     def create
-      @article = Cms::Article.new params.require(:article).permit(:title, :body, tag_ids: [])
+      @article = Cms::Article.new params.require(:cms_article).permit(:title, :body, tag_ids: [])
       authorize @article
       @article.user = current_user
       if @article.save
-        redirect_to article_path(@article)
+        redirect_to cms_article_path(@article)
       else
         render 'form'
       end
@@ -30,8 +30,8 @@ module Cms
     def update
       @article = Cms::Article.find params[:id]
       authorize @article
-      if @article.update params.require(:article).permit(:title, :body, tag_ids: [])
-        redirect_to article_path(@article)
+      if @article.update params.require(:cms_article).permit(:title, :body, tag_ids: [])
+        redirect_to cms_article_path(@article)
       else
         render 'form'
       end
@@ -41,7 +41,7 @@ module Cms
       @article = Cms::Article.find params[:id]
       authorize @article
       @article.destroy
-      redirect_to articles_path
+      redirect_to cms_articles_path
     end
 
     def index

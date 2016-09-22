@@ -31,6 +31,9 @@ zh-CN:
         version: 版本号
         root: 根目录
     index:
+      cms:
+        article:
+          new: 发表文章
       logs: 日志列表
       profile: 个人信息
       users: 用户列表

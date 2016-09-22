@@ -2,10 +2,26 @@ zh-CN:
   activerecord:
     models:
       cms/tag: 标签
+      cms/article: 文章
+      cms/comment: 评论
     attributes:
       cms/tag:
         name: 名称
+      cms/article:
+        title: 标题
+        tags: 标签
+        body: 正文
+      cms/comment:
+        body: 正文
   cms:
     tags:
       index:
         title: 标签列表
+    comments:
+      index:
+        title: 评论列表
+    articles:
+      index:
+        title: 文章列表
+      show:
+        comments: 评论列表

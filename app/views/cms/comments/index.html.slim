@@ -1,0 +1,6 @@
+h3 #{@title = t '.title'}
+hr
+
+== render 'cms/shared/comments', more:true, comments: @comments
+
+== paginate @comments

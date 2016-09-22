@@ -8,11 +8,11 @@ module Cms
     end
 
     def create
-      @comment = Cms::Comment.new params.require(:comment).permit(:body, :article_id)
+      @comment = Cms::Comment.new params.require(:cms_comment).permit(:body, :article_id)
       @comment.user = current_user
       authorize @comment
       if @comment.save
-        redirect_to article_path(@comment.article_id)
+        redirect_to cms_article_path(@comment.article_id)
       else
         render 'form'
       end
@@ -27,8 +27,8 @@ module Cms
     def update
       @comment = Cms::Comment.find params[:id]
       authorize @comment
-      if @comment.update params.require(:comment).permit(:body)
-        redirect_to article_path(@comment.article_id)
+      if @comment.update params.require(:cms_comment).permit(:body)
+        redirect_to cms_article_path(@comment.article_id)
       else
         render 'form'
       end
@@ -38,7 +38,7 @@ module Cms
       @comment = Cms::Comment.find params[:id]
       authorize @comment
       @comment.destroy
-      redirect_to article_path(@comment.article_id)
+      redirect_to cms_article_path(@comment.article_id)
     end
 
 

@@ -2,6 +2,7 @@
 
 div class="row"
   div class="btn-group" role="group"
+    == render 'shared/sample_button', title: t('.cms.article.new'), href: new_cms_article_path
     == render 'shared/sample_button', title: t('.profile', resource: User.model_name.human), href: edit_user_registration_path
     == render 'shared/sample_button', title: t('.logs'), href: dashboard_logs_path
 

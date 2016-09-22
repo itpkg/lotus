@@ -52,6 +52,9 @@ en:
         version: Version
         root: Root path
     index:
+      cms:
+        article:
+          new: Create a Article
       logs: Logs
       profile: Profile
       users: Users

@@ -2,10 +2,26 @@ en:
   activerecord:
     models:
       cms/tag: Tag
+      cms/article: Article
+      cms/comment: Comment
     attributes:
       cms/tag:
         name: Name
+      cms/article:
+        title: Title
+        tags: Tags
+        body: Body
+      cms/comment:
+        body: Body
   cms:
     tags:
       index:
         title: Tags
+    comments:
+      index:
+        title: Comments
+    articles:
+      index:
+        title: Articles
+      show:
+        comments: Comments
