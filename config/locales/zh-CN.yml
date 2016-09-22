@@ -13,6 +13,7 @@ zh-CN:
     back: 返回
   errors:
     bad_input: 错误的输入
+    not_found: 页面不存在。
   dict:
     index:
       title: 在线字典

@@ -1,5 +1,3 @@
-require 'gepub'
-
 namespace :books do
 
   desc 'Scan e-books'

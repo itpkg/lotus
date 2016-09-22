@@ -34,6 +34,7 @@ en:
     back: Back
   errors:
     bad_input: Bad input data.
+    not_found: Page not found.
   dict:
     index:
       title: Dict
