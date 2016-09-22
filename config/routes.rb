@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   # ------------------
 
   namespace :reading do
-    resources :books, only: [:index, :destroy]
+    resources :books, only: [:index, :destroy, :show]
     get 'page/:id/*file' => 'page#index', as: :page
 
     resources :notes

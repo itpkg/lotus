@@ -1,7 +1,15 @@
 - @title = "#{@doc.css('head title').first.content}-#{@book.title}-#{@book.creator}"
-h1 #{"#{@book.title}-#{@book.creator}"}
-hr
 
-p #{raw @doc.css('body').first.inner_html}
+div class="row"
+  div class="col-md-9"
+    h1 #{"#{@book.title}-#{@book.creator}"}
+    hr
 
-== render 'shared/rate_box', resource:@book
+    p #{raw @doc.css('body').first.inner_html}
+
+    == render 'shared/rate_box', resource:@book
+  div class="col-md-3"
+    h3 #{t '.notes'} #{link_to t('buttons.new'), new_reading_note_path, target: :_blank}
+    hr
+    == render 'reading/shared/notes', notes:@book.notes
+

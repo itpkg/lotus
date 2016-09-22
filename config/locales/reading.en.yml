@@ -3,6 +3,9 @@ en:
     books:
       index:
         title: Books
+    page:
+      index:
+        notes: Notes
   activerecord:
     models:
       reading/book: Book

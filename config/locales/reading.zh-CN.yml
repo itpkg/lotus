@@ -3,6 +3,9 @@ zh-CN:
     books:
       index:
         title: 书籍列表
+    page:
+      index:
+        notes: 相关笔记
   activerecord:
     models:
       reading/book: 书籍

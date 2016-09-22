@@ -1,0 +1,12 @@
+div class="row"
+  - notes.each do |n|
+    blockquote
+      p class="markdown" #{n.body}
+      footer
+        == time_ago_in_words n.updated_at
+        cite
+          - if n.book
+            == link_to t('buttons.more'), reading_book_path(n.book)
+          - if policy(n).edit?
+            == link_to t('buttons.edit'), edit_reading_note_path(n)
+            == link_to t('buttons.remove'), reading_note_path(n), method: :delete, data: {confirm: t('are_you_sure')}
