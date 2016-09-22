@@ -1,6 +1,16 @@
 namespace :books do
+  namespace :download do
+    desc "Download yinshun's books"
+    task :yinshun do
+      def download_book(id)
+        `wget -P tmp "http://www.yinshun.org.tw/epub's%20web/epub/y#{sprintf "%02d", id}.epub"`
+      end
+      1.upto(24).each {|i| download_book i}
+      42.upto(44).each {|i| download_book i}
+    end
+  end
 
-  desc 'Scan e-books'
+  desc 'Scan epub books'
   task :scan, [:dir] => :environment do |_, args|
     root = File.join(Rails.application.root, args.dir, '**', '*.epub')
     puts "scan books from #{root}"
