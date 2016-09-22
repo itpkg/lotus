@@ -1,1 +1,14 @@
 zh-CN:
+  reading:
+    books:
+      index:
+        title: 书籍列表
+  activerecord:
+    models:
+      reading/book: 书籍
+    attributes:
+      reading/book:
+        creator: 作者
+        publisher: 发布者
+        subject: 主题
+        date: 发布日期

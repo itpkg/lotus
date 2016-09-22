@@ -1,0 +1,23 @@
+- books.each do |bk| %
+  div class="col-md-4"
+    div class="thumbnail"
+      h3
+        == link_to bk.title, reading_page_path(id:bk.id, file:bk.home)
+      p
+        == t 'activerecord.attributes.reading/book.creator'
+        | :
+        == bk.creator
+        br
+        == t 'activerecord.attributes.reading/book.publisher'
+        | :
+        == bk.publisher
+        br
+        == t 'activerecord.attributes.reading/book.subject'
+        | :
+        == bk.subject
+        br
+        == t 'activerecord.attributes.reading/book.date'
+        | :
+        == bk.date
+      p
+        == link_to t('buttons.view'), reading_page_path(id:bk.id, file:bk.home), {class: 'btn btn-default'}

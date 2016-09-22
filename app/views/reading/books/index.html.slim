@@ -1,0 +1,8 @@
+- @title = t '.title'
+
+div class="row"
+  == render 'reading/shared/books', books: @books
+
+div class="row"
+  div class="col-md-offset-1 col-md-10"
+    == paginate @books

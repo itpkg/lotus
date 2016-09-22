@@ -1,5 +1,16 @@
 Rails.application.routes.draw do
 
+  # ------------------
+
+  namespace :reading do
+    resources :books, only: [:index, :destroy]
+    get 'page/:id/*file' => 'page#index', as: :page
+
+    resources :notes
+  end
+
+  # ------------------
+
   get 'dict' => 'dict#index'
   post 'dict' => 'dict#index'
 
@@ -19,6 +30,8 @@ Rails.application.routes.draw do
 
   get 'google(*id).html', to: 'home#google'
   get 'baidu_verify_(*id).html', to: 'home#baidu'
+
+  # ------------------
 
   root 'home#index'
 

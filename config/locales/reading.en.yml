@@ -1,1 +1,14 @@
 en:
+  reading:
+    books:
+      index:
+        title: Books
+  activerecord:
+    models:
+      reading/book: Book
+    attributes:
+      reading/book:
+        creator: Creator
+        publisher: Publisher
+        subject: Subject
+        date: Date
