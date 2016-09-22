@@ -35,6 +35,32 @@ sudo apt-get install -y nodejs
 
 ```
 
+
+* Services (job queues, cache servers, search engines, etc.)
+
+```
+sudo apt-get install -y postgresql redis-server nginx
+
+# Install jdk8
+wget http://download.oracle.com/otn-pub/java/jdk/8u101-b13/jdk-8u101-linux-x64.tar.gz
+sudo tar xf jdk-8u101-linux-x64.tar.gz -C /opt/jdk8
+echo 'JAVA_HOME="/opt/jdk8"' >> /etc/environment
+
+# Install elasticsearch
+wget -qO - https://packages.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+echo "deb https://packages.elastic.co/elasticsearch/5.x/debian stable main" | sudo tee -a /etc/apt/sources.list.d/elasticsearch-5.x.list
+sudo apt-get update 
+sudo apt-get install -y elasticsearch 
+
+# Install elasticsearch-analysis-ik
+git clone https://github.com/medcl/elasticsearch-analysis-ik.git
+cd elasticsearch-analysis-ik
+mvn package
+sudo unzip target/releases/elasticsearch-analysis-ik-5.0.0-alpha5.zip -d /usr/share/elasticsearch/plugins/ik
+sudo service elasticsearch restart
+```
+
+
 * Configuration
 ```
 vi .rbenv-vars
@@ -59,30 +85,6 @@ rake db:migrate
 * How to run the test suite
 ```
 rake test
-```
-
-* Services (job queues, cache servers, search engines, etc.)
-
-```
-sudo apt-get install -y postgresql redis-server nginx
-
-# Install jdk8
-wget http://download.oracle.com/otn-pub/java/jdk/8u101-b13/jdk-8u101-linux-x64.tar.gz
-sudo tar xf jdk-8u101-linux-x64.tar.gz -C /opt/jdk8
-echo 'JAVA_HOME="/opt/jdk8"' >> /etc/environment
-
-# Install elasticsearch
-wget -qO - https://packages.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
-echo "deb https://packages.elastic.co/elasticsearch/5.x/debian stable main" | sudo tee -a /etc/apt/sources.list.d/elasticsearch-5.x.list
-sudo apt-get update 
-sudo apt-get install -y elasticsearch 
-
-# Install elasticsearch-analysis-ik
-git clone https://github.com/medcl/elasticsearch-analysis-ik.git
-cd elasticsearch-analysis-ik
-mvn package
-sudo unzip target/releases/elasticsearch-analysis-ik-5.0.0-alpha5.zip -d /usr/share/elasticsearch/plugins/ik
-sudo service elasticsearch restart
 ```
 
 * Deployment instructions
