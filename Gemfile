@@ -87,6 +87,8 @@ gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
 gem 'lograge'
 
+gem 'gepub'
+
 group :development do
   gem 'capistrano', '~> 3.1'
   gem 'capistrano-rails', '~> 1.1'
