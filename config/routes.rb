@@ -2,6 +2,15 @@ Rails.application.routes.draw do
 
   # ------------------
 
+  namespace :cms do
+
+    resources :articles
+    resources :tags
+    resources :comments
+  end
+
+  # ------------------
+
   namespace :reading do
     resources :books, only: [:index, :destroy, :show]
     get 'page/:id/*file' => 'page#index', as: :page
@@ -13,6 +22,8 @@ Rails.application.routes.draw do
 
   get 'dict' => 'dict#index'
   post 'dict' => 'dict#index'
+
+  # ------------------
 
   resources :leave_words, except: [:show, :edit, :update]
 
@@ -41,5 +52,5 @@ Rails.application.routes.draw do
   authenticate :user, lambda { |u| u.is_admin? } do
     mount Sidekiq::Web => '/jobs'
   end
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
