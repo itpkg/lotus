@@ -12,8 +12,10 @@ module Cms
       @comment.user = current_user
       authorize @comment
       if @comment.save
+        flash[:notice] = ' '
         redirect_to cms_article_path(@comment.article_id)
       else
+        flash[:alert] = @comment.errors.messages
         render 'form'
       end
     end
@@ -28,8 +30,10 @@ module Cms
       @comment = Cms::Comment.find params[:id]
       authorize @comment
       if @comment.update params.require(:cms_comment).permit(:body)
+        flash[:notice] = ' '
         redirect_to cms_article_path(@comment.article_id)
       else
+        flash[:alert] = @comment.errors.messages
         render 'form'
       end
     end

@@ -12,6 +12,7 @@ zh-CN:
     reset: 重写
     back: 返回
     details: 详细信息
+    manage: 管理
   errors:
     bad_input: 错误的输入
     not_found: 页面不存在。
@@ -34,6 +35,10 @@ zh-CN:
       cms:
         article:
           new: 发表文章
+      mail:
+        title: 邮件系统
+        database: 数据库
+      site: 站点管理
       logs: 日志列表
       profile: 个人信息
       users: 用户列表

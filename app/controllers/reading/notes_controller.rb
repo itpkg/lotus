@@ -15,8 +15,10 @@ class Reading::NotesController < ApplicationController
     authorize @note
     @note.user = current_user
     if @note.save
+      flash[:notice] = ' '
       redirect_to reading_book_path(@note.book_id)
     else
+      flash[:alert] = @note.errors.messages
       render 'form'
     end
 
@@ -32,8 +34,10 @@ class Reading::NotesController < ApplicationController
     @note = Reading::Note.find params[:id]
     authorize @note
     if @note.update params.require(:reading_note).permit(:body)
+      flash[:notice] = ' '
       redirect_to reading_book_path(@note.book_id)
     else
+      flash[:alert] = @note.errors.messages
       render 'form'
     end
 

@@ -33,6 +33,7 @@ en:
     reset: Reset
     back: Back
     details: More details
+    manage: Manage
   errors:
     bad_input: Bad input data.
     not_found: Page not found.
@@ -55,6 +56,10 @@ en:
       cms:
         article:
           new: Create a Article
+      mail:
+        title: Mail system
+        database: Database
+      site: Site
       logs: Logs
       profile: Profile
       users: Users

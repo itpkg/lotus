@@ -11,8 +11,10 @@ module Cms
       @tag = Cms::Tag.new params.require(:cms_tag).permit(:name)
       authorize @tag
       if @tag.save
+        flash[:notice] = ' '
         redirect_to cms_tags_path
       else
+        flash[:alert] = @tag.errors.messages
         render 'form'
       end
     end
@@ -31,8 +33,10 @@ module Cms
       @tag = Cms::Tag.find params[:id]
       authorize @tag
       if @tag.update params.require(:cms_tag).permit(:name)
+        flash[:notice] = ' '
         redirect_to cms_tags_path
       else
+        flash[:alert] = @tag.errors
         render 'form'
       end
     end

@@ -1,1 +1,24 @@
 zh-CN:
+  mail:
+    home:
+      index:
+        title: 邮件数据库
+        users: 用户列表
+        domains: 域列表
+        aliases: 别名列表
+  activerecord:
+    models:
+      mail/domain: 域
+      mail/user: 用户
+      mail/alias: 别名
+    attributes:
+      mail/domain:
+        name: 名称
+      mail/user:
+        domain_id: 域
+        email: 邮箱
+        password: 密码
+      mail/alias:
+        domain_id: 域
+        source: 来源
+        destination: 目标

@@ -1,0 +1,70 @@
+- @title = t '.title'
+
+h3
+  == t '.domains'
+  | &nbsp;
+  == link_to t('buttons.new'), new_mail_domain_path
+hr
+table class="table table-bordered table-hover"
+  thead
+    tr
+      th width='5%' ID
+      th #{t 'activerecord.attributes.mail/domain.name'}
+      th width="10%" #{t 'buttons.manage'}
+  tbody
+    - Mail::Domain.all.each do |d|
+      tr
+        th #{d.id}
+        td #{link_to d.name, edit_mail_domain_path(d)}
+        td
+          == link_to t('buttons.remove'), mail_domain_path(d), method: :delete, data: {confirm: t('are_you_sure')}
+
+br
+
+h3
+  == t '.users'
+  | &nbsp;
+  == link_to t('buttons.new'), new_mail_user_path
+hr
+table class="table table-bordered table-hover"
+  thead
+    tr
+      th width='5%' ID
+      th #{t 'activerecord.attributes.mail/user.domain_id'}
+      th #{t 'activerecord.attributes.mail/user.email'}
+      th width="10%" #{t 'buttons.manage'}
+  tbody
+    - Mail::User.all.each do |u|
+      tr
+        th #{u.id}
+        th #{u.domain.name}
+        td #{link_to u.email, edit_mail_user_path(u)}
+        td
+          == link_to t('buttons.remove'), mail_user_path(u), method: :delete, data: {confirm: t('are_you_sure')}
+
+br
+
+h3
+  == t '.aliases'
+  | &nbsp;
+  == link_to t('buttons.new'), new_mail_alias_path
+hr
+table class="table table-bordered table-hover"
+  thead
+    tr
+      th width='5%' ID
+      th #{t 'activerecord.attributes.mail/alias.domain_id'}
+      th #{t 'activerecord.attributes.mail/alias.source'}
+      th #{t 'activerecord.attributes.mail/alias.destination'}
+      th width="20%" #{t 'buttons.manage'}
+  tbody
+    - Mail::Alias.all.each do |a|
+      tr
+        th #{a.id}
+        th #{a.domain.name}
+        td #{a.source}
+        td #{a.destination}
+        td
+          == link_to t('buttons.edit'), edit_mail_alias_path(a)
+          | &nbsp;
+          == link_to t('buttons.remove'), mail_alias_path(a), method: :delete, data: {confirm: t('are_you_sure')}

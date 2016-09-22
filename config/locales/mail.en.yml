@@ -1,1 +1,24 @@
 en:
+  mail:
+    home:
+      index:
+        title: Mail database
+        users: Users
+        domains: Domains
+        aliases: Aliases
+  activerecord:
+    models:
+      mail/domain: Domain
+      mail/user: User
+      mail/alias: Alias
+    attributes:
+      mail/domain:
+        name: Name
+      mail/user:
+        domain_id: Domain
+        email: Email
+        password: Password
+      mail/alias:
+        domain_id: Domain
+        source: Source
+        destination: destination

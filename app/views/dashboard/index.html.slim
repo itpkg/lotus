@@ -9,6 +9,8 @@ div class="row"
 - if current_user.is_admin?
   br
   div class="row"
+    h3 #{t('.site')}
+    hr
     div class="btn-group" role="group"
       == render 'shared/sample_button', title: t('.users'), href: dashboard_users_path
       == render 'shared/sample_button', title: t('.status'), href: dashboard_status_path
@@ -17,3 +19,14 @@ div class="row"
       == render 'shared/sample_button', title: t('.info'), href: dashboard_info_path
       == render 'shared/sample_button', title: t('.seo'), href: dashboard_seo_path
       == render 'shared/sample_button', title: t('.nav_bar'), href: dashboard_nav_bar_path
+
+
+- if current_user.is_admin?
+  br
+  div class="row"
+    h3 #{t('.mail.title')}
+    hr
+    div class="btn-group" role="group"
+      == render 'shared/sample_button', title: t('.mail.database'), href: mail_root_path
+      == render 'shared/sample_button', title: 'postfix', href: mail_postfix_path
+      == render 'shared/sample_button', title: 'dovecot', href: mail_dovecot_path

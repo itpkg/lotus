@@ -2,8 +2,17 @@ Rails.application.routes.draw do
 
   # ------------------
 
-  namespace :cms do
+  namespace :mail do
+    root 'home#index'
+    %w(postfix dovecot).each {|act| get act => "home##{act}"}
+    resources :domains, expect: [:show, :index]
+    resources :users, expect: [:show, :index]
+    resources :aliases, expect: [:show, :index]
+  end
 
+  # ------------------
+
+  namespace :cms do
     resources :articles
     resources :tags
     resources :comments, except: :show

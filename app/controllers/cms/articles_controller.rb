@@ -11,8 +11,10 @@ module Cms
       authorize @article
       @article.user = current_user
       if @article.save
+        flash[:notice] = ' '
         redirect_to cms_article_path(@article)
       else
+        flash[:alert] = @article.errors.messages
         render 'form'
       end
     end
@@ -31,8 +33,10 @@ module Cms
       @article = Cms::Article.find params[:id]
       authorize @article
       if @article.update params.require(:cms_article).permit(:title, :body, tag_ids: [])
+        flash[:notice] = ' '
         redirect_to cms_article_path(@article)
       else
+        flash[:alert] = @article.errors.messages
         render 'form'
       end
     end

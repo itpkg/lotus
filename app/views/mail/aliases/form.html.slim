@@ -1,0 +1,5 @@
+== simple_form_for @alias do |f|
+  == f.input :source
+  == f.input :domain_id, collection: Mail::Domain.all
+  == f.input :destination
+  == f.button :submit
