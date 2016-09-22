@@ -15,7 +15,7 @@ class Reading::NotesController < ApplicationController
     authorize @note
     @note.user = current_user
     if @note.save
-      redirect_to reading_notes_path
+      redirect_to reading_book_path(@note.book_id)
     else
       render 'form'
     end
@@ -32,7 +32,7 @@ class Reading::NotesController < ApplicationController
     @note = Reading::Note.find params[:id]
     authorize @note
     if @note.update params.require(:reading_note).permit(:body)
-      redirect_to reading_notes_path
+      redirect_to reading_book_path(@note.book_id)
     else
       render 'form'
     end
@@ -44,6 +44,6 @@ class Reading::NotesController < ApplicationController
     note = Reading::Note.find params[:id]
     authorize note
     note.destroy
-    redirect_to reading_notes_path
+    redirect_to reading_book_path(@note.book_id)
   end
 end
