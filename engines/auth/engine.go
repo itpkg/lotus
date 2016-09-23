@@ -8,13 +8,16 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/itpkg/lotus/web"
 	"github.com/jinzhu/gorm"
+	logging "github.com/op/go-logging"
 	"github.com/spf13/viper"
 )
 
 type Engine struct {
-	Cache web.Cache `inject:""`
-	Db    *gorm.DB  `inject:""`
-	Dao   *Dao      `inject:""`
+	Cache  web.Cache       `inject:""`
+	Db     *gorm.DB        `inject:""`
+	Dao    *Dao            `inject:""`
+	Job    web.Job         `inject:""`
+	Logger *logging.Logger `inject:""`
 }
 
 func (p *Engine) Map(inj *inject.Graph) error {
@@ -49,7 +52,12 @@ func (p *Engine) Migrate(db *gorm.DB) {
 
 func (p *Engine) Seed() {}
 
-func (p *Engine) Worker() {}
+func (p *Engine) Worker() {
+	p.Job.Register("email", func(args []byte) error {
+		p.Logger.Debugf("do email job %s", string(args))
+		return nil
+	})
+}
 
 func init() {
 	web.Register(&Engine{})

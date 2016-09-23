@@ -25,7 +25,11 @@ func IocAction(fn func(*cli.Context, *inject.Graph) error) cli.ActionFunc {
 			&inject.Object{Value: logger},
 			&inject.Object{Value: db},
 			&inject.Object{Value: rep},
-			&inject.Object{Value: &web.RedisCache{Redis: rep}},
+			&inject.Object{Value: &web.RedisCache{}},
+			&inject.Object{Value: &web.RedisJob{
+				Timeout:  viper.GetInt("workers.timeout"),
+				Handlers: make(map[string]web.JobHandler),
+			}},
 		); err != nil {
 			return err
 		}

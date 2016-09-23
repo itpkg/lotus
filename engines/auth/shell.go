@@ -87,9 +87,13 @@ func (p *Engine) Shell() []cli.Command {
 			Name:    "worker",
 			Aliases: []string{"w"},
 			Usage:   "start the worker progress",
-			Action: IocAction(func(*cli.Context, *inject.Graph) error {
-				//TODO
-				return nil
+			Action: IocAction(func(_ *cli.Context, inj *inject.Graph) error {
+				web.Loop(func(en web.Engine) error {
+					en.Worker()
+					return nil
+				})
+
+				return p.Job.Start()
 			}),
 		},
 		{
@@ -476,7 +480,7 @@ func init() {
 	})
 
 	viper.SetDefault("workers", map[string]interface{}{
-		"pool": 30,
+		"timeout": 30,
 	})
 
 	viper.SetDefault("elasticsearch", []string{"http://localhost:9200"})
