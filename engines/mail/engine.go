@@ -16,7 +16,8 @@ import (
 type Engine struct {
 }
 
-func (p *Engine) Map(*inject.Graph) {
+func (p *Engine) Map(*inject.Graph) error {
+	return nil
 
 }
 

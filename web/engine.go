@@ -8,7 +8,7 @@ import (
 )
 
 type Engine interface {
-	Map(*inject.Graph)
+	Map(*inject.Graph) error
 	Mount(*gin.Engine)
 	Migrate(*gorm.DB)
 	Seed()
