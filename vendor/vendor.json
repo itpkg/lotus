@@ -3,6 +3,30 @@
 	"ignore": "test",
 	"package": [
 		{
+			"checksumSHA1": "Nf6MTTm2B6KIeFzBBw30/pHuzkE=",
+			"path": "github.com/SermoDigital/jose",
+			"revision": "b10f12c5188d355a3eacc61aba9abd3eb6b3b787",
+			"revisionTime": "2016-09-21T21:35:50Z"
+		},
+		{
+			"checksumSHA1": "u92C5yEz1FLBeoXp8jujn3tUNFI=",
+			"path": "github.com/SermoDigital/jose/crypto",
+			"revision": "b10f12c5188d355a3eacc61aba9abd3eb6b3b787",
+			"revisionTime": "2016-09-21T21:35:50Z"
+		},
+		{
+			"checksumSHA1": "FJP5enLaw1JzZNu6Fen+eEKY7Lo=",
+			"path": "github.com/SermoDigital/jose/jws",
+			"revision": "b10f12c5188d355a3eacc61aba9abd3eb6b3b787",
+			"revisionTime": "2016-09-21T21:35:50Z"
+		},
+		{
+			"checksumSHA1": "YanItAwXGimLxwjBeVwTRqhiinE=",
+			"path": "github.com/SermoDigital/jose/jwt",
+			"revision": "b10f12c5188d355a3eacc61aba9abd3eb6b3b787",
+			"revisionTime": "2016-09-21T21:35:50Z"
+		},
+		{
 			"checksumSHA1": "GqkBIw2lUA6lv/jgh9WIyR0YdWY=",
 			"path": "github.com/facebookgo/inject",
 			"revision": "643b7206b487b04fbea325cf6e8d06a66f8db772",
@@ -85,6 +109,12 @@
 			"path": "github.com/olivere/elastic",
 			"revision": "901e75f4b20b182a2fd5b650fd40b902ec074c9c",
 			"revisionTime": "2016-05-15T11:16:50Z"
+		},
+		{
+			"checksumSHA1": "zmC8/3V4ls53DJlNTKDZwPSC/dA=",
+			"path": "github.com/satori/go.uuid",
+			"revision": "0aa62d5ddceb50dbcb909d790b5345affd3669b6",
+			"revisionTime": "2016-07-13T18:03:06Z"
 		},
 		{
 			"checksumSHA1": "zWcD+hiuLdxgBd4oRQnAsdNBXSc=",
