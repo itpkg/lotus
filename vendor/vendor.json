@@ -69,6 +69,30 @@
 			"revisionTime": "2016-09-11T09:39:33Z"
 		},
 		{
+			"checksumSHA1": "mQvaq014bZ2C9erZxNe1t/QMveg=",
+			"path": "golang.org/x/text/internal/gen",
+			"revision": "a7c023693a94aedd6b6df43ae7526bfe9d2b7d22",
+			"revisionTime": "2016-09-22T05:42:04Z"
+		},
+		{
+			"checksumSHA1": "hyNCcTwMQnV6/MK8uUW9E5H0J0M=",
+			"path": "golang.org/x/text/internal/tag",
+			"revision": "a7c023693a94aedd6b6df43ae7526bfe9d2b7d22",
+			"revisionTime": "2016-09-22T05:42:04Z"
+		},
+		{
+			"checksumSHA1": "vbYsvMa+yYFTrmD0bIVhA36DpgQ=",
+			"path": "golang.org/x/text/language",
+			"revision": "a7c023693a94aedd6b6df43ae7526bfe9d2b7d22",
+			"revisionTime": "2016-09-22T05:42:04Z"
+		},
+		{
+			"checksumSHA1": "n94g6qdzv0fgQFGelH4/HXOthl0=",
+			"path": "golang.org/x/text/unicode/cldr",
+			"revision": "a7c023693a94aedd6b6df43ae7526bfe9d2b7d22",
+			"revisionTime": "2016-09-22T05:42:04Z"
+		},
+		{
 			"checksumSHA1": "39V1idWER42Lmcmg2Uy40wMzOlo=",
 			"path": "gopkg.in/go-playground/validator.v8",
 			"revision": "5f57d2222ad794d0dffb07e664ea05e2ee07d60c",
