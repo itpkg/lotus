@@ -5,7 +5,6 @@ import (
 
 	"github.com/SermoDigital/jose/crypto"
 	"github.com/facebookgo/inject"
-	"github.com/gin-gonic/gin"
 	"github.com/itpkg/lotus/web"
 	"github.com/jinzhu/gorm"
 	logging "github.com/op/go-logging"
@@ -32,10 +31,6 @@ func (p *Engine) Map(inj *inject.Graph) error {
 		&inject.Object{Value: []byte(viper.GetString("secrets.jwt")), Name: "jwt.key"},
 		&inject.Object{Value: crypto.SigningMethodHS512, Name: "jwt.method"},
 	)
-
-}
-
-func (p *Engine) Mount(*gin.Engine) {
 
 }
 
