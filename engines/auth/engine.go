@@ -8,6 +8,7 @@ import (
 )
 
 type Engine struct {
+	Cache web.Cache `inject:""`
 }
 
 func (p *Engine) Map(*inject.Graph) error {

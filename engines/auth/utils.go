@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"math/rand"
 	"os"
+	"os/exec"
+	"syscall"
 	"time"
 
 	"github.com/garyburd/redigo/redis"
@@ -11,6 +13,14 @@ import (
 	logging "github.com/op/go-logging"
 	"github.com/spf13/viper"
 )
+
+func Shell(cmd string, args ...string) error {
+	bin, err := exec.LookPath(cmd)
+	if err != nil {
+		return err
+	}
+	return syscall.Exec(bin, append([]string{cmd}, args...), os.Environ())
+}
 
 func RandomStr(n int) string {
 	letters := []rune("abcdefghijklmnopqrstuvwxyz0123456789")

@@ -25,6 +25,7 @@ func IocAction(fn func(*cli.Context, *inject.Graph) error) cli.ActionFunc {
 			&inject.Object{Value: logger},
 			&inject.Object{Value: db},
 			&inject.Object{Value: rep},
+			&inject.Object{Value: &web.RedisCache{Redis: rep}},
 		); err != nil {
 			return err
 		}

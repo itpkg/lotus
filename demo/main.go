@@ -8,6 +8,9 @@ import (
 	_ "github.com/itpkg/lotus/engines/mail"
 	_ "github.com/itpkg/lotus/engines/reading"
 	_ "github.com/itpkg/lotus/engines/shop"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
+	_ "github.com/lib/pq"
+
 	"github.com/itpkg/lotus/web"
 )
 
