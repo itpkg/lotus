@@ -1,10 +1,14 @@
 package auth
 
 import (
+	"crypto/aes"
+
+	"github.com/SermoDigital/jose/crypto"
 	"github.com/facebookgo/inject"
 	"github.com/gin-gonic/gin"
 	"github.com/itpkg/lotus/web"
 	"github.com/jinzhu/gorm"
+	"github.com/spf13/viper"
 )
 
 type Engine struct {
@@ -13,8 +17,18 @@ type Engine struct {
 	Dao   *Dao      `inject:""`
 }
 
-func (p *Engine) Map(*inject.Graph) error {
-	return nil
+func (p *Engine) Map(inj *inject.Graph) error {
+
+	cip, err := aes.NewCipher([]byte(viper.GetString("secrets.aes")))
+	if err != nil {
+		return err
+	}
+
+	return inj.Provide(
+		&inject.Object{Value: cip},
+		&inject.Object{Value: []byte(viper.GetString("secrets.jwt")), Name: "jwt.key"},
+		&inject.Object{Value: crypto.SigningMethodHS512, Name: "jwt.method"},
+	)
 
 }
 

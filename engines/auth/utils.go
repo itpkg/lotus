@@ -92,7 +92,7 @@ func OpenLogger() *logging.Logger {
 	var bkd logging.Backend
 	if IsProduction() {
 		var err error
-		bkd, err = logging.NewSyslogBackend("itpkg")
+		bkd, err = logging.NewSyslogBackend("lotus")
 		if err != nil {
 			bkd = logging.NewLogBackend(os.Stdout, "", 0)
 		}
@@ -108,7 +108,7 @@ func OpenLogger() *logging.Logger {
 		logging.SetFormatter(logging.MustStringFormatter(`%{color}%{time:15:04:05.000} %{level:.4s} %{id:03x} %{color:reset} [%{longfunc}] %{message}`))
 	}
 	logging.SetBackend(bkd)
-	return logging.MustGetLogger("chaos")
+	return logging.MustGetLogger("backend")
 }
 
 func init() {

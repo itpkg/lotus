@@ -9,7 +9,7 @@ import (
 )
 
 type TextEncryptor struct {
-	Cipher cipher.Block
+	Cipher cipher.Block `inject:""`
 }
 
 func (p *TextEncryptor) Encode(buf []byte) ([]byte, error) {

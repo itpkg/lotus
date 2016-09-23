@@ -14,9 +14,9 @@ import (
 
 //Dao db helper
 type Dao struct {
-	Db            *gorm.DB          `inject:""`
-	TextEncryptor web.TextEncryptor `inject:""`
-	Logger        *logging.Logger   `inject:""`
+	Db            *gorm.DB           `inject:""`
+	TextEncryptor *web.TextEncryptor `inject:""`
+	Logger        *logging.Logger    `inject:""`
 }
 
 //Set save setting

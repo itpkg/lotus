@@ -1,14 +1,19 @@
 package auth
 
 import (
+	"crypto/x509/pkix"
 	"fmt"
 	"html/template"
+	"net/http"
 	"os"
 	"path"
 
 	"github.com/BurntSushi/toml"
 	"github.com/facebookgo/inject"
+	"github.com/fvbock/endless"
+	"github.com/gin-gonic/gin"
 	"github.com/itpkg/lotus/web"
+	"github.com/rs/cors"
 	"github.com/spf13/viper"
 	"github.com/urfave/cli"
 )
@@ -48,34 +53,151 @@ func (p *Engine) Shell() []cli.Command {
 			},
 		},
 		{
+			Name:    "server",
+			Aliases: []string{"s"},
+			Usage:   "start the app server",
+			Action: IocAction(func(*cli.Context, *inject.Graph) error {
+				if IsProduction() {
+					gin.SetMode(gin.ReleaseMode)
+				}
+				rt := gin.Default()
+				rt.Use(web.LocaleHandler)
+
+				web.Loop(func(en web.Engine) error {
+					en.Mount(rt)
+					return nil
+				})
+
+				adr := fmt.Sprintf(":%d", viper.GetInt("server.port"))
+				hnd := cors.New(cors.Options{
+					AllowCredentials: true,
+					AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "PATCH"},
+					AllowedHeaders:   []string{"*"},
+					Debug:            !IsProduction(),
+				}).Handler(rt)
+
+				if IsProduction() {
+					return endless.ListenAndServe(adr, hnd)
+				}
+				return http.ListenAndServe(adr, hnd)
+
+			}),
+		},
+		{
+			Name:    "worker",
+			Aliases: []string{"w"},
+			Usage:   "start the worker progress",
+			Action: IocAction(func(*cli.Context, *inject.Graph) error {
+				//TODO
+				return nil
+			}),
+		},
+		{
+			Name:    "openssl",
+			Aliases: []string{"ssl"},
+			Usage:   "generate ssl certificates",
+			Flags: []cli.Flag{
+				cli.StringFlag{
+					Name:  "name, n",
+					Usage: "name",
+				},
+				cli.StringFlag{
+					Name:  "country, c",
+					Value: "Earth",
+					Usage: "country",
+				},
+				cli.StringFlag{
+					Name:  "organization, o",
+					Value: "Mother Nature",
+					Usage: "organization",
+				},
+				cli.IntFlag{
+					Name:  "years, y",
+					Value: 1,
+					Usage: "years",
+				},
+			},
+			Action: Action(func(c *cli.Context) error {
+				name := c.String("name")
+				if len(name) == 0 {
+					cli.ShowCommandHelp(c, "openssl")
+					return nil
+				}
+				root := path.Join("etc", "ssl", name)
+
+				key, crt, err := CreateCertificate(
+					true,
+					pkix.Name{
+						Country:      []string{c.String("country")},
+						Organization: []string{c.String("organization")},
+					},
+					c.Int("years"),
+				)
+				if err != nil {
+					return err
+				}
+
+				fnk := path.Join(root, "key.pem")
+				fnc := path.Join(root, "crt.pem")
+
+				fmt.Printf("generate pem file %s\n", fnk)
+				err = WritePemFile(fnk, "RSA PRIVATE KEY", key)
+				fmt.Printf("test: openssl rsa -noout -text -in %s\n", fnk)
+
+				if err == nil {
+					fmt.Printf("generate pem file %s\n", fnc)
+					err = WritePemFile(fnc, "CERTIFICATE", crt)
+					fmt.Printf("test: openssl x509 -noout -text -in %s\n", fnc)
+				}
+				if err == nil {
+					fmt.Printf(
+						"verify: diff <(openssl rsa -noout -modulus -in %s) <(openssl x509 -noout -modulus -in %s)",
+						fnk,
+						fnc,
+					)
+				}
+				fmt.Println()
+				return err
+			}),
+		},
+
+		{
 			Name:    "nginx",
 			Aliases: []string{"ng"},
 			Usage:   "init nginx config file",
 			Action: Action(func(*cli.Context) error {
 				const tpl = `
-upstream {{.Domain}}_prod {
+server {
+  listen 80;
+  server_name {{.Name}};
+  rewrite ^(.*) https://$host$1 permanent;
+}
+
+upstream {{.Name}}_prod {
   server localhost:{{.Port}} fail_timeout=0;
 }
+
 server {
-  listen {{if .Ssl}}443{{- else}}80{{- end}};
-{{if .Ssl}}
+  listen 443;
+
   ssl  on;
-  ssl_certificate  ssl/{{.Domain}}-cert.pem;
-  ssl_certificate_key  ssl/{{.Domain}}-key.pem;
+  ssl_certificate  /etc/ssl/certs/{{.Name}}.crt;
+  ssl_certificate_key  /etc/ssl/private/{{.Name}}.key;
   ssl_session_timeout  5m;
   ssl_protocols  SSLv2 SSLv3 TLSv1;
   ssl_ciphers  RC4:HIGH:!aNULL:!MD5;
   ssl_prefer_server_ciphers  on;
-{{- end}}
+
   client_max_body_size 4G;
   keepalive_timeout 10;
   proxy_buffers 16 64k;
   proxy_buffer_size 128k;
-  server_name {{.Domain}};
+
+  server_name {{.Name}};
   root {{.Root}}/public;
   index index.html;
-  access_log /var/log/nginx/{{.Domain}}.access.log;
-  error_log /var/log/nginx/{{.Domain}}.error.log;
+  access_log /var/log/nginx/{{.Name}}.access.log;
+  error_log /var/log/nginx/{{.Name}}.error.log;
   location / {
     try_files $uri $uri/ /index.html?/$request_uri;
   }
@@ -102,12 +224,12 @@ server {
     add_header Cache-Control "public";
   }
   location ~ ^/api/{{.Version}}(/?)(.*) {
-    {{if .Ssl}}proxy_set_header X-Forwarded-Proto https;{{- end}}
+    proxy_set_header X-Forwarded-Proto https;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header Host $http_host;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_redirect off;
-    proxy_pass http://{{.Domain}}_prod/$2$is_args$args;
+    proxy_pass http://{{.Name}}_prod/$2$is_args$args;
     # limit_req zone=one;
   }
 }
@@ -121,8 +243,8 @@ server {
 					return err
 				}
 
-				domain := viper.GetString("http.domain")
-				fn := path.Join("etc", "nginx", "sites-enabled", domain+".conf")
+				name := viper.GetString("server.name")
+				fn := path.Join("etc", "nginx", "sites-enabled", name+".conf")
 				if err = os.MkdirAll(path.Dir(fn), 0700); err != nil {
 					return err
 				}
@@ -134,14 +256,12 @@ server {
 				defer fd.Close()
 
 				return t.Execute(fd, struct {
-					Domain  string
+					Name    string
 					Port    int
-					Ssl     bool
 					Root    string
 					Version string
 				}{
-					Ssl:     viper.GetBool("http.ssl"),
-					Domain:  domain,
+					Name:    name,
 					Port:    viper.GetInt("http.port"),
 					Root:    pwd,
 					Version: "v1",
@@ -327,9 +447,6 @@ func init() {
 		"db":   8,
 	})
 
-	viper.SetDefault("listen", map[string]interface{}{
-		"port": 8080,
-	})
 	viper.SetDefault("home", map[string]interface{}{
 		"backend": "http://localhost:8080",
 		"front":   "http://localhost:4200",
@@ -348,7 +465,15 @@ func init() {
 			"max_idle": 6,
 		},
 	})
-	viper.SetDefault("secrets", RandomStr(512))
+
+	viper.SetDefault("server", map[string]interface{}{
+		"port": 8080,
+		"name": "www.change-me.com",
+	})
+	viper.SetDefault("secrets", map[string]interface{}{
+		"jwt": RandomStr(32),
+		"aes": RandomStr(32),
+	})
 
 	viper.SetDefault("workers", map[string]interface{}{
 		"pool": 30,
