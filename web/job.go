@@ -45,21 +45,22 @@ func (p *RedisJob) Push(queue string, args interface{}) error {
 }
 
 func (p *RedisJob) Start() error {
-	const stop = ".stop"
 	var err error
 	for {
-		if _, err = os.Stat(stop); err == nil {
-			p.Logger.Infof("find file %s, exit.", stop)
-			return nil
-		}
-		if err = p.start(); err != nil {
+		err = p.run()
+		if err != nil && err != redis.ErrNil {
 			break
 		}
 	}
 	return err
 }
 
-func (p *RedisJob) start() error {
+func (p *RedisJob) run() error {
+	const stop = ".stop"
+	if _, err := os.Stat(stop); err == nil {
+		return fmt.Errorf("find file %s, exit.", stop)
+	}
+
 	if len(p.Handlers) == 0 {
 		return errors.New("null handlers")
 	}
