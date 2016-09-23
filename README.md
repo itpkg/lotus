@@ -62,3 +62,4 @@ ls dist
 - [gin](https://github.com/gin-gonic/gin)
 - [cli](https://github.com/urfave/cli)
 - [locale](https://blog.golang.org/matchlang)
+- [govendor](https://github.com/kardianos/govendor)
