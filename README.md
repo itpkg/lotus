@@ -4,7 +4,7 @@ A web application by go-lang.
 
 ## Install go
 
-### ubuntu
+### For ubuntu
 
 ```
 add-apt-repository ppa:ubuntu-lxc/lxd-stable
@@ -12,12 +12,27 @@ sudo apt-get update
 sudo apt-get install golang
 ```
 
-### add to your .bashrc
+### For archlinux
+
+```
+sudo pacman -S go go-tools
+```
+
+### Add to your .bashrc or .zshrc
 
 ```
 GOPATH=$HOME/go
 PATH=$GOPATH/bin:$PATH
 export GOPATH PATH
+```
+
+### Some other packages
+
+```
+go get -u github.com/nsf/gocode
+go get -u github.com/derekparker/delve/cmd/dlv
+go get -u github.com/alecthomas/gometalinter
+go get -u github.com/kardianos/govendor
 ```
 
 ## Database creation
@@ -40,8 +55,10 @@ make
 ls dist
 ```
 
-## Editor
+## Documents
 
-### Atom
-
-- go-plus
+- [go-plus](https://atom.io/packages/go-plus)
+- [gorm](http://jinzhu.me/gorm/)
+- [gin](https://github.com/gin-gonic/gin)
+- [cli](https://github.com/urfave/cli)
+- [locale](https://blog.golang.org/matchlang)
