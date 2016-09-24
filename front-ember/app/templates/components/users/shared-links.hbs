@@ -2,12 +2,27 @@
   <ul>
     <li>
       {{#link-to 'users.sign-in'}}
-        Get Started!
+        {{t "auth.users.sign_in"}}
       {{/link-to}}
     </li>
     <li>
       {{#link-to 'users.sign-up'}}
-        Get Started!
+        {{t "auth.users.sign_up"}}
+      {{/link-to}}
+    </li>
+    <li>
+      {{#link-to 'users.forgot-password'}}
+        {{t "auth.users.forgot_your_password"}}
+      {{/link-to}}
+    </li>
+    <li>
+      {{#link-to 'users.confirm'}}
+        {{t "auth.users.didn_t_receive_confirmation_instructions"}}
+      {{/link-to}}
+    </li>
+    <li>
+      {{#link-to 'users.unlock'}}
+        {{t "auth.users.didn_t_receive_unlock_instructions"}}
       {{/link-to}}
     </li>
   </ul>

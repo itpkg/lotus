@@ -1,1 +1,21 @@
-{{outlet}}
+<h3>{{t 'auth.users.sign_up'}}</h3>
+<hr/>
+<form>
+  <div class="form-group">
+    <label for="name">{{t 'auth.attributes.user.name'}}</label>
+    <input type="text" class="form-control" id="name">
+  </div>
+  <div class="form-group">
+    <label for="email">{{t 'auth.attributes.user.email'}}</label>
+    <input type="email" class="form-control" id="email">
+  </div>
+  <div class="form-group">
+    <label for="password">{{t 'auth.attributes.user.password'}}</label>
+    <input type="password" class="form-control" id="password">
+  </div>
+  <div class="form-group">
+    <label for="password_confirmation">{{t 'auth.attributes.user.password_confirmation'}}</label>
+    <input type="password" class="form-control" id="password_confirmation">
+  </div>
+  <button type="submit" class="btn btn-primary">{{t 'buttons.submit'}}</button>
+</form>

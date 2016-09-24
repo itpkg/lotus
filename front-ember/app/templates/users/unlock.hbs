@@ -1,1 +1,9 @@
-{{outlet}}
+<h3>{{t 'auth.users.didn_t_receive_unlock_instructions'}}</h3>
+<hr/>
+<form>
+  <div class="form-group">
+    <label for="email">{{t 'auth.attributes.user.email'}}</label>
+    <input type="email" class="form-control" id="email">
+  </div>
+  <button type="submit" class="btn btn-primary">{{t 'auth.users.resend_unlock_instructions'}}</button>
+</form>
