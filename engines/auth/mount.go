@@ -4,8 +4,7 @@ import "github.com/gin-gonic/gin"
 
 //Mount mout
 func (p *Engine) Mount(rt *gin.Engine) {
-	ph := PageHandler(p.Dao, p.Logger)
-	rt.GET("/", ph, p.getHome)
+	rt.GET("/info", p.getInfo)
 
 	ug := rt.Group("/users")
 	ug.POST("/sign_in", p.postUserSignIn)

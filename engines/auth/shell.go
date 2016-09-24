@@ -11,13 +11,12 @@ import (
 	"github.com/BurntSushi/toml"
 	"github.com/facebookgo/inject"
 	"github.com/fvbock/endless"
-	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/itpkg/lotus/i18n"
 	"github.com/itpkg/lotus/web"
+	"github.com/rs/cors"
 	"github.com/spf13/viper"
 	"github.com/urfave/cli"
-	csrf "github.com/utrack/gin-csrf"
 )
 
 //Shell command line
@@ -67,32 +66,23 @@ func (p *Engine) Shell() []cli.Command {
 				rt.LoadHTMLGlob(fmt.Sprintf("themes/%s/**/*", viper.GetString("server.theme")))
 				rt.Use(i18n.LocaleHandler)
 
-				store := sessions.NewCookieStore([]byte(viper.GetString("secrets.session")))
-				rt.Use(sessions.Sessions("_lotus_", store))
-				rt.Use(csrf.Middleware(csrf.Options{
-					Secret: viper.GetString("secrets.csrf"),
-					ErrorFunc: func(c *gin.Context) {
-						c.AbortWithStatus(http.StatusBadRequest)
-					},
-				}))
-
 				web.Loop(func(en web.Engine) error {
 					en.Mount(rt)
 					return nil
 				})
 
 				adr := fmt.Sprintf(":%d", viper.GetInt("server.port"))
-				// hnd := cors.New(cors.Options{
-				// 	AllowCredentials: true,
-				// 	AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "PATCH"},
-				// 	AllowedHeaders:   []string{"*"},
-				// 	Debug:            !IsProduction(),
-				// }).Handler(rt)
+				hnd := cors.New(cors.Options{
+					AllowCredentials: true,
+					AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "PATCH"},
+					AllowedHeaders:   []string{"*"},
+					Debug:            !IsProduction(),
+				}).Handler(rt)
 
 				if IsProduction() {
-					return endless.ListenAndServe(adr, rt)
+					return endless.ListenAndServe(adr, hnd)
 				}
-				return http.ListenAndServe(adr, rt)
+				return http.ListenAndServe(adr, hnd)
 			}),
 		},
 		{
@@ -489,10 +479,8 @@ func init() {
 		"theme": "bootstrap4",
 	})
 	viper.SetDefault("secrets", map[string]interface{}{
-		"jwt":     web.RandomStr(32),
-		"aes":     web.RandomStr(32),
-		"session": web.RandomStr(32),
-		"csrf":    web.RandomStr(32),
+		"jwt": web.RandomStr(32),
+		"aes": web.RandomStr(32),
 	})
 
 	viper.SetDefault("workers", map[string]interface{}{
