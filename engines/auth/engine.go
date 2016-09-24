@@ -5,6 +5,7 @@ import (
 
 	"github.com/SermoDigital/jose/crypto"
 	"github.com/facebookgo/inject"
+	"github.com/itpkg/lotus/jobber"
 	"github.com/itpkg/lotus/web"
 	"github.com/jinzhu/gorm"
 	logging "github.com/op/go-logging"
@@ -16,7 +17,7 @@ type Engine struct {
 	Cache  web.Cache       `inject:""`
 	Db     *gorm.DB        `inject:""`
 	Dao    *Dao            `inject:""`
-	Job    web.Job         `inject:""`
+	Job    jobber.Jobber   `inject:""`
 	Logger *logging.Logger `inject:""`
 }
 

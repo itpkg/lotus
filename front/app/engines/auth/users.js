@@ -4,11 +4,11 @@ import i18next from 'i18next'
 import Form from '../../components/Form'
 
 export const SignIn = React.createClass({
-  onSubmit () {
+  onSubmit (rst) {
+    console.log(rst)
   },
   render () {
     return <Form
-      method="post"
       title={i18next.t('auth.users.sign_in')}
       fields={[
         {

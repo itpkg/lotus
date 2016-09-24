@@ -10,7 +10,7 @@ import {
 } from 'react-bootstrap'
 import i18next from 'i18next'
 
-import {ajax} from '../utils'
+import {post} from '../ajax'
 
 const Widget = React.createClass({
   getInitialState () {
@@ -31,17 +31,14 @@ const Widget = React.createClass({
   },
   handleSubmit: function (e) {
     e.preventDefault()
-    const {action, fields, method, submit} = this.props
+    const {action, fields, submit} = this.props
     var state = this.state
     var data = fields.reduce(function (obj, fld) {
       var o = {}
       o[fld.id] = state[fld.id]
       return Object.assign(obj, o)
     }, {})
-    console.log(data)
-    ajax(method, action, data, submit, function (xhr) {
-      console.log(xhr)
-    })
+    post(action, data, submit)
   },
   render () {
     const {title, fields} = this.props
@@ -97,7 +94,6 @@ const Widget = React.createClass({
 
 Widget.propTypes = {
   title: PropTypes.string.isRequired,
-  method: PropTypes.string.isRequired,
   action: PropTypes.string.isRequired,
   submit: PropTypes.func.isRequired,
   fields: PropTypes.array.isRequired

@@ -71,8 +71,8 @@ func (p *User) IsAvailable() bool {
 	return p.IsConfirmed() && !p.IsLocked()
 }
 
-//SetGravatar set logo by gravatar
-func (p *User) SetGravatar() {
+//SetGravatarLogo set logo by gravatar
+func (p *User) SetGravatarLogo() {
 	buf := md5.Sum([]byte(strings.ToLower(p.Email)))
 	p.Logo = fmt.Sprintf("https://gravatar.com/avatar/%s.png", hex.EncodeToString(buf[:]))
 }

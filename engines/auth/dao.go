@@ -3,6 +3,7 @@ package auth
 import (
 	"bytes"
 	"encoding/gob"
+	"fmt"
 	"time"
 
 	"github.com/SermoDigital/jose/jws"
@@ -10,13 +11,15 @@ import (
 	"github.com/jinzhu/gorm"
 	logging "github.com/op/go-logging"
 	uuid "github.com/satori/go.uuid"
+	"github.com/spf13/viper"
 )
 
 //Dao db helper
 type Dao struct {
-	Db            *gorm.DB           `inject:""`
-	TextEncryptor *web.TextEncryptor `inject:""`
-	Logger        *logging.Logger    `inject:""`
+	Db                *gorm.DB               `inject:""`
+	TextEncryptor     *web.TextEncryptor     `inject:""`
+	PasswordEncryptor *web.PasswordEncryptor `inject:""`
+	Logger            *logging.Logger        `inject:""`
 }
 
 //Set save setting
@@ -94,6 +97,30 @@ func (p *Dao) UserClaims(u *User) jws.Claims {
 
 	cm.Set("roles", p.Authority(u.ID, "-", 0))
 	return cm
+}
+
+//AddEmailUser add email user
+func (p *Dao) AddEmailUser(email, name, password string) (*User, error) {
+	var u User
+	var err error
+	now := time.Now()
+	if p.Db.Where("provider_id = ? AND provider_type = ?", "email", email).First(&u).RecordNotFound() {
+		uid := uuid.NewV4().String()
+		u.Email = email
+		u.Name = name
+		u.Home = fmt.Sprintf("%s/users/%s", viper.GetString("server.front"), uid)
+		u.UID = uid
+		u.ProviderID = email
+		u.ProviderType = "email"
+		u.ConfirmedAt = &now
+		u.SignInCount = 1
+		u.LastSignIn = &now
+		u.SetGravatarLogo()
+		err = p.Db.Create(&u).Error
+	} else {
+		err = fmt.Errorf("email %s already exists", email)
+	}
+	return &u, err
 }
 
 //AddOpenIDUser add openid user

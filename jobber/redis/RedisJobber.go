@@ -1,4 +1,4 @@
-package web
+package redis
 
 import (
 	"bytes"
@@ -7,36 +7,27 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/garyburd/redigo/redis"
+	_redis "github.com/garyburd/redigo/redis"
+	"github.com/itpkg/lotus/jobber"
 	logging "github.com/op/go-logging"
 )
 
-//JobHandler job handler
-type JobHandler func(args []byte) error
-
-//Job background job
-type Job interface {
-	Push(queue string, args interface{}) error
-	Register(queue string, handler JobHandler)
-	Start() error
-}
-
-//RedisJob job by readis store
-type RedisJob struct {
-	Redis  *redis.Pool     `inject:""`
+//Jobber job by readis store
+type Jobber struct {
+	Redis  *_redis.Pool    `inject:""`
 	Logger *logging.Logger `inject:""`
 
 	Timeout  int
-	Handlers map[string]JobHandler
+	Handlers map[string]jobber.Handler
 }
 
 //Register register a job-handler
-func (p *RedisJob) Register(queue string, handler JobHandler) {
+func (p *Jobber) Register(queue string, handler jobber.Handler) {
 	p.Handlers[p.key(queue)] = handler
 }
 
 //Push add a job task
-func (p *RedisJob) Push(queue string, args interface{}) error {
+func (p *Jobber) Push(queue string, args interface{}) error {
 	p.Logger.Infof("push job into %s", queue)
 	c := p.Redis.Get()
 	defer c.Close()
@@ -50,18 +41,18 @@ func (p *RedisJob) Push(queue string, args interface{}) error {
 }
 
 //Start start to process job
-func (p *RedisJob) Start() error {
+func (p *Jobber) Start() error {
 	var err error
 	for {
 		err = p.run()
-		if err != nil && err != redis.ErrNil {
+		if err != nil && err != _redis.ErrNil {
 			break
 		}
 	}
 	return err
 }
 
-func (p *RedisJob) run() error {
+func (p *Jobber) run() error {
 	const stop = ".stop"
 	if _, err := os.Stat(stop); err == nil {
 		return fmt.Errorf("find file %s, exit", stop)
@@ -77,7 +68,7 @@ func (p *RedisJob) run() error {
 		keys = append(keys, k)
 	}
 	keys = append(keys, p.Timeout)
-	args, err := redis.ByteSlices(c.Do("BRPOP", keys...))
+	args, err := _redis.ByteSlices(c.Do("BRPOP", keys...))
 	if err != nil {
 		return err
 	}
@@ -86,6 +77,6 @@ func (p *RedisJob) run() error {
 	return p.Handlers[queue](args[1])
 }
 
-func (p *RedisJob) key(queue string) string {
+func (p *Jobber) key(queue string) string {
 	return fmt.Sprintf("task://%s", queue)
 }
