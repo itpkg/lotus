@@ -1,9 +1,8 @@
-package reading
+package vpn
 
 import (
 	"github.com/facebookgo/inject"
 	"github.com/gin-gonic/gin"
-	"github.com/itpkg/lotus/web"
 	"github.com/jinzhu/gorm"
 	"github.com/urfave/cli"
 )
@@ -35,8 +34,4 @@ func (p *Engine) Worker() {}
 //Shell command line options
 func (p *Engine) Shell() []cli.Command {
 	return []cli.Command{}
-}
-
-func init() {
-	web.Register(&Engine{})
 }

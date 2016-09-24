@@ -12,6 +12,7 @@ import (
 	"time"
 )
 
+//WritePemFile wirte to a pem format file
 func WritePemFile(file, _type string, buf []byte) error {
 	if err := os.MkdirAll(path.Dir(file), 0700); err != nil {
 		return err
@@ -30,6 +31,7 @@ func WritePemFile(file, _type string, buf []byte) error {
 	)
 }
 
+//CreateCertificate create certs
 func CreateCertificate(ca bool, subject pkix.Name, years int) ([]byte, []byte, error) {
 	now := time.Now()
 

@@ -8,6 +8,7 @@ import (
 	"github.com/garyburd/redigo/redis"
 )
 
+//Cache cache
 type Cache interface {
 	Flush() error
 	Keys() ([]string, error)
@@ -15,10 +16,12 @@ type Cache interface {
 	Get(key string, val interface{}) error
 }
 
+//RedisCache cache by redis
 type RedisCache struct {
 	Redis *redis.Pool `inject:""`
 }
 
+//Flush clear cache items
 func (p *RedisCache) Flush() error {
 	c := p.Redis.Get()
 	defer c.Close()
@@ -29,12 +32,14 @@ func (p *RedisCache) Flush() error {
 	return err
 }
 
+//Keys list cache items
 func (p *RedisCache) Keys() ([]string, error) {
 	c := p.Redis.Get()
 	defer c.Close()
 	return redis.Strings(c.Do("KEYS", p.key("*")))
 }
 
+//Set cache item
 func (p *RedisCache) Set(key string, val interface{}, ttl uint) error {
 	c := p.Redis.Get()
 	defer c.Close()
@@ -47,6 +52,7 @@ func (p *RedisCache) Set(key string, val interface{}, ttl uint) error {
 	return err
 }
 
+//Get get from cache
 func (p *RedisCache) Get(key string, val interface{}) error {
 	c := p.Redis.Get()
 	defer c.Close()

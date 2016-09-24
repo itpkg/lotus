@@ -96,8 +96,8 @@ func (p *Dao) UserClaims(u *User) jws.Claims {
 	return cm
 }
 
-//AddUser add openid user
-func (p *Dao) AddOpenIdUser(pid, pty, email, name, home, logo string) (*User, error) {
+//AddOpenIDUser add openid user
+func (p *Dao) AddOpenIDUser(pid, pty, email, name, home, logo string) (*User, error) {
 	var u User
 	var err error
 	now := time.Now()

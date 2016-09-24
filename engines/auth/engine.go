@@ -11,6 +11,7 @@ import (
 	"github.com/spf13/viper"
 )
 
+//Engine engine
 type Engine struct {
 	Cache  web.Cache       `inject:""`
 	Db     *gorm.DB        `inject:""`
@@ -19,6 +20,7 @@ type Engine struct {
 	Logger *logging.Logger `inject:""`
 }
 
+//Map map objects
 func (p *Engine) Map(inj *inject.Graph) error {
 
 	cip, err := aes.NewCipher([]byte(viper.GetString("secrets.aes")))
@@ -34,6 +36,7 @@ func (p *Engine) Map(inj *inject.Graph) error {
 
 }
 
+//Migrate db:migrate
 func (p *Engine) Migrate(db *gorm.DB) {
 	db.AutoMigrate(
 		&Setting{}, &Notice{}, &LeaveWord{},
@@ -45,8 +48,10 @@ func (p *Engine) Migrate(db *gorm.DB) {
 	db.Model(&Permission{}).AddUniqueIndex("idx_permissions_user_role", "user_id", "role_id")
 }
 
+//Seed db:seed
 func (p *Engine) Seed() {}
 
+//Worker register worker handler
 func (p *Engine) Worker() {
 	p.Job.Register("email", func(args []byte) error {
 		p.Logger.Debugf("do email job %s", string(args))

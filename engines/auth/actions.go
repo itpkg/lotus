@@ -7,6 +7,7 @@ import (
 	"github.com/urfave/cli"
 )
 
+//IocAction ioc action
 func IocAction(fn func(*cli.Context, *inject.Graph) error) cli.ActionFunc {
 	return Action(func(ctx *cli.Context) error {
 		var inj inject.Graph
@@ -46,6 +47,7 @@ func IocAction(fn func(*cli.Context, *inject.Graph) error) cli.ActionFunc {
 	})
 }
 
+//Action load config action
 func Action(f cli.ActionFunc) cli.ActionFunc {
 	return func(c *cli.Context) error {
 		if err := viper.ReadInConfig(); err != nil {

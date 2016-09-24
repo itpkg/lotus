@@ -8,10 +8,12 @@ import (
 	"encoding/base64"
 )
 
+//TextEncryptor text encryptor
 type TextEncryptor struct {
 	Cipher cipher.Block `inject:""`
 }
 
+//Encode encode buffer
 func (p *TextEncryptor) Encode(buf []byte) ([]byte, error) {
 	iv := make([]byte, aes.BlockSize)
 	if _, err := rand.Read(iv); err != nil {
@@ -24,6 +26,7 @@ func (p *TextEncryptor) Encode(buf []byte) ([]byte, error) {
 	return append(val, iv...), nil
 }
 
+//Decode decode buffer
 func (p *TextEncryptor) Decode(buf []byte) ([]byte, error) {
 	bln := len(buf)
 	cln := bln - aes.BlockSize
@@ -38,9 +41,11 @@ func (p *TextEncryptor) Decode(buf []byte) ([]byte, error) {
 
 //-----------------------------------------------------------------------------
 
+//PasswordEncryptor password encryptor
 type PasswordEncryptor struct {
 }
 
+//Sum sha512 with salt
 func (p *PasswordEncryptor) Sum(plain []byte, num uint) (string, error) {
 	salt, err := RandomBytes(num)
 	if err != nil {
@@ -49,6 +54,7 @@ func (p *PasswordEncryptor) Sum(plain []byte, num uint) (string, error) {
 	return p.sum(plain, salt)
 }
 
+//Equal compare
 func (p *PasswordEncryptor) Equal(plain []byte, code string) (bool, error) {
 	buf, err := base64.StdEncoding.DecodeString(code)
 	if err != nil {

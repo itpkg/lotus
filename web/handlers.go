@@ -5,6 +5,7 @@ import (
 	"golang.org/x/text/language"
 )
 
+//LocaleHandler detect locale from http header
 func LocaleHandler(c *gin.Context) {
 	// 1. Check URL arguments.
 	lng := c.Request.URL.Query().Get("locale")

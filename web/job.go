@@ -11,14 +11,17 @@ import (
 	logging "github.com/op/go-logging"
 )
 
+//JobHandler job handler
 type JobHandler func(args []byte) error
 
+//Job background job
 type Job interface {
 	Push(queue string, args interface{}) error
 	Register(queue string, handler JobHandler)
 	Start() error
 }
 
+//RedisJob job by readis store
 type RedisJob struct {
 	Redis  *redis.Pool     `inject:""`
 	Logger *logging.Logger `inject:""`
@@ -27,10 +30,12 @@ type RedisJob struct {
 	Handlers map[string]JobHandler
 }
 
+//Register register a job-handler
 func (p *RedisJob) Register(queue string, handler JobHandler) {
 	p.Handlers[p.key(queue)] = handler
 }
 
+//Push add a job task
 func (p *RedisJob) Push(queue string, args interface{}) error {
 	p.Logger.Infof("push job into %s", queue)
 	c := p.Redis.Get()
@@ -44,6 +49,7 @@ func (p *RedisJob) Push(queue string, args interface{}) error {
 	return err
 }
 
+//Start start to process job
 func (p *RedisJob) Start() error {
 	var err error
 	for {
@@ -58,7 +64,7 @@ func (p *RedisJob) Start() error {
 func (p *RedisJob) run() error {
 	const stop = ".stop"
 	if _, err := os.Stat(stop); err == nil {
-		return fmt.Errorf("find file %s, exit.", stop)
+		return fmt.Errorf("find file %s, exit", stop)
 	}
 
 	if len(p.Handlers) == 0 {
@@ -67,7 +73,7 @@ func (p *RedisJob) run() error {
 	c := p.Redis.Get()
 	defer c.Close()
 	var keys []interface{}
-	for k, _ := range p.Handlers {
+	for k := range p.Handlers {
 		keys = append(keys, k)
 	}
 	keys = append(keys, p.Timeout)

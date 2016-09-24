@@ -18,6 +18,7 @@ import (
 	"github.com/urfave/cli"
 )
 
+//Shell command line
 func (p *Engine) Shell() []cli.Command {
 	return []cli.Command{
 		{
@@ -277,7 +278,7 @@ server {
 			Aliases: []string{"re"},
 			Usage:   "open redis connection",
 			Action: Action(func(*cli.Context) error {
-				return Shell(
+				return web.Shell(
 					"redis-cli",
 					"-h", viper.GetString("redis.host"),
 					"-p", viper.GetString("redis.port"),
@@ -345,7 +346,7 @@ server {
 						var err error
 						switch drv {
 						case "postgres":
-							err = Shell("psql",
+							err = web.Shell("psql",
 								"-h", args["host"],
 								"-p", args["port"],
 								"-U", args["user"],
@@ -367,7 +368,7 @@ server {
 						var err error
 						switch drv {
 						case "postgres":
-							err = Shell("psql",
+							err = web.Shell("psql",
 								"-h", args["host"],
 								"-p", args["port"],
 								"-U", args["user"],
@@ -389,7 +390,7 @@ server {
 						var err error
 						switch drv {
 						case "postgres":
-							err = Shell("psql",
+							err = web.Shell("psql",
 								"-h", args["host"],
 								"-p", args["port"],
 								"-U", args["user"],
@@ -476,8 +477,8 @@ func init() {
 		"theme": "bootstrap4",
 	})
 	viper.SetDefault("secrets", map[string]interface{}{
-		"jwt": RandomStr(32),
-		"aes": RandomStr(32),
+		"jwt": web.RandomStr(32),
+		"aes": web.RandomStr(32),
 	})
 
 	viper.SetDefault("workers", map[string]interface{}{

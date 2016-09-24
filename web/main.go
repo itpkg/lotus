@@ -6,6 +6,7 @@ import (
 	"github.com/urfave/cli"
 )
 
+//Main main entry
 func Main(version string) error {
 	app := cli.NewApp()
 	app.Name = os.Args[0]

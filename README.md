@@ -32,6 +32,8 @@ export GOPATH PATH
 go get -u github.com/nsf/gocode
 go get -u github.com/derekparker/delve/cmd/dlv
 go get -u github.com/alecthomas/gometalinter
+go get -u github.com/golang/lint/golint
+
 go get -u github.com/kardianos/govendor
 ```
 

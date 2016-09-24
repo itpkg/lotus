@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"math/rand"
 	"os"
-	"os/exec"
-	"syscall"
 	"time"
 
 	"github.com/garyburd/redigo/redis"
@@ -14,27 +12,12 @@ import (
 	"github.com/spf13/viper"
 )
 
-func Shell(cmd string, args ...string) error {
-	bin, err := exec.LookPath(cmd)
-	if err != nil {
-		return err
-	}
-	return syscall.Exec(bin, append([]string{cmd}, args...), os.Environ())
-}
-
-func RandomStr(n int) string {
-	letters := []rune("abcdefghijklmnopqrstuvwxyz0123456789")
-	buf := make([]rune, n)
-	for i := range buf {
-		buf[i] = letters[rand.Intn(len(letters))]
-	}
-	return string(buf)
-}
-
+//IsProduction is production mode?
 func IsProduction() bool {
 	return viper.GetString("env") == "production"
 }
 
+//OpenDatabase open database
 func OpenDatabase() (*gorm.DB, error) {
 	//postgresql: "user=%s password=%s host=%s port=%d dbname=%s sslmode=%s"
 	args := ""
@@ -59,6 +42,7 @@ func OpenDatabase() (*gorm.DB, error) {
 
 }
 
+//OpenRedis get redis connection pool
 func OpenRedis() *redis.Pool {
 	return &redis.Pool{
 		MaxIdle:     3,
@@ -88,6 +72,7 @@ func OpenRedis() *redis.Pool {
 	}
 }
 
+//OpenLogger open logger
 func OpenLogger() *logging.Logger {
 	var bkd logging.Backend
 	if IsProduction() {

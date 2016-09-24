@@ -10,12 +10,14 @@ import (
 	"github.com/itpkg/lotus/web"
 )
 
+//LeaveWord leave word
 type LeaveWord struct {
 	ID        uint      `gorm:"primary_key" json:"id"`
 	Content   string    `gorm:"not null;type:text" json:"content"`
 	CreatedAt time.Time `gorm:"not null;default:current_timestamp" json:"created_at"`
 }
 
+//Notice notice
 type Notice struct {
 	ID        uint      `gorm:"primary_key" json:"id"`
 	Lang      string    `gorm:"not null;type:varchar(8);index" json:"lang"`
@@ -23,6 +25,7 @@ type Notice struct {
 	CreatedAt time.Time `gorm:"not null;default:current_timestamp" json:"created_at"`
 }
 
+//Setting setting
 type Setting struct {
 	web.Model
 
