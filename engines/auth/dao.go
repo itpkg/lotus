@@ -3,6 +3,7 @@ package auth
 import (
 	"bytes"
 	"encoding/gob"
+	"errors"
 	"fmt"
 	"time"
 
@@ -99,8 +100,22 @@ func (p *Dao) UserClaims(u *User) jws.Claims {
 	return cm
 }
 
-//AddEmailUser add email user
-func (p *Dao) AddEmailUser(email, name, password string) (*User, error) {
+//SignIn sign in
+func (p *Dao) SignIn(email, password string) (*User, error) {
+	var u User
+	var ok bool
+	err := p.Db.Where("provider_id = ? AND provider_type = ?", "email", email).First(&u).Error
+	if err == nil {
+		ok, err = p.PasswordEncryptor.Equal([]byte(password), u.Password)
+		if !ok {
+			err = errors.New("email and password not match")
+		}
+	}
+	return &u, err
+}
+
+//SignUp sign up
+func (p *Dao) SignUp(email, name, password string) (*User, error) {
 	var u User
 	var err error
 	now := time.Now()
@@ -115,7 +130,11 @@ func (p *Dao) AddEmailUser(email, name, password string) (*User, error) {
 		u.ConfirmedAt = &now
 		u.SignInCount = 1
 		u.LastSignIn = &now
+
 		u.SetGravatarLogo()
+		if u.Password, err = p.PasswordEncryptor.Sum([]byte(password), 8); err != nil {
+			return nil, err
+		}
 		err = p.Db.Create(&u).Error
 	} else {
 		err = fmt.Errorf("email %s already exists", email)
@@ -153,10 +172,17 @@ func (p *Dao) AddOpenIDUser(pid, pty, email, name, home, logo string) (*User, er
 	return &u, err
 }
 
-//GetUser get user by uid
-func (p *Dao) GetUser(uid string) (*User, error) {
+//GetUserByUID get user by uid
+func (p *Dao) GetUserByUID(uid string) (*User, error) {
 	var u User
 	err := p.Db.Where("uid = ?", uid).First(&u).Error
+	return &u, err
+}
+
+//GetUserByEmail get user by email
+func (p *Dao) GetUserByEmail(email string) (*User, error) {
+	var u User
+	err := p.Db.Where("provider_type = ? AND provider_id = ?", "email", email).First(&u).Error
 	return &u, err
 }
 

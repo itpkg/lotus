@@ -4,13 +4,13 @@ import "github.com/gin-gonic/gin"
 
 //Mount mout
 func (p *Engine) Mount(rt *gin.Engine) {
-	rt.GET("/info", p.getInfo)
+	rt.GET("/info", JSON(p.getInfo))
 
 	ug := rt.Group("/users")
-	ug.POST("/sign_in", p.postUserSignIn)
-	ug.POST("/sign_up", p.postUserSignUp)
-	ug.POST("/confirm", p.postUserConfirm)
-	ug.POST("/unlock", p.postUserUnlock)
-	ug.POST("/forgot_password", p.postUserForgotPassword)
-	ug.POST("/reset_password", p.postUserResetPassword)
+	ug.POST("/sign-in", JSON(p.postUserSignIn))
+	ug.POST("/sign-up", JSON(p.postUserSignUp))
+	ug.POST("/confirm", JSON(p.postUserConfirm))
+	ug.POST("/unlock", JSON(p.postUserUnlock))
+	ug.POST("/forgot-password", JSON(p.postUserForgotPassword))
+	ug.POST("/reset-password", JSON(p.postUserChangePassword))
 }

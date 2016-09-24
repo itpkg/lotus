@@ -16,11 +16,14 @@ import (
 
 //Engine engine
 type Engine struct {
-	Cache  cache.Store     `inject:""`
-	Db     *gorm.DB        `inject:""`
-	Dao    *Dao            `inject:""`
-	Job    jobber.Jobber   `inject:""`
-	Logger *logging.Logger `inject:""`
+	Cache             cache.Store            `inject:""`
+	Db                *gorm.DB               `inject:""`
+	Dao               *Dao                   `inject:""`
+	Jobber            jobber.Jobber          `inject:""`
+	Logger            *logging.Logger        `inject:""`
+	Jwt               *Jwt                   `inject:""`
+	PasswordEncryptor *web.PasswordEncryptor `inject:""`
+	I18n              *i18n.I18n             `inject:""`
 }
 
 //Map map objects
@@ -62,7 +65,7 @@ func (p *Engine) Seed() {}
 
 //Worker register worker handler
 func (p *Engine) Worker() {
-	p.Job.Register("email", func(args []byte) error {
+	p.Jobber.Register("email", func(args []byte) error {
 		p.Logger.Debugf("do email job %s", string(args))
 		return nil
 	})

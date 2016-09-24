@@ -25,6 +25,7 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    ENV.BACKEND = {host: 'http://localhost:8080'}
   }
 
   if (environment === 'test') {
@@ -39,7 +40,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-
+    ENV.BACKEND = {namespace: '/api/v1'}
   }
 
   ENV.i18n = {

@@ -8,7 +8,6 @@ import (
 	"github.com/SermoDigital/jose/crypto"
 	"github.com/SermoDigital/jose/jws"
 	"github.com/SermoDigital/jose/jwt"
-	"github.com/garyburd/redigo/redis"
 	"github.com/gin-gonic/gin"
 	logging "github.com/op/go-logging"
 	uuid "github.com/satori/go.uuid"
@@ -19,7 +18,6 @@ type Jwt struct {
 	Key    []byte               `inject:"jwt.key"`
 	Method crypto.SigningMethod `inject:"jwt.method"`
 	Logger *logging.Logger      `inject:""`
-	Redis  *redis.Pool          `inject:""`
 	Dao    *Dao                 `inject:""`
 }
 

@@ -63,7 +63,7 @@ func (p *Engine) Shell() []cli.Command {
 					gin.SetMode(gin.ReleaseMode)
 				}
 				rt := gin.Default()
-				rt.LoadHTMLGlob(fmt.Sprintf("themes/%s/**/*", viper.GetString("server.theme")))
+				// rt.LoadHTMLGlob(fmt.Sprintf("themes/%s/**/*", viper.GetString("server.theme")))
 				rt.Use(i18n.LocaleHandler)
 
 				web.Loop(func(en web.Engine) error {
@@ -95,7 +95,7 @@ func (p *Engine) Shell() []cli.Command {
 					return nil
 				})
 
-				return p.Job.Start()
+				return p.Jobber.Start()
 			}),
 		},
 		{

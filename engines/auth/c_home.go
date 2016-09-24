@@ -2,7 +2,6 @@ package auth
 
 import (
 	"fmt"
-	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"golang.org/x/text/language"
@@ -34,12 +33,9 @@ type Link struct {
 	Href  string
 }
 
-func (p *Engine) getInfo(c *gin.Context) {
+func (p *Engine) getInfo(c *gin.Context) (interface{}, error) {
 	locale := c.MustGet("locale").(*language.Tag).String()
 	var page Page
-	if err := p.Dao.Get(fmt.Sprintf("%s://site/info", locale), &page); err != nil {
-		p.Logger.Error(err)
-		page.Locale = locale
-	}
-	c.JSON(http.StatusOK, page)
+	err := p.Dao.Get(fmt.Sprintf("%s://site/info", locale), &page)
+	return page, err
 }
