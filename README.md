@@ -52,9 +52,9 @@ GRANT ALL PRIVILEGES ON DATABASE db-name TO user-name;
 
 ```
 go get github.com/itpkg/lotus
-cd $github.com/itpkg/lotus/demo
+cd $github.com/itpkg/lotus
 make
-ls dist
+ls -lh dist
 ```
 
 ## Documents
