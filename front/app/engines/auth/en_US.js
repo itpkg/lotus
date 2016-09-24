@@ -10,6 +10,15 @@ export default {
     },
     auth: {
       no_match: 'Not found',
+      models: {
+        user: 'User'
+      },
+      attributes: {
+        user: {
+          email: 'Email',
+          password: 'Password'
+        }
+      },
       users: {
         sign_in_or_up: 'Sign in/up',
         sign_in: 'Sign in',

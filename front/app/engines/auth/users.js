@@ -1,8 +1,32 @@
 import React from 'react'
+import i18next from 'i18next'
+
+import Form from '../../components/Form'
 
 export const SignIn = React.createClass({
+  onSubmit () {
+  },
   render () {
-    return <div>sign in</div>
+    return <Form
+      method="post"
+      title={i18next.t('auth.users.sign_in')}
+      fields={[
+        {
+          id: 'email',
+          type: 'email',
+          label: i18next.t('auth.attributes.user.email'),
+          placeholder: ''
+        },
+        {
+          id: 'password',
+          type: 'password',
+          label: i18next.t('auth.attributes.user.password'),
+          placeholder: ''
+        }
+      ]}
+      submit = {this.onSubmit}
+      action="/users/sign_in"
+      />
   }
 })
 

@@ -10,6 +10,15 @@ export default {
     },
     auth: {
       no_match: '页面不存在',
+      models: {
+        user: '用户'
+      },
+      attributes: {
+        user: {
+          email: '邮箱',
+          password: '密码'
+        }
+      },
       users: {
         sign_in_or_up: '注册/登录',
         sign_in: '账户登录',

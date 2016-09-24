@@ -1,44 +1,96 @@
 import React, {PropTypes} from 'react'
 import {connect} from 'react-redux'
 import {
-  Tabs,
-  Tab,
-  ListGroup,
-  ListGroupItem,
-  Thumbnail,
-  Button,
+  Form,
+  Col,
   FormGroup,
+  Button,
   ControlLabel,
   FormControl
 } from 'react-bootstrap'
+import i18next from 'i18next'
+
+import {ajax} from '../utils'
 
 const Widget = React.createClass({
-  render (title, fields, method, action, submit) {
+  getInitialState () {
+    const {fields} = this.props
+    var data = fields.reduce(function (obj, fld) {
+      var o = {}
+      o[fld.id] = fld.value
+      return Object.assign(obj, o)
+    }, {})
+    // console.log(data)
+    return data
+  },
+  handleChange: function (e) {
+    // console.log(this.state)
+    var o = {}
+    o[e.target.id] = e.target.value
+    this.setState(o)
+  },
+  handleSubmit: function (e) {
+    e.preventDefault()
+    const {action, fields, method, submit} = this.props
+    var state = this.state
+    var data = fields.reduce(function (obj, fld) {
+      var o = {}
+      o[fld.id] = state[fld.id]
+      return Object.assign(obj, o)
+    }, {})
+    console.log(data)
+    ajax(method, action, data, submit, function (xhr) {
+      console.log(xhr)
+    })
+  },
+  render () {
+    const {title, fields} = this.props
     return <fieldset>
       <legend>{title}</legend>
-      <form>
+      <Form horizontal onSubmit={this.handleSubmit}>
       {fields.map(function (field) {
         switch (field.type) {
           case 'text':
-            return <FieldGroup
-              id={field.id}
-              type="text"
-              label={field.label}
-              placeholder={field.placeholder}
-            />
+            return (<FormGroup key={field.id} controlId={field.id}>
+              <Col componentClass={ControlLabel} sm={2}>
+                {field.label}
+              </Col>
+              <Col sm={10}>
+                <FormControl type="text" placeholder={field.placeholder} />
+              </Col>
+            </FormGroup>)
           case 'email':
-            return <FieldGroup
-              id={field.id}
-              type="password"
-              label={field.label}
-              placeholder={field.placeholder}
-            />
+            return (<FormGroup key={field.id} controlId={field.id}>
+              <Col componentClass={ControlLabel} sm={2}>
+                {field.label}
+              </Col>
+              <Col sm={8}>
+                <FormControl value={this.state.value} onChange={this.handleChange} type="email" placeholder={field.placeholder} />
+              </Col>
+            </FormGroup>)
+          case 'password':
+            return (<FormGroup value={this.state.value} onChange={this.handleChange} key={field.id} controlId={field.id}>
+              <Col componentClass={ControlLabel} sm={2}>
+                {field.label}
+              </Col>
+              <Col sm={6}>
+                <FormControl type="password" placeholder={field.placeholder} />
+              </Col>
+            </FormGroup>)
           default:
             console.log('unknown type ' + field.type)
-            return <input type='hidden' value={field.value}/>
+            return <input key={field.id} type='hidden' value={field.value}/>
         }
-      })}
-      </form>
+      }.bind(this))}
+
+      <FormGroup>
+        <Col sm={10} smOffset={2}>
+          <Button type="submit">
+            {i18next.t('buttons.submit')}
+          </Button>
+        </Col>
+      </FormGroup>
+      </Form>
     </fieldset>
   }
 })

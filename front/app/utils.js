@@ -1,4 +1,6 @@
-export function ajax () {}
+export function ajax (method, action, data, success, failed) {
+
+}
 
 export function isSignIn () {}
 
