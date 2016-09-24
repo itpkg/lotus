@@ -1,4 +1,4 @@
-package web_test
+package cache_test
 
 import (
 	"testing"

@@ -12,6 +12,7 @@ import (
 	"github.com/facebookgo/inject"
 	"github.com/fvbock/endless"
 	"github.com/gin-gonic/gin"
+	"github.com/itpkg/lotus/i18n"
 	"github.com/itpkg/lotus/web"
 	"github.com/rs/cors"
 	"github.com/spf13/viper"
@@ -63,7 +64,7 @@ func (p *Engine) Shell() []cli.Command {
 				}
 				rt := gin.Default()
 				// rt.LoadHTMLGlob(fmt.Sprintf("themes/%s/**/*", viper.GetString("server.theme")))
-				rt.Use(web.LocaleHandler)
+				rt.Use(i18n.LocaleHandler)
 
 				web.Loop(func(en web.Engine) error {
 					en.Mount(rt)

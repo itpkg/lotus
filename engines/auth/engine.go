@@ -5,6 +5,7 @@ import (
 
 	"github.com/SermoDigital/jose/crypto"
 	"github.com/facebookgo/inject"
+	"github.com/itpkg/lotus/cache"
 	"github.com/itpkg/lotus/jobber"
 	"github.com/itpkg/lotus/web"
 	"github.com/jinzhu/gorm"
@@ -14,7 +15,7 @@ import (
 
 //Engine engine
 type Engine struct {
-	Cache  web.Cache       `inject:""`
+	Cache  cache.Store     `inject:""`
 	Db     *gorm.DB        `inject:""`
 	Dao    *Dao            `inject:""`
 	Job    jobber.Jobber   `inject:""`
@@ -33,6 +34,11 @@ func (p *Engine) Map(inj *inject.Graph) error {
 		&inject.Object{Value: cip},
 		&inject.Object{Value: []byte(viper.GetString("secrets.jwt")), Name: "jwt.key"},
 		&inject.Object{Value: crypto.SigningMethodHS512, Name: "jwt.method"},
+		&inject.Object{Value: &cache.RedisStore{}},
+		&inject.Object{Value: &jobber.RedisJobber{
+			Timeout:  viper.GetInt("workers.timeout"),
+			Handlers: make(map[string]jobber.Handler),
+		}},
 	)
 
 }

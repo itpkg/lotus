@@ -2,8 +2,6 @@ package auth
 
 import (
 	"github.com/facebookgo/inject"
-	"github.com/itpkg/lotus/jobber"
-	"github.com/itpkg/lotus/jobber/redis"
 	"github.com/itpkg/lotus/web"
 	"github.com/spf13/viper"
 	"github.com/urfave/cli"
@@ -28,11 +26,6 @@ func IocAction(fn func(*cli.Context, *inject.Graph) error) cli.ActionFunc {
 			&inject.Object{Value: logger},
 			&inject.Object{Value: db},
 			&inject.Object{Value: rep},
-			&inject.Object{Value: &web.RedisCache{}},
-			&inject.Object{Value: &redis.Jobber{
-				Timeout:  viper.GetInt("workers.timeout"),
-				Handlers: make(map[string]jobber.Handler),
-			}},
 		); err != nil {
 			return err
 		}

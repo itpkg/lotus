@@ -1,4 +1,4 @@
-package web
+package i18n
 
 import (
 	"github.com/gin-gonic/gin"

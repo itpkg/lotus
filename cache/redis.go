@@ -1,4 +1,4 @@
-package web
+package cache
 
 import (
 	"bytes"
@@ -8,21 +8,13 @@ import (
 	"github.com/garyburd/redigo/redis"
 )
 
-//Cache cache
-type Cache interface {
-	Flush() error
-	Keys() ([]string, error)
-	Set(key string, val interface{}, ttl uint) error
-	Get(key string, val interface{}) error
-}
-
-//RedisCache cache by redis
-type RedisCache struct {
+//RedisStore redis cache store
+type RedisStore struct {
 	Redis *redis.Pool `inject:""`
 }
 
 //Flush clear cache items
-func (p *RedisCache) Flush() error {
+func (p *RedisStore) Flush() error {
 	c := p.Redis.Get()
 	defer c.Close()
 	keys, err := redis.Values(c.Do("KEYS", p.key("*")))
@@ -33,14 +25,14 @@ func (p *RedisCache) Flush() error {
 }
 
 //Keys list cache items
-func (p *RedisCache) Keys() ([]string, error) {
+func (p *RedisStore) Keys() ([]string, error) {
 	c := p.Redis.Get()
 	defer c.Close()
 	return redis.Strings(c.Do("KEYS", p.key("*")))
 }
 
 //Set cache item
-func (p *RedisCache) Set(key string, val interface{}, ttl uint) error {
+func (p *RedisStore) Set(key string, val interface{}, ttl uint) error {
 	c := p.Redis.Get()
 	defer c.Close()
 	var buf bytes.Buffer
@@ -53,7 +45,7 @@ func (p *RedisCache) Set(key string, val interface{}, ttl uint) error {
 }
 
 //Get get from cache
-func (p *RedisCache) Get(key string, val interface{}) error {
+func (p *RedisStore) Get(key string, val interface{}) error {
 	c := p.Redis.Get()
 	defer c.Close()
 	bys, err := redis.Bytes(c.Do("GET", p.key(key)))
@@ -66,6 +58,6 @@ func (p *RedisCache) Get(key string, val interface{}) error {
 	return dec.Decode(val)
 }
 
-func (p *RedisCache) key(k string) string {
+func (p *RedisStore) key(k string) string {
 	return fmt.Sprintf("cache://%s", k)
 }

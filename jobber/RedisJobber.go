@@ -1,4 +1,4 @@
-package redis
+package jobber
 
 import (
 	"bytes"
@@ -7,27 +7,26 @@ import (
 	"fmt"
 	"os"
 
-	_redis "github.com/garyburd/redigo/redis"
-	"github.com/itpkg/lotus/jobber"
+	"github.com/garyburd/redigo/redis"
 	logging "github.com/op/go-logging"
 )
 
-//Jobber job by readis store
-type Jobber struct {
-	Redis  *_redis.Pool    `inject:""`
+//RedisJobber job by readis store
+type RedisJobber struct {
+	Redis  *redis.Pool     `inject:""`
 	Logger *logging.Logger `inject:""`
 
 	Timeout  int
-	Handlers map[string]jobber.Handler
+	Handlers map[string]Handler
 }
 
 //Register register a job-handler
-func (p *Jobber) Register(queue string, handler jobber.Handler) {
+func (p *RedisJobber) Register(queue string, handler Handler) {
 	p.Handlers[p.key(queue)] = handler
 }
 
 //Push add a job task
-func (p *Jobber) Push(queue string, args interface{}) error {
+func (p *RedisJobber) Push(queue string, args interface{}) error {
 	p.Logger.Infof("push job into %s", queue)
 	c := p.Redis.Get()
 	defer c.Close()
@@ -41,18 +40,18 @@ func (p *Jobber) Push(queue string, args interface{}) error {
 }
 
 //Start start to process job
-func (p *Jobber) Start() error {
+func (p *RedisJobber) Start() error {
 	var err error
 	for {
 		err = p.run()
-		if err != nil && err != _redis.ErrNil {
+		if err != nil && err != redis.ErrNil {
 			break
 		}
 	}
 	return err
 }
 
-func (p *Jobber) run() error {
+func (p *RedisJobber) run() error {
 	const stop = ".stop"
 	if _, err := os.Stat(stop); err == nil {
 		return fmt.Errorf("find file %s, exit", stop)
@@ -68,7 +67,7 @@ func (p *Jobber) run() error {
 		keys = append(keys, k)
 	}
 	keys = append(keys, p.Timeout)
-	args, err := _redis.ByteSlices(c.Do("BRPOP", keys...))
+	args, err := redis.ByteSlices(c.Do("BRPOP", keys...))
 	if err != nil {
 		return err
 	}
@@ -77,6 +76,6 @@ func (p *Jobber) run() error {
 	return p.Handlers[queue](args[1])
 }
 
-func (p *Jobber) key(queue string) string {
+func (p *RedisJobber) key(queue string) string {
 	return fmt.Sprintf("task://%s", queue)
 }
