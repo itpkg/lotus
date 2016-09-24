@@ -11,11 +11,13 @@ import (
 	"github.com/BurntSushi/toml"
 	"github.com/facebookgo/inject"
 	"github.com/fvbock/endless"
+	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/itpkg/lotus/i18n"
 	"github.com/itpkg/lotus/web"
 	"github.com/spf13/viper"
 	"github.com/urfave/cli"
+	csrf "github.com/utrack/gin-csrf"
 )
 
 //Shell command line
@@ -62,8 +64,17 @@ func (p *Engine) Shell() []cli.Command {
 					gin.SetMode(gin.ReleaseMode)
 				}
 				rt := gin.Default()
-				// rt.LoadHTMLGlob(fmt.Sprintf("themes/%s/**/*", viper.GetString("server.theme")))
+				rt.LoadHTMLGlob(fmt.Sprintf("themes/%s/**/*", viper.GetString("server.theme")))
 				rt.Use(i18n.LocaleHandler)
+
+				store := sessions.NewCookieStore([]byte(viper.GetString("secrets.session")))
+				rt.Use(sessions.Sessions("_lotus_", store))
+				rt.Use(csrf.Middleware(csrf.Options{
+					Secret: viper.GetString("secrets.csrf"),
+					ErrorFunc: func(c *gin.Context) {
+						c.AbortWithStatus(http.StatusBadRequest)
+					},
+				}))
 
 				web.Loop(func(en web.Engine) error {
 					en.Mount(rt)
@@ -452,10 +463,11 @@ func init() {
 		"db":   8,
 	})
 
-	viper.SetDefault("home", map[string]interface{}{
-		"backend": "http://localhost:8080",
-		"front":   "http://localhost:4200",
-	})
+	// viper.SetDefault("home", map[string]interface{}{
+	// 	"backend": "http://localhost:8080",
+	// 	"front":   "http://localhost:4200",
+	// })
+
 	viper.SetDefault("database", map[string]interface{}{
 		"driver": "postgres",
 		"args": map[string]interface{}{
@@ -477,8 +489,10 @@ func init() {
 		"theme": "bootstrap4",
 	})
 	viper.SetDefault("secrets", map[string]interface{}{
-		"jwt": web.RandomStr(32),
-		"aes": web.RandomStr(32),
+		"jwt":     web.RandomStr(32),
+		"aes":     web.RandomStr(32),
+		"session": web.RandomStr(32),
+		"csrf":    web.RandomStr(32),
 	})
 
 	viper.SetDefault("workers", map[string]interface{}{

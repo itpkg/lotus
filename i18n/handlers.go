@@ -31,7 +31,7 @@ func LocaleHandler(c *gin.Context) {
 var matcher language.Matcher
 
 func init() {
-	matcher := language.NewMatcher([]language.Tag{
+	matcher = language.NewMatcher([]language.Tag{
 		language.AmericanEnglish,
 		language.SimplifiedChinese,
 		language.TraditionalChinese,

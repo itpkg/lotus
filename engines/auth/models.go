@@ -19,10 +19,9 @@ type LeaveWord struct {
 
 //Notice notice
 type Notice struct {
-	ID        uint      `gorm:"primary_key" json:"id"`
-	Lang      string    `gorm:"not null;type:varchar(8);index" json:"lang"`
-	Content   string    `gorm:"not null;type:text" json:"content"`
-	CreatedAt time.Time `gorm:"not null;default:current_timestamp" json:"created_at"`
+	web.Model
+	Lang    string `gorm:"not null;type:varchar(8);index" json:"lang"`
+	Content string `gorm:"not null;type:text" json:"content"`
 }
 
 //Setting setting
