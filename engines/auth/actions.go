@@ -2,6 +2,7 @@ package auth
 
 import (
 	"github.com/facebookgo/inject"
+	"github.com/itpkg/lotus/i18n"
 	"github.com/itpkg/lotus/web"
 	"github.com/spf13/viper"
 	"github.com/urfave/cli"
@@ -22,10 +23,13 @@ func IocAction(fn func(*cli.Context, *inject.Graph) error) cli.ActionFunc {
 		}
 		rep := OpenRedis()
 
+		i1n := i18n.I18n{Locales: make(map[string]map[string]string)}
 		if err := inj.Provide(
 			&inject.Object{Value: logger},
 			&inject.Object{Value: db},
 			&inject.Object{Value: rep},
+			&inject.Object{Value: &i18n.GormStore{}},
+			&inject.Object{Value: &i1n},
 		); err != nil {
 			return err
 		}
@@ -36,6 +40,9 @@ func IocAction(fn func(*cli.Context, *inject.Graph) error) cli.ActionFunc {
 			return inj.Provide(&inject.Object{Value: en})
 		})
 		if err := inj.Populate(); err != nil {
+			return err
+		}
+		if err := i1n.Load("locales"); err != nil {
 			return err
 		}
 		return fn(ctx, &inj)

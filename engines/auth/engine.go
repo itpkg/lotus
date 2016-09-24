@@ -6,6 +6,7 @@ import (
 	"github.com/SermoDigital/jose/crypto"
 	"github.com/facebookgo/inject"
 	"github.com/itpkg/lotus/cache"
+	"github.com/itpkg/lotus/i18n"
 	"github.com/itpkg/lotus/jobber"
 	"github.com/itpkg/lotus/web"
 	"github.com/jinzhu/gorm"
@@ -45,6 +46,7 @@ func (p *Engine) Map(inj *inject.Graph) error {
 
 //Migrate db:migrate
 func (p *Engine) Migrate(db *gorm.DB) {
+	i18n.Migrate(db)
 	db.AutoMigrate(
 		&Setting{}, &Notice{}, &LeaveWord{},
 		&User{}, &Role{}, &Permission{}, &Log{},
