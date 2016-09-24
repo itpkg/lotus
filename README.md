@@ -52,9 +52,20 @@ GRANT ALL PRIVILEGES ON DATABASE db-name TO user-name;
 
 ```
 go get github.com/itpkg/lotus
-cd $github.com/itpkg/lotus
+cd $GOPATH/src/github.com/itpkg/lotus
 make
 ls -lh dist
+```
+
+### Development
+```
+cd $GOPATH/src/github.com/itpkg/lotus
+# start backend server
+cd demo
+go run main.go s
+# start front server
+cd front-ember
+ember s
 ```
 
 ## Documents
