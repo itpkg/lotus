@@ -105,6 +105,12 @@
 			"revisionTime": "2016-01-26T18:01:36Z"
 		},
 		{
+			"checksumSHA1": "ToGxRLachRwa1HbVy7ZBdJaq5Zc=",
+			"path": "github.com/mattn/go-sqlite3",
+			"revision": "3fb7a0e792edd47bf0cf1e919dfc14e2be412e15",
+			"revisionTime": "2016-09-07T16:20:43Z"
+		},
+		{
 			"checksumSHA1": "HDh++4DcKT1pXBfVVEo4ehWEifk=",
 			"path": "github.com/olivere/elastic",
 			"revision": "901e75f4b20b182a2fd5b650fd40b902ec074c9c",
