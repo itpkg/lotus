@@ -24,13 +24,16 @@ func LocaleHandler(c *gin.Context) {
 			lng = al[:5]
 		}
 	}
+	tag, _, _ := matcher.Match(language.Make(lng))
+	c.Set("locale", &tag)
+}
 
+var matcher language.Matcher
+
+func init() {
 	matcher := language.NewMatcher([]language.Tag{
 		language.AmericanEnglish,
 		language.SimplifiedChinese,
 		language.TraditionalChinese,
 	})
-	tag, _, _ := matcher.Match(language.Make(lng))
-
-	c.Set("locale", &tag)
 }

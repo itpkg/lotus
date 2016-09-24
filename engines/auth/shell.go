@@ -14,7 +14,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/itpkg/lotus/i18n"
 	"github.com/itpkg/lotus/web"
-	"github.com/rs/cors"
 	"github.com/spf13/viper"
 	"github.com/urfave/cli"
 )
@@ -72,17 +71,17 @@ func (p *Engine) Shell() []cli.Command {
 				})
 
 				adr := fmt.Sprintf(":%d", viper.GetInt("server.port"))
-				hnd := cors.New(cors.Options{
-					AllowCredentials: true,
-					AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "PATCH"},
-					AllowedHeaders:   []string{"*"},
-					Debug:            !IsProduction(),
-				}).Handler(rt)
+				// hnd := cors.New(cors.Options{
+				// 	AllowCredentials: true,
+				// 	AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "PATCH"},
+				// 	AllowedHeaders:   []string{"*"},
+				// 	Debug:            !IsProduction(),
+				// }).Handler(rt)
 
 				if IsProduction() {
-					return endless.ListenAndServe(adr, hnd)
+					return endless.ListenAndServe(adr, rt)
 				}
-				return http.ListenAndServe(adr, hnd)
+				return http.ListenAndServe(adr, rt)
 			}),
 		},
 		{
