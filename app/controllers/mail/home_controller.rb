@@ -18,7 +18,7 @@ class Mail::HomeController < ApplicationController
           end
         end
         flash[:alert] = t 'errors.bad_input'
-        
+
       else
     end
   end
