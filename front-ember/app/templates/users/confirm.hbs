@@ -1,0 +1,9 @@
+<h3>{{t 'auth.users.didn_t_receive_confirmation_instructions'}}</h3>
+<hr/>
+<form {{action "confirm" on="submit"}}>
+  <div class="form-group">
+    <label>{{t 'auth.attributes.user.email'}}</label>
+    {{input type="email" value=email class="form-control"}}
+  </div>
+  <button type="submit" class="btn btn-primary">{{t 'auth.users.resend_confirmation_instructions'}}</button>
+</form>
