@@ -16,7 +16,6 @@ Router.map(function() {
     this.route('forgot-password');
     this.route('change-password');
   });
-  this.route('install');
 });
 
 export default Router;
