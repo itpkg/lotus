@@ -46,6 +46,14 @@ public class SettingService {
         return gson.fromJson(val, clazz);
     }
 
+    public String getFrontHomeUrl() {
+        return this.get("front.home", String.class);
+    }
+
+    public String getBackendHomeUrl() {
+        return this.get("backend.home", String.class);
+    }
+
     @PostConstruct
     void init() {
         gson = new Gson();
