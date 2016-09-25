@@ -65,7 +65,22 @@ func (p *Engine) postInstall(c *gin.Context) (interface{}, error) {
 		user, err = p.Dao.SignUp(fm.Email, fm.Name, fm.Password)
 	}
 	if err == nil {
-		p.Db.Model(user).Update("confirmed_at", time.Now())
+		err = p.Db.Model(user).Update("confirmed_at", time.Now()).Error
+	}
+	if err == nil {
+		for _, rn := range []string{"root", "admin"} {
+			var role *Role
+			role, err = p.Dao.Role(rn, "-", 0)
+			if err == nil {
+				err = p.Dao.Allow(role.ID, user.ID, 10, 0, 0)
+			}
+			if err != nil {
+				break
+			}
+		}
+	}
+	if err == nil {
+		err = p.Db.Model(user).Update("confirmed_at", time.Now()).Error
 	}
 	return user, err
 }
