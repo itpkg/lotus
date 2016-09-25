@@ -12,7 +12,7 @@ export default Ember.Route.extend({
         re_password: this.get('controller.re_password')
       };
       this.get('ajax').post('/users/sign-up', {data: user})
-        .then(function(rst) {
+        .then(function() {
           this.transitionTo('/users/sign-in');
         }.bind(this)).catch(this.get('utils').failed);
     }

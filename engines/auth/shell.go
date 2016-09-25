@@ -453,10 +453,10 @@ func init() {
 		"db":   8,
 	})
 
-	// viper.SetDefault("home", map[string]interface{}{
-	// 	"backend": "http://localhost:8080",
-	// 	"front":   "http://localhost:4200",
-	// })
+	viper.SetDefault("home", map[string]interface{}{
+		"backend": "http://localhost:8080",
+		"front":   "http://localhost:4200",
+	})
 
 	viper.SetDefault("database", map[string]interface{}{
 		"driver": "postgres",

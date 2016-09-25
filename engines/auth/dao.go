@@ -127,7 +127,6 @@ func (p *Dao) SignUp(email, name, password string) (*User, error) {
 		u.UID = uid
 		u.ProviderID = email
 		u.ProviderType = "email"
-		u.ConfirmedAt = &now
 		u.SignInCount = 1
 		u.LastSignIn = &now
 

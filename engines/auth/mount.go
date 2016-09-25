@@ -14,6 +14,6 @@ func (p *Engine) Mount(rt *gin.Engine) {
 	ug.POST("/unlock", JSON(p.postUserUnlock))
 	ug.POST("/forgot-password", JSON(p.postUserForgotPassword))
 	ug.POST("/reset-password", JSON(p.postUserChangePassword))
-	ug.PATCH("/confirm", JSON(p.patchUserConfirm))
-	ug.PATCH("/unlock", JSON(p.patchUserUnlock))
+	ug.GET("/confirm", Redirect(p.getUserConfirm))
+	ug.GET("/unlock", Redirect(p.getUserUnlock))
 }

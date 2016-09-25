@@ -9,6 +9,7 @@ import (
 
 	"golang.org/x/text/language"
 
+	"github.com/SermoDigital/jose/jws"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
 )
@@ -139,7 +140,7 @@ func (p *Engine) postUserChangePassword(c *gin.Context) (interface{}, error) {
 	return nil, err
 }
 
-func (p *Engine) patchUserConfirm(c *gin.Context) (interface{}, error) {
+func (p *Engine) getUserConfirm(c *gin.Context) (string, error) {
 	var user *User
 	var fm FmToken
 	var data map[string]interface{}
@@ -165,10 +166,11 @@ func (p *Engine) patchUserConfirm(c *gin.Context) (interface{}, error) {
 	if err == nil {
 		err = p.Db.Model(user).Update("confirmed_at", time.Now()).Error
 	}
-	return nil, err
+
+	return viper.GetString("home.front"), err
 }
 
-func (p *Engine) patchUserUnlock(c *gin.Context) (interface{}, error) {
+func (p *Engine) getUserUnlock(c *gin.Context) (string, error) {
 	var user *User
 	var fm FmToken
 	var data map[string]interface{}
@@ -194,22 +196,32 @@ func (p *Engine) patchUserUnlock(c *gin.Context) (interface{}, error) {
 	if err == nil {
 		err = p.Db.Model(user).Update("locked_at", nil).Error
 	}
-	return nil, err
+	return viper.GetString("home.front"), err
 }
 
 //-----------------------------------------------------------------------------
 
 func (p *Engine) sendMail(locale *language.Tag, user *User, action string) error {
+	cm := jws.Claims{}
+	cm["uid"] = user.UID
+	cm["act"] = action
+	var token string
+	if tkn, err := p.Jwt.Sum(cm, 1); err == nil {
+		token = string(tkn)
+	} else {
+		return err
+	}
+
 	var link string
 	args := make(map[string]string)
 	args["to"] = user.Email
 	switch action {
 	case "confirm":
-		link = fmt.Sprintf("%susers/confirm", viper.GetString("home.backend"))
+		link = fmt.Sprintf("%s/users/confirm?token=%s", viper.GetString("home.backend"), token)
 	case "unlock":
-		link = fmt.Sprintf("%susers/unlock", viper.GetString("home.backend"))
+		link = fmt.Sprintf("%s/users/unlock?token=%s", viper.GetString("home.backend"), token)
 	case "change_password":
-		link = fmt.Sprintf("%susers/change-password", viper.GetString("home.front"))
+		link = fmt.Sprintf("%s/users/change-password?token=%s", viper.GetString("home.front"), token)
 	default:
 		return fmt.Errorf("bad action %s", action)
 	}
@@ -219,7 +231,7 @@ func (p *Engine) sendMail(locale *language.Tag, user *User, action string) error
 		p.Logger.Error(e)
 	}
 
-	if title, err := p.parse(p.I18n.T(locale, fmt.Sprintf("mail.user.%s.title", action)), struct {
+	if title, err := p.parse(p.I18n.T(locale, fmt.Sprintf("mail.auth.users.%s.title", action)), struct {
 		Page Page
 	}{
 		Page: page,
@@ -229,7 +241,7 @@ func (p *Engine) sendMail(locale *language.Tag, user *User, action string) error
 		return err
 	}
 
-	if body, err := p.parse(p.I18n.T(locale, fmt.Sprintf("mail.user.%s.title", action)), struct {
+	if body, err := p.parse(p.I18n.T(locale, fmt.Sprintf("mail.auth.users.%s.body", action)), struct {
 		Page Page
 		Link string
 	}{
