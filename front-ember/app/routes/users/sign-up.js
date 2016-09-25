@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   ajax: Ember.inject.service(),
-  i18n: Ember.inject.service(),
+  utils: Ember.inject.service(),
   actions: {
     signUp() {
       var user = {
@@ -13,10 +13,8 @@ export default Ember.Route.extend({
       };
       this.get('ajax').post('/users/sign-up', {data: user})
         .then(function(rst) {
-          alert(this.get('i18n').t('messages.success'));
-        }).catch(function(e) {
-          alert(e.message);
-        });
+          this.transitionTo('/users/sign-in');
+        }.bind(this)).catch(this.get('utils').failed);
     }
   }
 });

@@ -199,7 +199,7 @@ func (p *Engine) patchUserUnlock(c *gin.Context) (interface{}, error) {
 
 //-----------------------------------------------------------------------------
 
-func (p *Engine) sendMail(lng *language.Tag, user *User, action string) error {
+func (p *Engine) sendMail(locale *language.Tag, user *User, action string) error {
 	var link string
 	args := make(map[string]string)
 	args["to"] = user.Email
@@ -213,26 +213,28 @@ func (p *Engine) sendMail(lng *language.Tag, user *User, action string) error {
 	default:
 		return fmt.Errorf("bad action %s", action)
 	}
-	var name string
-	if err := p.Dao.Get(fmt.Sprintf("%s://site/title", lng.String()), &name); err != nil {
-		return err
+
+	var page Page
+	if e := p.Dao.Get(fmt.Sprintf("%s://site/info", locale), &page); e != nil {
+		p.Logger.Error(e)
 	}
-	if title, err := p.parse(p.I18n.T(lng, fmt.Sprintf("mail.user.%s.title", action)), struct {
-		Title string
+
+	if title, err := p.parse(p.I18n.T(locale, fmt.Sprintf("mail.user.%s.title", action)), struct {
+		Page Page
 	}{
-		Title: name,
+		Page: page,
 	}); err == nil {
 		args["title"] = title
 	} else {
 		return err
 	}
 
-	if body, err := p.parse(p.I18n.T(lng, fmt.Sprintf("mail.user.%s.title", action)), struct {
-		Title string
-		Link  string
+	if body, err := p.parse(p.I18n.T(locale, fmt.Sprintf("mail.user.%s.title", action)), struct {
+		Page Page
+		Link string
 	}{
-		Title: name,
-		Link:  link,
+		Page: page,
+		Link: link,
 	}); err == nil {
 		args["body"] = body
 	} else {
