@@ -12,7 +12,8 @@ func JSON(fn func(*gin.Context) (interface{}, error)) gin.HandlerFunc {
 		if val, err := fn(c); err == nil {
 			c.JSON(http.StatusOK, val)
 		} else {
-			c.AbortWithError(http.StatusInternalServerError, err)
+			// c.AbortWithError(http.StatusInternalServerError, err)
+			c.String(http.StatusInternalServerError, err.Error())
 		}
 	}
 }

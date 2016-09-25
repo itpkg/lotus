@@ -63,14 +63,6 @@ func (p *Engine) Migrate(db *gorm.DB) {
 //Seed db:seed
 func (p *Engine) Seed() {}
 
-//Worker register worker handler
-func (p *Engine) Worker() {
-	p.Jobber.Register("email", func(args []byte) error {
-		p.Logger.Debugf("do email job %s", string(args))
-		return nil
-	})
-}
-
 func init() {
 	web.Register(&Engine{})
 }

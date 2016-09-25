@@ -11,6 +11,11 @@ export default {
   buttons: {
     submit: '提交'
   },
+  messages: {
+    are_you_sure: '你确定？',
+    success: '操作成功',
+    failed: '操作失败: {{reason}}'
+  },
   auth: {
     models: {
       user: '用户'
@@ -20,8 +25,11 @@ export default {
         name: '用户名',
         email: '邮箱',
         password: '密码',
-        password_confirmation: '密码确认'
+        re_password: '密码确认'
       }
+    },
+    install: {
+      title: '初始化数据',
     },
     users: {
       sign_in: '登录',

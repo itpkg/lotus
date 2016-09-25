@@ -11,6 +11,11 @@ export default {
   buttons: {
     submit: 'Submit'
   },
+  messages: {
+    are_you_sure: 'Are you sure?',
+    success: 'Success!',
+    failed: 'Failed:  {{reason}}'
+  },
   auth: {
     models: {
       user: 'User'
@@ -20,8 +25,11 @@ export default {
         name: 'Name',
         email: 'Email',
         password: 'Password',
-        password_confirmation: 'Password confirmation'
+        re_password: 'Password confirmation'
       }
+    },
+    install: {
+      title: 'Install',
     },
     users: {
       sign_in: 'Sign in',

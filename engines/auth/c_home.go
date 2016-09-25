@@ -1,7 +1,9 @@
 package auth
 
 import (
+	"errors"
 	"fmt"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"golang.org/x/text/language"
@@ -38,4 +40,32 @@ func (p *Engine) getInfo(c *gin.Context) (interface{}, error) {
 	var page Page
 	err := p.Dao.Get(fmt.Sprintf("%s://site/info", locale), &page)
 	return page, err
+}
+
+func (p *Engine) postInstall(c *gin.Context) (interface{}, error) {
+	var count uint
+	err := p.Db.Model(&User{}).Count(&count).Error
+	if err == nil {
+		if count > 0 {
+			err = errors.New("table users not empty")
+		}
+	}
+
+	var user *User
+	var fm FmSignUp
+	if err == nil {
+		err = c.Bind(&fm)
+	}
+	if err == nil {
+		if fm.Password != fm.RePassword {
+			err = errors.New("passwords not match")
+		}
+	}
+	if err == nil {
+		user, err = p.Dao.SignUp(fm.Email, fm.Name, fm.Password)
+	}
+	if err == nil {
+		p.Db.Model(user).Update("confirmed_at", time.Now())
+	}
+	return user, err
 }
