@@ -127,7 +127,7 @@ func (p *Engine) postUserChangePassword(c *gin.Context) (interface{}, error) {
 	}
 	if err == nil {
 		if !user.IsAvailable() {
-			err = fmt.Errorf("user [%s] wasn't available", fm.Email)
+			err = fmt.Errorf("user [%s] wasn't available", user.Email)
 		}
 	}
 	if err == nil {
@@ -220,7 +220,7 @@ func (p *Engine) sendMail(locale *language.Tag, user *User, action string) error
 		link = fmt.Sprintf("%s/users/confirm?token=%s", viper.GetString("home.backend"), token)
 	case "unlock":
 		link = fmt.Sprintf("%s/users/unlock?token=%s", viper.GetString("home.backend"), token)
-	case "change_password":
+	case "change-password":
 		link = fmt.Sprintf("%s/users/change-password?token=%s", viper.GetString("home.front"), token)
 	default:
 		return fmt.Errorf("bad action %s", action)

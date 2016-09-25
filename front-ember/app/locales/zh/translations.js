@@ -35,6 +35,7 @@ export default {
       sign_in: '登录',
       sign_up: '注册',
 
+      change_your_password: '修改你的密码',
       forgot_your_password: '忘记密码？',
       send_me_reset_password_instructions: "请给我发送重设密码的邮件",
 

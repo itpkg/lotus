@@ -35,6 +35,7 @@ export default {
       sign_in: 'Sign in',
       sign_up: 'Sign up',
 
+      change_your_password: 'Change your password',
       forgot_your_password: 'Forgot your password?',
       send_me_reset_password_instructions: 'Send me reset password instructions',
 

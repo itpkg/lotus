@@ -13,7 +13,7 @@ func (p *Engine) Mount(rt *gin.Engine) {
 	ug.POST("/confirm", JSON(p.postUserConfirm))
 	ug.POST("/unlock", JSON(p.postUserUnlock))
 	ug.POST("/forgot-password", JSON(p.postUserForgotPassword))
-	ug.POST("/reset-password", JSON(p.postUserChangePassword))
+	ug.POST("/change-password", JSON(p.postUserChangePassword))
 	ug.GET("/confirm", Redirect(p.getUserConfirm))
 	ug.GET("/unlock", Redirect(p.getUserUnlock))
 }

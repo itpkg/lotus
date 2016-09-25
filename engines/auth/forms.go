@@ -27,7 +27,6 @@ type FmToken struct {
 //FmChangePassword sign-up form
 type FmChangePassword struct {
 	Token      string `form:"token" binding:"required"`
-	Email      string `form:"email" binding:"required" validate:"email,max=255"`
 	Password   string `form:"password" binding:"required" validate:"min=6,max=255"`
 	RePassword string `form:"re_password" binding:"required"`
 }
