@@ -6,13 +6,18 @@ import lotus.auth.forms.SignInForm;
 import lotus.auth.forms.SignUpForm;
 import lotus.auth.helpers.EncryptHelper;
 import lotus.auth.helpers.JwtHelper;
+import lotus.auth.jobs.EmailJob;
 import lotus.auth.models.User;
 import lotus.auth.repositiries.UserRepository;
+import lotus.auth.services.I18nService;
 import lotus.auth.services.SettingService;
 import lotus.auth.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
@@ -78,7 +83,7 @@ public class UsersController {
             );
         }
         user = userService.add(form.getEmail(), form.getName(), form.getPassword());
-        sendEmail(user, Action.CONFIRM);
+        sendEmail(user, Action.CONFIRM, locale);
         return user;
 
     }
@@ -96,7 +101,7 @@ public class UsersController {
                     )
             );
         }
-        sendEmail(user, Action.CONFIRM);
+        sendEmail(user, Action.CONFIRM, locale);
         return user;
     }
 
@@ -113,7 +118,7 @@ public class UsersController {
                     )
             );
         }
-        sendEmail(user, Action.UNLOCK);
+        sendEmail(user, Action.UNLOCK, locale);
         return user;
 
     }
@@ -121,14 +126,14 @@ public class UsersController {
     @PostMapping("/forgot-password")
     User postForgotPassword(Locale locale, @Valid EmailForm form) {
         User user = userService.getUserByEmail(form.getEmail(), locale);
-        sendEmail(user, Action.CHANGE_PASSWORD);
+        sendEmail(user, Action.CHANGE_PASSWORD, locale);
         return user;
     }
 
     @PostMapping("/change-password/{token}")
     User postChangePassword(@PathVariable String token, Locale locale, @Valid ChangePasswordForm form) {
         Map<String, Object> map = jwtHelper.parse(token);
-        if(Action.valueOf(map.get("act").toString()) != Action.CHANGE_PASSWORD){
+        if (Action.valueOf(map.get("act").toString()) != Action.CHANGE_PASSWORD) {
             throw new HttpClientErrorException(
                     HttpStatus.FORBIDDEN,
                     messageSource.getMessage(
@@ -145,10 +150,10 @@ public class UsersController {
 
     }
 
-    @GetMapping("/confirm/{token}")
-    User getConfirm(@PathVariable String token, Locale locale) {
+    @PatchMapping("/confirm/{token}")
+    User patchConfirm(@PathVariable String token, Locale locale) {
         Map<String, Object> map = jwtHelper.parse(token);
-        if(Action.valueOf(map.get("act").toString()) != Action.CONFIRM){
+        if (Action.valueOf(map.get("act").toString()) != Action.CONFIRM) {
             throw new HttpClientErrorException(
                     HttpStatus.FORBIDDEN,
                     messageSource.getMessage(
@@ -174,10 +179,10 @@ public class UsersController {
         return user;
     }
 
-    @GetMapping("/unlock/{token}")
-    User getUnlock(@PathVariable String token, Locale locale) {
+    @PatchMapping("/unlock/{token}")
+    User patchUnlock(@PathVariable String token, Locale locale) {
         Map<String, Object> map = jwtHelper.parse(token);
-        if(Action.valueOf(map.get("act").toString()) != Action.UNLOCK){
+        if (Action.valueOf(map.get("act").toString()) != Action.UNLOCK) {
             throw new HttpClientErrorException(
                     HttpStatus.FORBIDDEN,
                     messageSource.getMessage(
@@ -203,20 +208,64 @@ public class UsersController {
         return user;
     }
 
-    public enum Action {
+    private enum Action {
         CONFIRM,
         UNLOCK,
         CHANGE_PASSWORD
     }
 
-    private void sendEmail(User user, Action action) {
+    private void sendEmail(User user, Action action, Locale locale) {
         logger.debug("send {} mail to {}", action.name(), user.getEmail());
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("uid", user.getUid());
+        claims.put("act", action.name());
+        String token = jwtHelper.sum(claims, 1);
 
+        EmailJob ej = new EmailJob();
+        ej.setTo(user.getEmail());
+        String link;
+        switch (action) {
+            case CONFIRM:
+                link = String.format("%s/users/confirm/%s", frontHome, token);
+                break;
+            case UNLOCK:
+                link = String.format("%s/users/confirm/%s", frontHome, token);
+                break;
+            case CHANGE_PASSWORD:
+                link = String.format("%s/users/change-password/%s", frontHome, token);
+                break;
+            default:
+                throw new HttpClientErrorException(
+                        HttpStatus.FORBIDDEN,
+                        messageSource.getMessage(
+                                "errors.back_token",
+                                null,
+                                locale
+                        )
+                );
+        }
+        ej.setTitle(messageSource.getMessage(
+                String.format("auth.emails.%s.title", action.name().toLowerCase()),
+                new Object[]{
+                        i18nService.t(locale, "site.title")
+                },
+                locale
+        ));
+        ej.setBody(messageSource.getMessage(
+                String.format("auth.emails.%s.body", action.name().toLowerCase()),
+                new Object[]{
+                        link
+                },
+                locale
+        ));
+        redisTemplate.convertAndSend("email", ej);
     }
 
 
     @Resource
     SettingService settingService;
+    @Resource
+    I18nService i18nService;
     @Resource
     UserService userService;
     @Resource
@@ -227,5 +276,11 @@ public class UsersController {
     MessageSource messageSource;
     @Resource
     JwtHelper jwtHelper;
+    @Resource
+    RedisTemplate redisTemplate;
+    @Value("${server.front.home}")
+    String frontHome;
+    @Value("${server.backend.home}")
+    String backendHome;
     private final static Logger logger = LoggerFactory.getLogger(UsersController.class);
 }

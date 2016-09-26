@@ -11,6 +11,7 @@ import lotus.auth.services.UserService;
 import org.hibernate.engine.spi.SessionImplementor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
@@ -172,8 +173,6 @@ public class HomeController {
     I18nService i18nService;
     @Resource
     RequestMappingHandlerMapping handlerMapping;
-
-
     @Resource
     EntityManager entityManager;
     private final static Logger logger = LoggerFactory.getLogger(HomeController.class);

@@ -5,11 +5,12 @@
 
     <cache:annotation-driven/>
 
-    <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+    <bean id="redisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"/>
 
-    </bean>
     <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
-        <property name="connectionFactory" ref="jedisConnectionFactory"/>
+        <property name="connectionFactory" ref="redisConnectionFactory"/>
+        <property name="valueSerializer" ref="jackson2JsonRedisSerializer"/>
+
     </bean>
 
     <bean id="cacheManager" class="org.springframework.data.redis.cache.RedisCacheManager">
@@ -20,4 +21,14 @@
         </property>
         <property name="defaultExpiration" value="#{60*60*24}"/>
     </bean>
+
+    <bean id="jackson2JsonRedisSerializer" class="org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer"/>
+
+    <!--<bean id="stringRedisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">-->
+        <!--<property name="valueSerializer" ref="jackson2JsonRedisSerializer"/>-->
+        <!--<property name="hashKeySerializer" ref="jackson2JsonRedisSerializer"/>-->
+        <!--<property name="me"-->
+        <!---->
+        <!--<property name="connectionFactory" ref="redisConnectionFactory"/>-->
+    <!--</bean>-->
 </beans>
