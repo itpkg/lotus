@@ -96,7 +96,6 @@
             }).done(function (rst) {
                 window.location.href='/nginx.conf';
             }).fail(function (xhr) {
-                console.log(xhr);
                 var msg = xhr.responseJSON.message;
                 if (xhr.responseJSON.errors) {
                     msg = xhr.responseJSON.errors.map(function (err) {

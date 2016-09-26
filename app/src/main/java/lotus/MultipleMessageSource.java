@@ -28,7 +28,8 @@ public class MultipleMessageSource extends ReloadableResourceBundleMessageSource
                 if (lastModified < resource.lastModified())
                     lastModified = resource.lastModified();
             }
-        } catch (IOException ignored) {
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
         return new PropertiesHolder(properties, lastModified);
     }
