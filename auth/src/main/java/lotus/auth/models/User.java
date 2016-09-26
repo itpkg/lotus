@@ -3,7 +3,6 @@ package lotus.auth.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,14 +13,12 @@ import java.util.List;
         @Index(columnList = "providerType"),
         @Index(columnList = "providerId,providerType", unique = true)
 })
-public class User implements Serializable {
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public class User extends Model {
     public enum Type {
         EMAIL
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
     @Column(nullable = false)
     private String name;
     @Column(nullable = false, updatable = false, unique = true)
@@ -49,23 +46,10 @@ public class User implements Serializable {
 
     private Date confirmedAt;
     private Date lockedAt;
-    @Column(nullable = false)
-    private Date updatedAt;
-    @Column(nullable = false, updatable = false)
-    private Date createdAt;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Log> logs;
-
-    @PrePersist
-    protected void onCreate() {
-        updatedAt = createdAt = new Date();
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        updatedAt = new Date();
-    }
 
     public User() {
         logs = new ArrayList<>();
@@ -85,14 +69,6 @@ public class User implements Serializable {
 
     public void setLogs(List<Log> logs) {
         this.logs = logs;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -200,19 +176,5 @@ public class User implements Serializable {
         this.lockedAt = lockedAt;
     }
 
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
 
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
 }

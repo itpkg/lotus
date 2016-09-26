@@ -4,11 +4,15 @@ import lotus.auth.helpers.EncryptHelper;
 import lotus.auth.helpers.GravatarHelper;
 import lotus.auth.models.User;
 import lotus.auth.repositiries.UserRepository;
+import org.springframework.context.MessageSource;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 
 import javax.annotation.Resource;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Locale;
 import java.util.UUID;
 
 /**
@@ -16,6 +20,21 @@ import java.util.UUID;
  */
 @Service("auth.userService")
 public class UserService {
+
+    public User getUserByEmail(String email, Locale locale) {
+        User user = userRepository.findByProviderIdAndProviderType(email, User.Type.EMAIL);
+        if (user == null) {
+            throw new HttpClientErrorException(
+                    HttpStatus.FORBIDDEN,
+                    messageSource.getMessage(
+                            "auth.users.email_not_exists",
+                            new Object[]{email},
+                            locale
+                    )
+            );
+        }
+        return user;
+    }
 
     public User add(String email, String name, String password) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         User u = new User();
@@ -37,4 +56,6 @@ public class UserService {
     GravatarHelper gravatarHelper;
     @Resource
     EncryptHelper encryptHelper;
+    @Resource
+    MessageSource messageSource;
 }

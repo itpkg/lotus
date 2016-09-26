@@ -1,7 +1,6 @@
 package lotus.auth.models;
 
 import javax.persistence.*;
-import java.util.Date;
 
 /**
  * Created by flamen on 16-9-18.
@@ -13,55 +12,13 @@ import java.util.Date;
                 @Index(columnList = "lang"),
                 @Index(columnList = "code"),
         })
-public class Locale {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+public class Locale extends Model {
     @Column(nullable = false)
     private String code;
     @Column(nullable = false, length = 6)
     private String lang;
     @Column(nullable = false, columnDefinition = "TEXT")
     private String body;
-    @Column(nullable = false)
-    private Date updatedAt;
-    @Column(nullable = false, updatable = false)
-    private Date createdAt;
-
-    @PrePersist
-    protected void onCreate() {
-        updatedAt = createdAt = new Date();
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        updatedAt = new Date();
-    }
-
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getCode() {
         return code;

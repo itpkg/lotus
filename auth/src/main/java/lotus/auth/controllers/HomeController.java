@@ -13,7 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.MessageSource;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -127,7 +126,7 @@ public class HomeController {
     }
 
     @GetMapping("/install")
-    public String getInstall(HttpServletResponse response) {
+    public String getInstall() {
         if (userRepository.count() > 0) {
             throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
         }
@@ -137,7 +136,7 @@ public class HomeController {
 
     @PostMapping("/install")
     @ResponseBody
-    public User postInstall(@Valid InstallForm form, HttpServletResponse response) throws NoSuchAlgorithmException, IOException {
+    public User postInstall(@Valid InstallForm form) throws NoSuchAlgorithmException, IOException {
         if (userRepository.count() > 0) {
             throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
         }

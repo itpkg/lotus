@@ -7,26 +7,29 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Created by flamen on 16-9-18.
+ * Created by flamen on 16-9-26.
  */
-@Entity
-@Table(name = "logs")
-public class Log implements Serializable {
+@MappedSuperclass
+public class Model implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(nullable = false, updatable = false)
-    private String message;
+    @Column(nullable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private Date updatedAt;
     @Column(nullable = false, updatable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Date createdAt;
-    @ManyToOne
-    @JoinColumn(nullable = false, updatable = false)
-    private User user;
+
 
     @PrePersist
     protected void onCreate() {
-        createdAt = new Date();
+        updatedAt = createdAt = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = new Date();
     }
 
     public long getId() {
@@ -37,12 +40,12 @@ public class Log implements Serializable {
         this.id = id;
     }
 
-    public String getMessage() {
-        return message;
+    public Date getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     public Date getCreatedAt() {
@@ -51,13 +54,5 @@ public class Log implements Serializable {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }
