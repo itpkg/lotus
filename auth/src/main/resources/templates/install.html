@@ -94,7 +94,7 @@
                 url: "/install",
                 data: $('form#fm-install').serialize()
             }).done(function (rst) {
-                window.location.href='/nginx.conf';
+                window.location.href = '/nginx.conf';
             }).fail(function (xhr) {
                 var msg = xhr.responseJSON.message;
                 if (xhr.responseJSON.errors) {

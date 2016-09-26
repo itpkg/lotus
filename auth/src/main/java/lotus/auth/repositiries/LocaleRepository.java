@@ -1,7 +1,6 @@
 package lotus.auth.repositiries;
 
 import lotus.auth.models.Locale;
-import lotus.auth.models.Policy;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -11,5 +10,6 @@ import java.util.List;
  */
 public interface LocaleRepository extends CrudRepository<Locale, Long> {
     Locale findByCodeAndLang(String code, String lang);
+
     List<Locale> findByLang(String lang);
 }

@@ -11,9 +11,9 @@ import javax.annotation.Resource;
  */
 @Component("auth.i18nService")
 public class I18nService {
-    public void set(java.util.Locale locale, String code, String body){
+    public void set(java.util.Locale locale, String code, String body) {
         Locale l = localeRepository.findByCodeAndLang(code, locale.toLanguageTag());
-        if(l == null){
+        if (l == null) {
             l = new Locale();
             l.setCode(code);
             l.setLang(locale.toLanguageTag());
@@ -22,10 +22,11 @@ public class I18nService {
         localeRepository.save(l);
     }
 
-    public String t(java.util.Locale locale, String code, Object...args){
+    public String t(java.util.Locale locale, String code, Object... args) {
         Locale l = localeRepository.findByCodeAndLang(code, locale.toLanguageTag());
         return l == null ? code : String.format(l.getBody(), args);
     }
+
     @Resource
     LocaleRepository localeRepository;
 }
