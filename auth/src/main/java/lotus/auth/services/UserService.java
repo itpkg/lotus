@@ -21,6 +21,21 @@ import java.util.UUID;
 @Service("auth.userService")
 public class UserService {
 
+    public User getUserByUid(String uid, Locale locale) {
+        User user = userRepository.findByUid(uid);
+        if (user == null) {
+            throw new HttpClientErrorException(
+                    HttpStatus.FORBIDDEN,
+                    messageSource.getMessage(
+                            "auth.users.user_not_exists",
+                            null,
+                            locale
+                    )
+            );
+        }
+        return user;
+    }
+
     public User getUserByEmail(String email, Locale locale) {
         User user = userRepository.findByProviderIdAndProviderType(email, User.Type.EMAIL);
         if (user == null) {

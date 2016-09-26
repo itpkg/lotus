@@ -25,7 +25,7 @@ export default {
         name: '用户名',
         email: '邮箱',
         password: '密码',
-        re_password: '密码确认'
+        passwordConfirm: '密码确认'
       }
     },
     install: {

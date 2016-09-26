@@ -9,7 +9,7 @@ export default Ember.Route.extend({
         name: this.get('controller.name'),
         email: this.get('controller.email'),
         password: this.get('controller.password'),
-        re_password: this.get('controller.re_password')
+        passwordConfirm: this.get('controller.passwordConfirm')
       };
       this.get('ajax').post('/users/sign-up', {data: user})
         .then(function() {

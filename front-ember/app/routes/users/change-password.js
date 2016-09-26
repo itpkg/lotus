@@ -12,10 +12,10 @@ export default Ember.Route.extend({
     changePassword() {
       var user = {
         password: this.get('controller.password'),
-        re_password: this.get('controller.re_password'),
+        passwordConfirm: this.get('controller.passwordConfirm'),
         token: this.get('token')
       };
-      
+
       this.get('ajax').post('/users/change-password', {data: user})
         .then(function() {
           this.transitionTo('/users/sign-in');

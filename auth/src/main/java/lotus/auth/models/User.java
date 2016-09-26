@@ -21,7 +21,7 @@ public class User extends Model {
 
     @Column(nullable = false)
     private String name;
-    @Column(nullable = false, updatable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String email;
     @Column(nullable = false, unique = true, length = 36)
     private String uid;
@@ -53,6 +53,18 @@ public class User extends Model {
 
     public User() {
         logs = new ArrayList<>();
+    }
+
+    public boolean isAvailable() {
+        return isConfirmed() && !isLocked();
+    }
+
+    public boolean isConfirmed() {
+        return confirmedAt != null;
+    }
+
+    public boolean isLocked() {
+        return lockedAt != null;
     }
 
     public Type getProviderType() {

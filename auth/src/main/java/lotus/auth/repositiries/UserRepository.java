@@ -8,4 +8,6 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface UserRepository extends CrudRepository<User, Long> {
     User findByProviderIdAndProviderType(String providerId, User.Type providerType);
+
+    User findByUid(String uid);
 }

@@ -25,7 +25,7 @@ export default {
         name: 'Name',
         email: 'Email',
         password: 'Password',
-        re_password: 'Password confirmation'
+        passwordConfirm: 'Password confirmation'
       }
     },
     install: {
