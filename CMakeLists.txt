@@ -31,6 +31,7 @@ set(LINKS
 
   hiredis
   pq
+  sodium  
 
   boost_program_options
   boost_filesystem
