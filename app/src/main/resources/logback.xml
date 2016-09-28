@@ -22,7 +22,7 @@
     <logger name="org.hibernate.SQL" level="DEBUG"/>
     <logger name="lotus" level="DEBUG"/>
 
-    <root level="INFO">
+    <root level="DEBUG">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="FILE"/>
     </root>
