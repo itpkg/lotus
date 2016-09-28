@@ -1,0 +1,11 @@
+jar {
+    baseName = 'lotus-auth'
+    version = '2016.9.18'
+}
+
+dependencies {
+    compile group: 'org.jasypt', name: 'jasypt', version: '1.9.2'
+    compileOnly group: 'org.hibernate', name: 'hibernate-core', version: '5.2.2.Final'
+}
+
+

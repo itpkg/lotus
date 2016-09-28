@@ -1,0 +1,42 @@
+allprojects {
+
+    buildscript {
+        repositories {
+            mavenCentral()
+        }
+    }
+
+
+    repositories {
+        mavenCentral()
+    }
+
+
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+
+    dependencies {
+        compileOnly group: 'javax', name: 'javaee-api', version: '7.0'
+        compileOnly group: 'org.springframework.data', name: 'spring-data-jpa', version: '1.10.2.RELEASE'
+        compileOnly group: 'org.springframework.data', name: 'spring-data-redis', version: '1.7.2.RELEASE'
+        compileOnly group: 'org.springframework', name: 'spring-webmvc', version: '4.3.2.RELEASE'
+        compileOnly group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.8.2'
+        compileOnly group: 'org.hibernate', name: 'hibernate-validator', version: '5.2.4.Final'
+        compileOnly group: 'org.hibernate.common', name: 'hibernate-commons-annotations', version: '5.0.1.Final'
+
+
+        compile group: 'com.github.spullara.mustache.java', name: 'compiler', version: '0.9.2'
+        compile group: 'com.google.code.gson', name: 'gson', version: '2.7'
+        compile group: 'commons-codec', name: 'commons-codec', version: '1.10'
+        compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.21'
+
+        compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.7.0'
+
+        testCompile("junit:junit:4.+")
+    }
+
+}
+

@@ -1,2 +1,7 @@
+# editor
+/.idea
+
+# gradle
 build
-.*.un~
+/.gradle
+
