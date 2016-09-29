@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
+    <context:component-scan base-package="lotus"/>
     <context:property-placeholder location="classpath:application.properties" />
 
-    <jpa:repositories base-package="lotus"/>
-    <context:component-scan base-package="lotus"/>
 
     <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
-        <property name="poolName" value="springHikariCP"/>
-        <property name="connectionTestQuery" value="SELECT 1"/>
-        <property name="dataSourceClassName" value="org.postgresql.ds.PGSimpleDataSource"/>
+        <property name="poolName" value="lotus"/>
+        <property name="connectionTestQuery" value="${hikari.connectionTestQuery}"/>
+        <property name="dataSourceClassName" value="${hikari.dataSourceClassName}"/>
+        <property name="minimumIdle" value="${hikari.minimumIdle}"/>
+        <property name="maximumPoolSize" value="${hikari.maximumPoolSize}"/>
+        <property name="idleTimeout" value="${hikari.idleTimeout}"/>
         <property name="dataSourceProperties">
             <props>
                 <prop key="url">${jdbc.url}</prop>
@@ -31,9 +34,32 @@
         <property name="dataSource" ref="dataSource"/>
         <property name="hibernateProperties">
             <value>
-                hibernate.dialect=org.hibernate.dialect.HSQLDialect
+                hibernate.connection.driver_class=com.zaxxer.hikari.hibernate.HikariConnectionProvider
+                hibernate.hbm2ddl.auto=update
+                hibernate.show_sql=true
+                hibernate.format_sql=true
             </value>
         </property>
     </bean>
+
+    <bean id="transactionManager"
+          class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <aop:config>
+        <aop:pointcut id="productServiceMethods"
+                      expression="execution(* lotus.*.services.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="productServiceMethods"/>
+    </aop:config>
+
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="set*" propagation="REQUIRED"/>
+            <tx:method name="add*" propagation="REQUIRED"/>
+            <tx:method name="del*" propagation="REQUIRED"/>
+            <tx:method name="*" propagation="SUPPORTS" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
 
 </beans>

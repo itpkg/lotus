@@ -23,4 +23,4 @@ gradle build
 
 ## Documents
 * [spring](http://docs.spring.io/spring/docs/5.0.0.M2/spring-framework-reference/htmlsingle/)
-* [hibernate](http://hibernate.org/orm/documentation/5.2/)
+* [hibernate](http://docs.jboss.org/hibernate/orm/5.2/userguide/html_single/Hibernate_User_Guide.html)
