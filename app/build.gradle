@@ -8,7 +8,11 @@ apply plugin: 'spring-boot'
 
 jar {
     baseName = 'lotus-app'
-    version = '2016.9.18'
+    version = VERSION
+    manifest {
+        attributes("Implementation-Title": "LOTUS",
+                   "Implementation-Version": version)
+    }
 
     exclude('application.properties')
     exclude('logback*.xml')
@@ -40,6 +44,3 @@ dependencies {
     compile project(":vpn")
 
 }
-
-
-

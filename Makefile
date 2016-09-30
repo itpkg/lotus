@@ -9,10 +9,6 @@ build:
 	cp app/src/main/resources/logback-file.xml $(dst)/config/logback.xml
 	cp run.sh $(dst)
 
-	cd front-ember && ember build --environment production
-	-cp -rv front-ember/dist $(dst)/public
-
-
 clean:
 	gradle clean
 	-rm -r $(dst)

@@ -1,10 +1,8 @@
 jar {
     baseName = 'lotus-vpn'
-    version = '2016.9.18'
+    version = VERSION
 }
 
 dependencies {
     testCompile("junit:junit:4.+")
 }
-
-

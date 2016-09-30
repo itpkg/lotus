@@ -3,6 +3,8 @@
 
 # editor
 /.idea
+.*.swp
+.*.un~
 
 # gradle
 build
