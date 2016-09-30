@@ -1,4 +1,4 @@
-#include "log.h"
+#include "log.hpp"
 
 #include <boost/log/attributes/timer.hpp>
 #include <boost/log/expressions.hpp>
