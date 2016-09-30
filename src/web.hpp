@@ -4,7 +4,9 @@
 
 namespace lotus {
 namespace web {
-public
-class App {};
+class App {
+public:
+  int main(int argc, const char *argv[]);
+};
 }
 }

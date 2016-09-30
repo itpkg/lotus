@@ -19,10 +19,12 @@ mkdir build
 cd build
 cmake -DCMAKE_BUILD_TYPE=Release ..
 make
-make install
 ```
 
 ## Deployment
+```
+spawn-fcgi -p 8000 -n lotus
+```
 
 ## Atom plugs
 * [linter-clang](https://atom.io/packages/linter-clang)

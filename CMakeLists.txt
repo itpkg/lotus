@@ -24,20 +24,8 @@ find_package(Boost 1.60 REQUIRED)
 ADD_DEFINITIONS(-DBOOST_LOG_DYN_LINK)
 ADD_DEFINITIONS(-DBOOST_LOG_USE_NATIVE_SYSLOG)
 
-#-------third packages---------
-# include(ExternalProject)
-#
-# ExternalProject_Add(mstch
-#   GIT_REPOSITORY "https://github.com/no1msd/mstch.git"
-#   GIT_TAG "master"
-#   PREFIX ${CMAKE_CURRENT_BINARY_DIR}/mstch
-#   CMAKE_ARGS  -DBuildShared=OFF -DCMAKE_INSTALL_PREFIX=${GLOBAL_OUTPUT_PATH}/mstch
-# )
-
-
-#------links----------------------------
 find_package(mstch REQUIRED)
-
+#------links----------------------------
 set(LINKS
   pthread
   ssl
@@ -46,6 +34,8 @@ set(LINKS
   hiredis
   pq
   sodium
+  fcgi
+  fcgi++
 
   boost_program_options
   boost_filesystem
@@ -56,7 +46,7 @@ set(LINKS
   boost_date_time
 )
 
-add_executable(lotus ${SRCS} mstch)
+add_executable(lotus ${SRCS})
 TARGET_COMPILE_FEATURES(lotus PRIVATE cxx_range_for)
 TARGET_LINK_LIBRARIES(lotus ${LINKS} )
 
