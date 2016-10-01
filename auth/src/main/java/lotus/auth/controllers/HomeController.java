@@ -97,12 +97,22 @@ public class HomeController {
         return map;
     }
 
+
     @GetMapping("/status")
     @ResponseBody
-    public Map<String, Object> getStatus() throws SQLException {
+    public Map<String, Object> getStatus() throws SQLException,ClassNotFoundException {
         Map<String, Object> map = new HashMap<>();
         map.put("routes", this._getRoutes());
         map.put("database", this._getDatabase());
+
+        map.put("runtime", System.getProperties());
+//        Package pkg = Class.forName("lotus.Application").getPackage();
+//        logger.debug(pkg.getName());
+//        logger.debug(pkg.getImplementationTitle());
+//        logger.debug(pkg.getImplementationVersion());
+//        logger.debug(pkg.getSpecificationTitle());
+//        logger.debug(pkg.getSpecificationVersion());
+
 
         return map;
     }
