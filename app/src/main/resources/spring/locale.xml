@@ -15,9 +15,4 @@
     </bean>
     </mvc:interceptors>
 
-    <bean id="messageSource" class="lotus.MultipleMessageSource">
-        <property name="basename" value="classpath*:messages"/>
-        <property name="defaultEncoding" value="UTF-8"/>
-        <property name="useCodeAsDefaultMessage" value="true"/>
-    </bean>
 </beans>
